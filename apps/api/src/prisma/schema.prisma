@@ -190,17 +190,50 @@ model Comment {
 }
 
 model Client {
-  id           String         @id @default(uuid())
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @default(now())
-  name         String
-  email        String         @unique
-  contactName  String
-  number       String?
-  notes        String?
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  name        String
+  email       String   @unique
+  contactName String
+  number      String?
+  notes       String?
+  active      Boolean  @default(true)
+
   tickets      Ticket[]
-  active       Boolean        @default(true)
   TimeTracking TimeTracking[]
+
+  tags   Tag[]
+  stores Store[]
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  value     String
+
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+
+  stores Store[] @relation("StoreTags")
+}
+
+model Store {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name      String
+  address   String
+  manager   String
+  phone     String
+  email     String
+  notes     String[]
+
+  tags Tag[] @relation("StoreTags")
+
+  client   Client @relation(fields: [clientId], references: [id])
+  clientId String
 }
 
 model UserFile {

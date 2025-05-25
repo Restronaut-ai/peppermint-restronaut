@@ -33,7 +33,7 @@ export function userRoutes(fastify: FastifyInstance) {
         users,
         success: true,
       });
-    }
+    },
   );
 
   // New user
@@ -74,7 +74,7 @@ export function userRoutes(fastify: FastifyInstance) {
       } else {
         reply.status(403).send({ message: "Unauthorized", failed: true });
       }
-    }
+    },
   );
 
   // (ADMIN) Reset password
@@ -99,7 +99,7 @@ export function userRoutes(fastify: FastifyInstance) {
       } else {
         reply.status(403).send({ message: "Unauthorized", failed: true });
       }
-    }
+    },
   );
 
   // Mark Notification as read
@@ -108,7 +108,7 @@ export function userRoutes(fastify: FastifyInstance) {
     async (request: FastifyRequest, reply: FastifyReply) => {
       const { id }: any = request.params;
       const session = await checkSession(request);
-      
+
       if (!session) {
         return reply.code(401).send({
           message: "Unauthorized",
@@ -118,16 +118,16 @@ export function userRoutes(fastify: FastifyInstance) {
 
       // Get the notification and verify it belongs to the user
       const notification = await prisma.notifications.findUnique({
-        where: { id: id }
+        where: { id: id },
       });
-      
+
       if (!notification) {
         return reply.code(404).send({
           message: "Notification not found",
           success: false,
         });
       }
-      
+
       if (notification.userId !== session.id) {
         return reply.code(403).send({
           message: "Access denied. You can only manage your own notifications.",
@@ -145,6 +145,6 @@ export function userRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 }

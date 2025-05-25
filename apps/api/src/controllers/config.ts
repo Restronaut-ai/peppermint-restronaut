@@ -47,7 +47,7 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         sso: sso_active,
       });
-    }
+    },
   );
 
   // Update OIDC Provider
@@ -95,7 +95,7 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         message: "OIDC config Provider updated!",
       });
-    }
+    },
   );
 
   // Update Oauth Provider
@@ -157,7 +157,7 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         message: "SSO Provider updated!",
       });
-    }
+    },
   );
 
   // Delete auth config
@@ -185,7 +185,7 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         message: "SSO Provider deleted!",
       });
-    }
+    },
   );
 
   // Check if Emails are enabled & GET email settings
@@ -236,7 +236,7 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         active: false,
       });
-    }
+    },
   );
 
   // Update Email Provider Settings
@@ -299,7 +299,7 @@ export function configRoutes(fastify: FastifyInstance) {
           //@ts-expect-error
           email?.clientId,
           email?.clientSecret,
-          email?.redirectUri
+          email?.redirectUri,
         );
 
         const authorizeUrl = google.generateAuthUrl({
@@ -319,7 +319,7 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         message: "SSO Provider updated!",
       });
-    }
+    },
   );
 
   // Google oauth callback
@@ -335,7 +335,7 @@ export function configRoutes(fastify: FastifyInstance) {
         //@ts-expect-error
         email?.clientId,
         email?.clientSecret,
-        email?.redirectUri
+        email?.redirectUri,
       );
 
       const r = await google.getToken(code);
@@ -370,7 +370,7 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         message: "SSO Provider updated!",
       });
-    }
+    },
   );
 
   // Disable/Enable Email
@@ -384,7 +384,7 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         message: "Email settings deleted!",
       });
-    }
+    },
   );
 
   // Toggle all roles
@@ -418,6 +418,6 @@ export function configRoutes(fastify: FastifyInstance) {
         success: true,
         message: "Roles updated!",
       });
-    }
+    },
   );
 }

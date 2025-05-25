@@ -25,7 +25,7 @@ const validateEmail = (email: string) => {
   return String(email)
     .toLowerCase()
     .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     );
 };
 
@@ -136,7 +136,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         success: true,
         id: ticket.id,
       });
-    }
+    },
   );
 
   fastify.post(
@@ -242,7 +242,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         success: true,
         id: ticket.id,
       });
-    }
+    },
   );
 
   // Get a ticket by id - requires auth
@@ -311,7 +311,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         ticket: t,
         sucess: true,
       });
-    }
+    },
   );
 
   // Get all tickets - requires auth
@@ -345,7 +345,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         tickets: tickets,
         sucess: true,
       });
-    }
+    },
   );
 
   // Basic Search - requires auth
@@ -369,7 +369,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         tickets: tickets,
         success: true,
       });
-    }
+    },
   );
 
   // Get all tickets (admin)
@@ -403,7 +403,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         tickets: tickets,
         sucess: true,
       });
-    }
+    },
   );
 
   // Get all open tickets for a user
@@ -432,7 +432,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         tickets: tickets,
         sucess: true,
       });
-    }
+    },
   );
 
   // Get all closed tickets
@@ -459,7 +459,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         tickets: tickets,
         sucess: true,
       });
-    }
+    },
   );
 
   // Get all unassigned tickets
@@ -479,7 +479,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         success: true,
         tickets: tickets,
       });
-    }
+    },
   );
 
   // Update a ticket
@@ -520,7 +520,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Transfer a ticket to another user
@@ -566,7 +566,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Transfer an Issue to another client
@@ -597,7 +597,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Link a ticket to another ticket
@@ -689,7 +689,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   fastify.post(
@@ -709,7 +709,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Update status of a ticket
@@ -777,7 +777,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Hide a ticket
@@ -799,7 +799,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Lock a ticket
@@ -821,7 +821,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Delete a ticket
@@ -840,14 +840,14 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Get all tickets that created via imap
   fastify.get(
     "/api/v1/tickets/imap/all",
 
-    async (request: FastifyRequest, reply: FastifyReply) => {}
+    async (request: FastifyRequest, reply: FastifyReply) => {},
   );
 
   // GET all ticket templates
@@ -870,7 +870,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         success: true,
         templates: templates,
       });
-    }
+    },
   );
 
   // GET ticket template by ID
@@ -892,7 +892,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         success: true,
         template: template,
       });
-    }
+    },
   );
 
   // PUT ticket template by ID
@@ -918,7 +918,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Get all open tickets for an external user
@@ -947,7 +947,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         tickets: tickets,
         sucess: true,
       });
-    }
+    },
   );
 
   // Get all closed tickets for an external user
@@ -976,7 +976,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         tickets: tickets,
         sucess: true,
       });
-    }
+    },
   );
 
   // Get all tickets for an external user
@@ -1007,7 +1007,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         tickets: tickets,
         sucess: true,
       });
-    }
+    },
   );
 
   // Subscribe to a ticket
@@ -1053,7 +1053,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
           success: true,
         });
       }
-    }
+    },
   );
 
   // Unsubscribe from a ticket
@@ -1098,6 +1098,6 @@ export function ticketRoutes(fastify: FastifyInstance) {
           success: true,
         });
       }
-    }
+    },
   );
 }

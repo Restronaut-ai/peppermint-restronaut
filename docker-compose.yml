@@ -1,10 +1,10 @@
-version: "3.1"
-
 services:
   peppermint_postgres:
     container_name: peppermint_postgres
     image: postgres:latest
     restart: always
+    ports:
+      - '5432:5432'
     volumes:
       - pgdata_live:/var/lib/postgresql/data
     environment:
@@ -12,24 +12,25 @@ services:
       POSTGRES_PASSWORD: 12345
       POSTGRES_DB: peppermint
 
-  peppermint:
-    container_name: peppermint
-    image: pepperlabs/peppermint:latest
-    ports:
-      - 1000:3000
-      - 1001:5003
-# If running via Docker on a hypervisor, enable DNS.
-#    dns:
-#      - 1.1.1.1
-#      - 8.8.8.8
-    restart: always
-    depends_on:
-      - peppermint_postgres
-    environment:
-      DB_USERNAME: "peppermint"
-      DB_PASSWORD: "12345"
-      DB_HOST: "peppermint_postgres"
-      SECRET: 'peppermint4life'
+#   peppermint:
+#     container_name: peppermint
+#     image: pepperlabs/peppermint:latest
+#     ports:
+#       - 1000:3000
+#       - 1001:5003
+# # If running via Docker on a hypervisor, enable DNS.
+# #    dns:
+# #      - 1.1.1.1
+# #      - 8.8.8.8
+#     restart: always
+#     depends_on:
+#       - peppermint_postgres
+#     environment:
+#       DB_USERNAME: "peppermint"
+#       DB_PASSWORD: "12345"
+#       DB_HOST: "peppermint_postgres"
+#       SECRET: 'peppermint4life'
+#
 
 volumes:
  pgdata_live:

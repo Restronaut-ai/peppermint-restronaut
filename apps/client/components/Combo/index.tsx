@@ -202,7 +202,7 @@ export function IconCombo({
                         "mr-2 h-4 w-4",
                         val.value === selectedStatus?.value
                           ? "opacity-100"
-                          : "opacity-40"
+                          : "opacity-40",
                       )}
                     />
                     <span>{val.name}</span>

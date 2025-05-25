@@ -4,7 +4,7 @@ export async function priorityNotification(
   issue: any,
   updatedBy: any,
   oldPriority: string,
-  newPriority: string
+  newPriority: string,
 ) {
   try {
     const text = `Priority changed on #${issue.Number} from ${oldPriority} to ${newPriority} by ${updatedBy.name}`;

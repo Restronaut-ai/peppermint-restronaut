@@ -19,7 +19,7 @@ export default function Document() {
         <meta name="theme-color" content="#ffffff" />
         <link rel="manifest" href="/manifest.json" />
 
-        <title>Peppermint</title>
+        <title>Restronaut Support</title>
 
         <link href="/favicon/favicon.ico" rel="icon" />
         <link

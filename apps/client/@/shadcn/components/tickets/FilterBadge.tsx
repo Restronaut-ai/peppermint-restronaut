@@ -20,4 +20,4 @@ export default function FilterBadge({ text, onRemove }: FilterBadgeProps) {
       </button>
     </div>
   );
-} 
+}

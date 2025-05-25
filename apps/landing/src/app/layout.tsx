@@ -3,9 +3,8 @@ import "./globals.css";
 import Fathom from "@/component/Fathom";
 
 export const metadata: Metadata = {
-  title: "Peppermint",
-  description:
-    "Peppermint is a self-hosted issue tracker for your projects or help desk.",
+  title: "Restronaut Support",
+  description: "Issue tracker for restronaut and related restaurants & help desk.",
 };
 
 export default function RootLayout({

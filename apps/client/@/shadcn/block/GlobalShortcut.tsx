@@ -207,7 +207,7 @@ export default function GlobalShortcut() {
                                 className={({ active }) =>
                                   classNames(
                                     "flex cursor-default select-none items-center rounded-md px-3 py-2 hover:cursor-pointer",
-                                    active && "bg-gray-800 text-white "
+                                    active && "bg-gray-800 text-white ",
                                   )
                                 }
                               >
@@ -216,7 +216,7 @@ export default function GlobalShortcut() {
                                     <action.icon
                                       className={classNames(
                                         "h-6 w-6 flex-none",
-                                        active ? "text-white" : "text-gray-500"
+                                        active ? "text-white" : "text-gray-500",
                                       )}
                                       aria-hidden="true"
                                     />
@@ -261,7 +261,7 @@ export default function GlobalShortcut() {
                               classNames(
                                 "flex cursor-default select-none items-center rounded-md px-3 py-2 text-gray-500 capitalize",
                                 active &&
-                                  "bg-gray-800 text-white hover:cursor-pointer"
+                                  "bg-gray-800 text-white hover:cursor-pointer",
                               )
                             }
                           >
@@ -270,7 +270,7 @@ export default function GlobalShortcut() {
                                 <FolderIcon
                                   className={classNames(
                                     "h-6 w-6 flex-none",
-                                    active ? "text-white" : "text-gray-500"
+                                    active ? "text-white" : "text-gray-500",
                                   )}
                                   aria-hidden="true"
                                 />

@@ -43,7 +43,7 @@ function groupDocumentsByDate(notebooks) {
       thisWeek: [],
       thisMonth: [],
       older: [],
-    }
+    },
   );
 }
 
@@ -86,7 +86,7 @@ export default function NoteBooksIndex() {
 
   const token = getCookie("session");
   const { data, status, error } = useQuery("getUsersNotebooks", () =>
-    fetchNotebooks(token)
+    fetchNotebooks(token),
   );
 
   const router = useRouter();
@@ -116,7 +116,7 @@ export default function NoteBooksIndex() {
 
     // First filter by search query
     let filtered = notebooks.filter((notebook) =>
-      notebook.title.toLowerCase().includes(searchQuery.toLowerCase())
+      notebook.title.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
     // Then sort
@@ -179,7 +179,9 @@ export default function NoteBooksIndex() {
 
             {data?.notebooks &&
               Object.entries(
-                groupDocumentsByDate(sortedAndFilteredNotebooks(data.notebooks))
+                groupDocumentsByDate(
+                  sortedAndFilteredNotebooks(data.notebooks),
+                ),
               ).map(
                 ([period, docs]) =>
                   Array.isArray(docs) &&
@@ -205,7 +207,7 @@ export default function NoteBooksIndex() {
                                   {
                                     hour: "2-digit",
                                     minute: "2-digit",
-                                  }
+                                  },
                                 )}
                               </span>
                             </div>
@@ -213,7 +215,7 @@ export default function NoteBooksIndex() {
                         ))}
                       </div>
                     </div>
-                  )
+                  ),
               )}
           </div>
         )}

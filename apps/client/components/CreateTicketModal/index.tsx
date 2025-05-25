@@ -154,15 +154,15 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
       if (savedFlags) {
         const flags = JSON.parse(savedFlags);
         const hideShortcuts = flags.find(
-          (f: any) => f.name === "Hide Keyboard Shortcuts"
+          (f: any) => f.name === "Hide Keyboard Shortcuts",
         )?.enabled;
 
         const hideName = flags.find(
-          (f: any) => f.name === "Hide Name in Create"
+          (f: any) => f.name === "Hide Name in Create",
         )?.enabled;
 
         const hideEmail = flags.find(
-          (f: any) => f.name === "Hide Email in Create"
+          (f: any) => f.name === "Hide Email in Create",
         )?.enabled;
 
         setHideKeyboardShortcuts(hideShortcuts || false);
@@ -269,8 +269,8 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                     {company === undefined
                                       ? t("select_a_client")
                                       : company === ""
-                                      ? t("select_a_client")
-                                      : company.name}
+                                        ? t("select_a_client")
+                                        : company.name}
                                   </span>
                                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                     <ChevronUpDownIcon
@@ -294,7 +294,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                           active
                                             ? "bg-indigo-600 text-white"
                                             : "text-gray-900 dark:text-white",
-                                          "relative cursor-default select-none py-2 pl-3 pr-9"
+                                          "relative cursor-default select-none py-2 pl-3 pr-9",
                                         )
                                       }
                                       value={undefined}
@@ -306,7 +306,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                               selected
                                                 ? "font-semibold"
                                                 : "font-normal",
-                                              "block truncate"
+                                              "block truncate",
                                             )}
                                           >
                                             Unassigned
@@ -318,7 +318,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                                 active
                                                   ? "text-white"
                                                   : "text-indigo-600",
-                                                "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                "absolute inset-y-0 right-0 flex items-center pr-4",
                                               )}
                                             >
                                               <CheckIcon
@@ -339,7 +339,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                               active
                                                 ? "bg-indigo-600 text-white"
                                                 : "text-gray-900 dark:text-white",
-                                              "relative cursor-default select-none py-2 pl-3 pr-9"
+                                              "relative cursor-default select-none py-2 pl-3 pr-9",
                                             )
                                           }
                                           value={client}
@@ -351,7 +351,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                                   selected
                                                     ? "font-semibold"
                                                     : "font-normal",
-                                                  "block truncate"
+                                                  "block truncate",
                                                 )}
                                               >
                                                 {client.name}
@@ -363,7 +363,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                                     active
                                                       ? "text-white"
                                                       : "text-indigo-600",
-                                                    "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                    "absolute inset-y-0 right-0 flex items-center pr-4",
                                                   )}
                                                 >
                                                   <CheckIcon
@@ -415,7 +415,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                           active
                                             ? "bg-indigo-600 text-white"
                                             : "text-gray-900 dark:text-white",
-                                          "relative cursor-default select-none py-2 pl-3 pr-9"
+                                          "relative cursor-default select-none py-2 pl-3 pr-9",
                                         )
                                       }
                                       value={undefined}
@@ -427,7 +427,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                               selected
                                                 ? "font-semibold"
                                                 : "font-normal",
-                                              "block truncate"
+                                              "block truncate",
                                             )}
                                           >
                                             Unassigned
@@ -439,7 +439,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                                 active
                                                   ? "text-white"
                                                   : "text-indigo-600",
-                                                "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                "absolute inset-y-0 right-0 flex items-center pr-4",
                                               )}
                                             >
                                               <CheckIcon
@@ -460,7 +460,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                               active
                                                 ? "bg-indigo-600 text-white"
                                                 : "text-gray-900 dark:text-white",
-                                              "relative cursor-default select-none py-2 pl-3 pr-9"
+                                              "relative cursor-default select-none py-2 pl-3 pr-9",
                                             )
                                           }
                                           value={user}
@@ -472,7 +472,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                                   selected
                                                     ? "font-semibold"
                                                     : "font-normal",
-                                                  "block truncate"
+                                                  "block truncate",
                                                 )}
                                               >
                                                 {user.name}
@@ -484,7 +484,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                                     active
                                                       ? "text-white"
                                                       : "text-indigo-600",
-                                                    "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                    "absolute inset-y-0 right-0 flex items-center pr-4",
                                                   )}
                                                 >
                                                   <CheckIcon
@@ -536,7 +536,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                             active
                                               ? "bg-gray-400 text-white"
                                               : "text-gray-900 dark:text-white",
-                                            "relative cursor-default select-none py-2 pl-3 pr-9"
+                                            "relative cursor-default select-none py-2 pl-3 pr-9",
                                           )
                                         }
                                         value={person}
@@ -548,7 +548,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                                 selected
                                                   ? "font-semibold"
                                                   : "font-normal",
-                                                "block truncate"
+                                                "block truncate",
                                               )}
                                             >
                                               {person.name}
@@ -560,7 +560,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                                   active
                                                     ? "text-white"
                                                     : "text-indigo-600",
-                                                  "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                  "absolute inset-y-0 right-0 flex items-center pr-4",
                                                 )}
                                               >
                                                 <CheckIcon

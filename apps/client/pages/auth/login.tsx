@@ -82,10 +82,10 @@ export default function Login({}) {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8 select-none">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
-          Welcome to Peppermint
+          Welcome to Restronaut Support
         </h2>
       </div>
 
@@ -98,7 +98,7 @@ export default function Login({}) {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-foreground"
+                  className="block text-sm font-medium text-foreground/85"
                 >
                   Email address
                 </label>
@@ -110,7 +110,8 @@ export default function Login({}) {
                     autoComplete="email"
                     required
                     onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                    placeholder="Please enter your email address."
+                    className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6"
                     onKeyPress={(event) => {
                       if (event.key === "Enter") {
                         postData();
@@ -123,7 +124,7 @@ export default function Login({}) {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-foreground"
+                  className="block text-sm font-medium text-foreground/85"
                 >
                   Password
                 </label>
@@ -135,7 +136,8 @@ export default function Login({}) {
                     autoComplete="password"
                     required
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                    placeholder="Please enter your password."
+                    className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6"
                     onKeyPress={(event) => {
                       if (event.key === "Enter") {
                         postData();
@@ -149,7 +151,7 @@ export default function Login({}) {
                 <div className="text-sm">
                   <Link
                     href="/auth/forgot-password"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-foreground/75 hover:text-primary hover:underline"
                   >
                     Forgot your password?
                   </Link>
@@ -160,7 +162,7 @@ export default function Login({}) {
                 <button
                   type="submit"
                   onClick={postData}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition-colors shadow-sm hover:bg-primary/85 disabled:cursor-not-allowed disabled:opacity-75"
                 >
                   Sign In
                 </button>
@@ -178,19 +180,6 @@ export default function Login({}) {
             </div>
           </div>
         )}
-
-        <div className="mt-8 text-center flex flex-col space-y-2">
-          <span className="font-bold text-foreground">
-            Built with 💚 by Peppermint Labs
-          </span>
-          <a
-            href="https://docs.peppermint.sh/"
-            target="_blank"
-            className="text-foreground"
-          >
-            Documentation
-          </a>
-        </div>
       </div>
     </div>
   );

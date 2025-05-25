@@ -43,7 +43,7 @@ export function roleRoutes(fastify: FastifyInstance) {
       client.shutdownAsync();
 
       reply.status(200).send({ message: "Role created!", success: true });
-    }
+    },
   );
 
   // Get all roles
@@ -66,7 +66,7 @@ export function roleRoutes(fastify: FastifyInstance) {
       });
 
       reply.status(200).send({ roles, success: true, roles_active: active });
-    }
+    },
   );
 
   // Get role by ID
@@ -93,7 +93,7 @@ export function roleRoutes(fastify: FastifyInstance) {
       }
 
       reply.status(200).send({ role, success: true });
-    }
+    },
   );
 
   // Update role
@@ -134,7 +134,7 @@ export function roleRoutes(fastify: FastifyInstance) {
         }
         throw error;
       }
-    }
+    },
   );
 
   // Delete role
@@ -161,7 +161,7 @@ export function roleRoutes(fastify: FastifyInstance) {
         }
         throw error;
       }
-    }
+    },
   );
 
   // Assign role to user
@@ -196,7 +196,7 @@ export function roleRoutes(fastify: FastifyInstance) {
         }
         throw error;
       }
-    }
+    },
   );
 
   // Remove role from user
@@ -231,6 +231,6 @@ export function roleRoutes(fastify: FastifyInstance) {
         }
         throw error;
       }
-    }
+    },
   );
 }

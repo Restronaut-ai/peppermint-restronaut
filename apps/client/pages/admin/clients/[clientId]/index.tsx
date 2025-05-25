@@ -1,25 +1,26 @@
-import { getCookie } from "cookies-next";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
-import { useQuery } from "react-query";
+import Link from "next/link";
+import { useQuery, useQueryClient } from "react-query";
+import { useRouter } from "next/router";
+import { getCookie } from "cookies-next";
+import { StoreInfoForm } from "./_StoreInfoForm";
+import { toast } from "@/shadcn/hooks/use-toast";
 import {
   useFilters,
   useGlobalFilter,
   usePagination,
   useTable,
 } from "react-table";
-import ClientNotesModal from "../../../components/ClientNotesModal";
-import UpdateClientModal from "../../../components/UpdateClientModal";
 
-const fetchAllClients = async () => {
-  const res = await fetch(`/api/v1/clients/all`, {
+const fetchAllClientStores = async (clientId) => {
+  const res = await fetch(`/api/v1/clients/${clientId}/stores`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getCookie("session")}`,
     },
   });
-  return res.json();
+  const json = await res.json();
+  return json?.stores || [];
 };
 
 function DefaultColumnFilter({
@@ -223,49 +224,65 @@ function Table({ columns, data }: any) {
   );
 }
 
-export default function Clients() {
-  const { data, status, refetch } = useQuery(
-    "fetchAllClients",
-    fetchAllClients,
-  );
-
+export default function ClientStoresPage() {
   const router = useRouter();
+  const clientId = router.query.clientId as string;
 
-  async function deleteClient(id: any) {
-    await fetch(`/api/v1/clients/${id}/delete-client`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${getCookie("session")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then(() => {
-        refetch();
+  const {
+    data: stores,
+    status,
+    refetch,
+  } = useQuery({
+    enabled: !!clientId,
+    queryKey: ["fetchAllClientStores", clientId],
+    queryFn: () => fetchAllClientStores(clientId),
+  });
+
+  const deleteStore = async (clientId: string, storeId: string) => {
+    try {
+      const res = await fetch(`/api/v1/clients/${clientId}/stores/${storeId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${getCookie("session")}`,
+        },
       });
-  }
+
+      if (!res.ok) throw "";
+
+      toast({
+        title: "Store deleted",
+        description: "Store deleted successfully!",
+      });
+    } catch {
+      toast({
+        title: "Oops!",
+        variant: "destructive",
+        description: "Something went wrong while trying to delete store.",
+      });
+    } finally {
+      refetch();
+    }
+  };
 
   const columns = React.useMemo(
     () => [
       {
-        Header: "Client Name",
+        Header: "Store Name",
         accessor: "name",
         width: 10,
-        id: "client_name",
-        Cell: ({ row, value }: any) => {
-          return (
-            <Link
-              href={`/admin/clients/${row.original.id}`}
-              className="hover:text-primary transition-colors underline underline-offset-2"
-            >
-              {value}
-            </Link>
-          );
-        },
+        id: "store_name",
       },
       {
-        Header: "Contact Name",
-        accessor: "contactName",
-        id: "contactName",
+        Header: "Address",
+        accessor: "address",
+        id: "address",
+        showFilter: false,
+      },
+      {
+        Header: "Manager Name",
+        accessor: "manager",
+        id: "manager",
+        showFilter: false,
       },
       {
         Header: "Actions",
@@ -273,15 +290,21 @@ export default function Clients() {
         Cell: ({ row, value }: any) => {
           return (
             <div className="space-x-4 flex flex-row">
-              <UpdateClientModal client={row.original} refetch={refetch} />
+              <StoreInfoForm
+                refetch={refetch}
+                clientId={row.original.clientId}
+                store={row.original}
+                type="update"
+              />
               <button
                 type="button"
+                onClick={() =>
+                  deleteStore(row.original.clientId, row.original.id)
+                }
                 className="rounded bg-destructive text-destructive-foreground hover:bg-destructive/85 px-2.5 py-1.5 text-xs font-semibold shadow-sm ring-1 ring-inset ring-destructive"
-                onClick={() => deleteClient(row.original.id)}
               >
                 Delete
               </button>
-              {/* <ClientNotesModal notes={row.original.notes} id={row.original.id} /> */}
             </div>
           );
         },
@@ -295,13 +318,13 @@ export default function Clients() {
       <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
         <div className="pt-10 pb-16 divide-y-2">
           <div className="px-4 sm:px-6 md:px-0">
-            <h1 className="text-3xl font-extrabold text-foreground">Clients</h1>
+            <h1 className="text-3xl font-extrabold text-foreground">Stores</h1>
           </div>
           <div className="px-4 sm:px-6 md:px-0">
             <div className="sm:flex sm:items-center">
               <div className="sm:flex-auto mt-4">
                 <p className="mt-2 text-sm text-muted-foreground">
-                  A list of all internal users of your instance.
+                  A list of all stores available for this client.
                 </p>
               </div>
               <div className="sm:ml-16 mt-5 flex flex-row space-x-2">
@@ -313,27 +336,17 @@ export default function Clients() {
                   Guest Ticket Url
                 </Link>
                 <Link
-                  href={`/portal/`}
-                  type="button"
-                  className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-                >
-                  Portal Url
-                </Link>
-                <Link
                   href={`/auth/register`}
                   type="button"
                   className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                 >
                   Portal Register
                 </Link>
-                <Link
-                  href="/admin/clients/new"
-                  className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-                >
-                  New Client
-                </Link>
+
+                <StoreInfoForm refetch={refetch} clientId={clientId} />
               </div>
             </div>
+
             <div className="py-4">
               {status === "loading" && (
                 <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
@@ -353,56 +366,40 @@ export default function Clients() {
               {status === "success" && (
                 <div>
                   <div className="hidden sm:block">
-                    <Table columns={columns} data={data.clients} />
+                    <Table columns={columns} data={stores} />
                   </div>
 
                   <div className="sm:hidden">
-                    {data.clients.map((client: any) => (
+                    {stores.map((store: any) => (
                       <div
-                        key={client.id}
+                        key={store.id}
                         className="flex flex-col text-center bg-muted rounded-lg shadow mt-4"
                       >
                         <div className="flex-1 flex flex-col p-8">
-                          <h3 className=" text-muted-foreground text-sm font-medium">
-                            {client.name}
+                          <h3 className=" text-foreground text-sm font-medium">
+                            {store.name}
                           </h3>
                           <dl className="mt-1 flex-grow flex flex-col justify-between">
                             <dd className="text-muted-foreground text-sm">
-                              {client.number}
+                              {store.phone}
                             </dd>
-                            <dt className="sr-only">Role</dt>
-                            <dd className="mt-3">
-                              <span>
-                                Primary Contact - {client.contactName}
-                              </span>
+                            <dd className="text-muted-foreground text-sm">
+                              {store.email}
+                            </dd>
+                            <dt className="sr-only">Manager</dt>
+                            <dd className="font-medium text-muted-foreground text-sm mt-2">
+                              <span>Manager - {store.manager}</span>
                             </dd>
                           </dl>
                         </div>
                         <div className="space-x-4 align-middle flex flex-row justify-center -mt-4 mb-4">
-                          <UpdateClientModal
-                            client={client}
-                            refetch={refetch}
-                          />
                           <button
                             type="button"
                             className="rounded bg-destructive text-destructive-foreground hover:bg-destructive/85 px-2.5 py-1.5 text-xs font-semibold shadow-sm ring-1 ring-inset ring-destructive"
-                            onClick={() => deleteClient(client.id)}
+                            onClick={() => deleteStore(clientId, store.id)}
                           >
                             Delete
                           </button>
-
-                          {/* <UpdateClientModal client={client} /> 
-                           <ClientNotesModal
-                            notes={client.notes}
-                            id={client.id}
-                          /> 
-                           <button
-                            type="button"
-                            className=" inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:mt-0 sm:w-auto sm:text-sm"
-                            onClick={() => setOpen(true)}
-                          >
-                            New Ticket
-                          </button> */}
                         </div>
                       </div>
                     ))}

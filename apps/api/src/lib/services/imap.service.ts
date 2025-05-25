@@ -25,9 +25,8 @@ export class ImapService {
   private static async getImapConfig(queue: EmailQueue): Promise<EmailConfig> {
     switch (queue.serviceType) {
       case "gmail": {
-        const validatedAccessToken = await AuthService.getValidAccessToken(
-          queue
-        );
+        const validatedAccessToken =
+          await AuthService.getValidAccessToken(queue);
 
         return {
           user: queue.username,
@@ -36,7 +35,7 @@ export class ImapService {
           tls: true,
           xoauth2: AuthService.generateXOAuth2Token(
             queue.username,
-            validatedAccessToken
+            validatedAccessToken,
           ),
           tlsOptions: { rejectUnauthorized: false, servername: queue.hostname },
         };
@@ -57,7 +56,7 @@ export class ImapService {
 
   private static async processEmail(
     parsed: any,
-    isReply: boolean
+    isReply: boolean,
   ): Promise<void> {
     const { from, subject, text, html, textAsHtml } = parsed;
 
@@ -66,7 +65,7 @@ export class ImapService {
     if (isReply) {
       // First try to match UUID format
       const uuidMatch = subject.match(
-        /(?:ref:|#)([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i
+        /(?:ref:|#)([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i,
       );
       console.log("UUID MATCH", uuidMatch);
 

@@ -5,7 +5,7 @@ import { EmailQueue } from "../types/email";
 export class AuthService {
   public static generateXOAuth2Token(
     username: string,
-    accessToken: string
+    accessToken: string,
   ): string {
     const authString = [
       `user=${username}`,

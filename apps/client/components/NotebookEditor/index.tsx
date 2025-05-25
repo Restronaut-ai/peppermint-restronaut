@@ -77,23 +77,26 @@ export default function NotebookEditor() {
 
   async function updateNoteBook() {
     setSaving(true);
-    const res = await fetch(`/api/v1/notebooks/note/${router.query.id}/update`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+    const res = await fetch(
+      `/api/v1/notebooks/note/${router.query.id}/update`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: debounceTitle,
+          content: JSON.stringify(debouncedValue),
+        }),
       },
-      body: JSON.stringify({
-        title: debounceTitle,
-        content: JSON.stringify(debouncedValue),
-      }),
-    });
+    );
     const data = await res.json();
     setSaving(false);
     let date = new Date();
     // @ts-ignore
     setLastSaved(new Date(date).getTime());
-    if(data.status) {
+    if (data.status) {
       toast({
         variant: "destructive",
         title: "Error -> Unable to update",

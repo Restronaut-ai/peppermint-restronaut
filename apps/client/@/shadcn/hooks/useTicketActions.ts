@@ -1,4 +1,4 @@
-import { Ticket } from '@/shadcn/types/tickets';
+import { Ticket } from "@/shadcn/types/tickets";
 import { toast } from "../hooks/use-toast";
 
 export function useTicketActions(token: string, refetch: () => void) {
@@ -13,14 +13,14 @@ export function useTicketActions(token: string, refetch: () => void) {
         body: JSON.stringify({ id: ticket.id, status: !ticket.isComplete }),
       });
 
-      if (!response.ok) throw new Error('Failed to update status');
+      if (!response.ok) throw new Error("Failed to update status");
 
       toast({
         title: ticket.isComplete ? "Issue re-opened" : "Issue closed",
         description: "The status of the issue has been updated.",
         duration: 3000,
       });
-      
+
       refetch();
     } catch (error) {
       toast({
@@ -133,6 +133,6 @@ export function useTicketActions(token: string, refetch: () => void) {
     updateTicketStatus,
     updateTicketAssignee,
     updateTicketPriority,
-    deleteTicket
+    deleteTicket,
   };
 }

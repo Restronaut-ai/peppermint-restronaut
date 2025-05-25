@@ -94,41 +94,42 @@ export default function EmailQueues() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
-                      {queues && queues.map((item) => (
-                        <tr key={item.id}>
-                          <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
-                            {item.name}
-                            <dl className="font-normal lg:hidden">
-                              <dt className="sr-only">Title</dt>
-                              <dd className="mt-1 truncate text-gray-700">
-                                {item.username}
-                              </dd>
-                              <dt className="sr-only sm:hidden">Email</dt>
-                              <dd className="mt-1 truncate  sm:hidden">
-                                {item.hostname}
-                              </dd>
-                            </dl>
-                          </td>
-                          <td className="hidden px-3 py-4 text-sm  lg:table-cell">
-                            {item.username}
-                          </td>
-                          <td className="hidden px-3 py-4 text-sm  sm:table-cell">
-                            {item.hostname}
-                          </td>
-                          <td className="px-3 py-4 text-sm ">
-                            {item.tls ? "993" : "110"}
-                          </td>
-                          <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                            <button
-                              type="button"
-                              onClick={() => deleteItem(item.id)}
-                              className="rounded bg-red-600 py-1 px-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                      {queues &&
+                        queues.map((item) => (
+                          <tr key={item.id}>
+                            <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
+                              {item.name}
+                              <dl className="font-normal lg:hidden">
+                                <dt className="sr-only">Title</dt>
+                                <dd className="mt-1 truncate text-gray-700">
+                                  {item.username}
+                                </dd>
+                                <dt className="sr-only sm:hidden">Email</dt>
+                                <dd className="mt-1 truncate  sm:hidden">
+                                  {item.hostname}
+                                </dd>
+                              </dl>
+                            </td>
+                            <td className="hidden px-3 py-4 text-sm  lg:table-cell">
+                              {item.username}
+                            </td>
+                            <td className="hidden px-3 py-4 text-sm  sm:table-cell">
+                              {item.hostname}
+                            </td>
+                            <td className="px-3 py-4 text-sm ">
+                              {item.tls ? "993" : "110"}
+                            </td>
+                            <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                              <button
+                                type="button"
+                                onClick={() => deleteItem(item.id)}
+                                className="rounded bg-red-600 py-1 px-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 )}

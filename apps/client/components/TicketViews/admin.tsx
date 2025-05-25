@@ -51,7 +51,7 @@ function Table({ columns, data }: any) {
             : true;
         }),
     }),
-    []
+    [],
   );
 
   const defaultColumn = React.useMemo(
@@ -59,7 +59,7 @@ function Table({ columns, data }: any) {
       // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
-    []
+    [],
   );
 
   const {
@@ -99,7 +99,7 @@ function Table({ columns, data }: any) {
     },
     useFilters, // useFilters!
     useGlobalFilter,
-    usePagination
+    usePagination,
   );
 
   return (
@@ -128,7 +128,7 @@ function Table({ columns, data }: any) {
                           {column.canFilter ? column.render("Filter") : null}
                         </div>
                       </th>
-                    )
+                    ),
                   )}
                 </tr>
               ))}
@@ -208,7 +208,7 @@ function Table({ columns, data }: any) {
 export default function AdminTicketLayout() {
   const { data, status, refetch } = useQuery(
     "fetchallTickets",
-    fetchALLTIckets
+    fetchALLTIckets,
   );
 
   const router = useRouter();
@@ -324,7 +324,7 @@ export default function AdminTicketLayout() {
         },
       },
     ],
-    []
+    [],
   );
 
   return (

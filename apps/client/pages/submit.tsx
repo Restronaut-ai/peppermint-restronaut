@@ -90,27 +90,27 @@ export default function ClientTicketNew() {
   return (
     <div className="flex justify-center items-center content-center h-screen bg-gray-900">
       {view === "new" ? (
-        <div className="max-w-2xl bg-white p-12 rounded-md">
+        <div className="max-w-2xl bg-background p-12 rounded-md">
           <h1 className="font-bold text-2xl">Submit a Ticket</h1>
-          <span>
+          <span className="text-muted-foreground">
             Need help? Submit a ticket and our support team will get back to you
             as soon as possible.
           </span>
 
           <div className="my-4 flex flex-col space-y-4">
-            <div>
+            <div className="grid gap-1">
               <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-foreground/75 select-none"
               >
                 Name
               </label>
-              <div className="mt-2">
+              <div className="grid gap-1">
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                  id="name"
+                  type="name"
+                  name="name"
+                  className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary invalid:bg-destructive/50 invalid:ring-2 invalid:!ring-destructive invalid:text-foreground font-medium text-sm sm:leading-6"
                   placeholder="John Doe"
                   onChange={(e) => setName(e.target.value)}
                   value={name}
@@ -118,19 +118,19 @@ export default function ClientTicketNew() {
                 />
               </div>
             </div>
-            <div>
+            <div className="grid gap-1">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-foreground/75 select-none"
               >
                 Email
               </label>
-              <div className="mt-2">
+              <div className="grid gap-1">
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary invalid:bg-destructive/50 invalid:ring-2 invalid:!ring-destructive invalid:text-foreground font-medium text-sm sm:leading-6"
                   placeholder="johnD@meta.com"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
@@ -138,19 +138,19 @@ export default function ClientTicketNew() {
                 />
               </div>
             </div>
-            <div>
+            <div className="grid gap-1">
               <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                htmlFor="subject"
+                className="block text-sm font-medium leading-6 text-foreground/75 select-none"
               >
                 Subject
               </label>
-              <div className="mt-2">
+              <div>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary invalid:bg-destructive/50 invalid:ring-2 invalid:!ring-destructive invalid:text-foreground font-medium text-sm sm:leading-6"
                   placeholder="I can't login to my account"
                   onChange={(e) => setSubject(e.target.value)}
                   value={subject}
@@ -160,16 +160,16 @@ export default function ClientTicketNew() {
 
             <Listbox value={selected} onChange={setSelected}>
               {({ open }) => (
-                <>
-                  <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">
+                <div className="grid gap-1">
+                  <Listbox.Label className="block text-sm font-medium leading-6 text-foreground/75 select-none">
                     Issue Type
                   </Listbox.Label>
-                  <div className="relative mt-2">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6">
+                  <div className="relative">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left hover:text-foreground/75 shadow-sm ring-1 ring-inset ring-border focus:outline-none font-medium text-sm sm:leading-6">
                       <span className="block truncate">{selected.name}</span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon
-                          className="h-5 w-5 text-gray-400"
+                          className="h-5 w-5 text-muted-foreground"
                           aria-hidden="true"
                         />
                       </span>
@@ -182,16 +182,16 @@ export default function ClientTicketNew() {
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
                     >
-                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 text-base shadow-lg ring-2 ring-border focus:outline-none sm:text-sm">
                         {type.map((person) => (
                           <Listbox.Option
                             key={person.id}
                             className={({ active }) =>
                               classNames(
                                 active
-                                  ? "bg-gray-400 text-white"
-                                  : "text-gray-900",
-                                "relative cursor-default select-none py-2 pl-3 pr-9"
+                                  ? "bg-muted text-primary"
+                                  : "text-muted-foreground",
+                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
                               )
                             }
                             value={person}
@@ -201,7 +201,7 @@ export default function ClientTicketNew() {
                                 <span
                                   className={classNames(
                                     selected ? "font-semibold" : "font-normal",
-                                    "block truncate"
+                                    "block truncate",
                                   )}
                                 >
                                   {person.name}
@@ -210,8 +210,10 @@ export default function ClientTicketNew() {
                                 {selected ? (
                                   <span
                                     className={classNames(
-                                      active ? "text-white" : "text-indigo-600",
-                                      "absolute inset-y-0 right-0 flex items-center pr-4"
+                                      active
+                                        ? "text-muted-foreground"
+                                        : "text-primary",
+                                      "absolute inset-y-0 right-0 flex items-center pr-4",
                                     )}
                                   >
                                     <CheckIcon
@@ -227,22 +229,22 @@ export default function ClientTicketNew() {
                       </Listbox.Options>
                     </Transition>
                   </div>
-                </>
+                </div>
               )}
             </Listbox>
 
             <Listbox value={priority} onChange={setPriority}>
               {({ open }) => (
-                <>
-                  <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">
+                <div className="grid gap-1">
+                  <Listbox.Label className="block text-sm font-medium leading-6 text-foreground/75 select-none">
                     Priority
                   </Listbox.Label>
-                  <div className="relative mt-2">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6">
+                  <div className="relative">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left hover:text-foreground/75 shadow-sm ring-1 ring-inset ring-border focus:outline-none font-medium text-sm sm:leading-6">
                       <span className="block truncate">{priority.name}</span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon
-                          className="h-5 w-5 text-gray-400"
+                          className="h-5 w-5 text-muted-foreground"
                           aria-hidden="true"
                         />
                       </span>
@@ -255,16 +257,16 @@ export default function ClientTicketNew() {
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
                     >
-                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 text-base shadow-lg ring-2 ring-border focus:outline-none sm:text-sm">
                         {pri.map((person) => (
                           <Listbox.Option
                             key={person.id}
                             className={({ active }) =>
                               classNames(
                                 active
-                                  ? "bg-gray-400 text-white"
-                                  : "text-gray-900",
-                                "relative cursor-default select-none py-2 pl-3 pr-9"
+                                  ? "bg-muted text-primary"
+                                  : "text-muted-foreground",
+                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
                               )
                             }
                             value={person}
@@ -274,7 +276,7 @@ export default function ClientTicketNew() {
                                 <span
                                   className={classNames(
                                     selected ? "font-semibold" : "font-normal",
-                                    "block truncate"
+                                    "block truncate",
                                   )}
                                 >
                                   {person.name}
@@ -283,8 +285,10 @@ export default function ClientTicketNew() {
                                 {selected ? (
                                   <span
                                     className={classNames(
-                                      active ? "text-white" : "text-indigo-600",
-                                      "absolute inset-y-0 right-0 flex items-center pr-4"
+                                      active
+                                        ? "text-muted-foreground"
+                                        : "text-primary",
+                                      "absolute inset-y-0 right-0 flex items-center pr-4",
                                     )}
                                   >
                                     <CheckIcon
@@ -300,23 +304,23 @@ export default function ClientTicketNew() {
                       </Listbox.Options>
                     </Transition>
                   </div>
-                </>
+                </div>
               )}
             </Listbox>
 
             <div>
               <label
                 htmlFor="comment"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-foreground/75 select-none"
               >
                 Description of Issue
               </label>
-              <div className="mt-2">
+              <div>
                 <textarea
                   rows={4}
                   name="comment"
                   id="comment"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 min-h-32 max-h-72 field-sizing-content py-1.5 bg-muted text-foreground shadow-sm ring-1 ring-border placeholder:text-muted-foreground hover:placeholder-foreground/75 focus:ring-2 focus:ring-inset focus:ring-primary invalid:bg-destructive/50 invalid:ring-2 invalid:!ring-destructive invalid:text-foreground font-medium text-sm sm:leading-6"
                   defaultValue={""}
                   placeholder="I think i locked myself out!"
                   onChange={(e) => setDescription(e.target.value)}
@@ -329,7 +333,7 @@ export default function ClientTicketNew() {
               type="button"
               onClick={submitTicket}
               disabled={isLoading}
-              className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 "
+              className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition-colors shadow-sm hover:bg-primary/85 disabled:cursor-not-allowed disabled:opacity-75"
             >
               Submit Ticket
             </button>

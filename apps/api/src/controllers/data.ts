@@ -15,7 +15,7 @@ export function dataRoutes(fastify: FastifyInstance) {
       });
 
       reply.send({ count: result });
-    }
+    },
   );
 
   // Get total count of all completed tickets
@@ -30,7 +30,7 @@ export function dataRoutes(fastify: FastifyInstance) {
       });
 
       reply.send({ count: result });
-    }
+    },
   );
 
   // Get total count of all open tickets
@@ -45,7 +45,7 @@ export function dataRoutes(fastify: FastifyInstance) {
       });
 
       reply.send({ count: result });
-    }
+    },
   );
 
   // Get total of all unsassigned tickets
@@ -60,7 +60,7 @@ export function dataRoutes(fastify: FastifyInstance) {
       });
 
       reply.send({ count: result });
-    }
+    },
   );
 
   // Get all logs
@@ -68,9 +68,9 @@ export function dataRoutes(fastify: FastifyInstance) {
     "/api/v1/data/logs",
     async (request: FastifyRequest, reply: FastifyReply) => {
       const logs = await import("fs/promises").then((fs) =>
-        fs.readFile("logs.log", "utf-8")
+        fs.readFile("logs.log", "utf-8"),
       );
       reply.send({ logs: logs });
-    }
+    },
   );
 }

@@ -319,7 +319,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
   const [clientId, setClientId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [redirectUri, setRedirectUri] = useState(
-    `${window.location.origin}/admin/smtp/oauth`
+    `${window.location.origin}/admin/smtp/oauth`,
   );
   const [user, setUser] = useState("");
 

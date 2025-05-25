@@ -44,7 +44,7 @@ function Table({ columns, data }) {
             : true;
         }),
     }),
-    []
+    [],
   );
 
   const defaultColumn = React.useMemo(
@@ -52,7 +52,7 @@ function Table({ columns, data }) {
       // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
-    []
+    [],
   );
 
   const {
@@ -81,7 +81,7 @@ function Table({ columns, data }) {
     },
     useFilters, // useFilters!
     useGlobalFilter,
-    usePagination
+    usePagination,
   );
 
   return (
@@ -109,7 +109,7 @@ function Table({ columns, data }) {
                           {column.canFilter ? column.render("Filter") : null}
                         </div>
                       </th>
-                    )
+                    ),
                   )}
                 </tr>
               ))}
@@ -191,7 +191,7 @@ export default function AssignedTickets() {
   const router = useRouter();
   async function getUserTickets() {
     const res = await fetch(
-      `/api/v1/ticket/emailQueue?name=${router.query.id}`
+      `/api/v1/ticket/emailQueue?name=${router.query.id}`,
     );
     return res.json();
   }

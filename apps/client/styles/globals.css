@@ -10,7 +10,7 @@
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 158 76% 36%; /* Converted #10b981 to HSL */
+    --primary: 0 100% 54%; /* Converted #d70000 to HSL */
     --primary-foreground: 0 85.7% 97.3%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
@@ -46,7 +46,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 72.2% 50.6%;
+    --primary: 0 100% 54%;
     --primary-foreground: 0 85.7% 97.3%;
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
@@ -86,7 +86,7 @@
     --popover: 45 100% 94.1%; /* Same as background */
     --popover-foreground: 192 13% 23.5%; /* Same as foreground */
 
-    --primary: 205 82% 33%; /* Blue - #268bd2 */
+    --primary: 0 100% 54%;
     --primary-foreground: 45 100% 94.1%; /* Base3 - #fdf6e3 */
 
     --secondary: 39 94% 45%; /* Yellow - #b58900 */
@@ -120,7 +120,7 @@
     --popover: 192 13% 12.2%; /* Same as background */
     --popover-foreground: 180 9% 88%; /* Same as foreground */
 
-    --primary: 39 94% 45%; /* Yellow - #b58900 */
+    --primary: 0 100% 54%;
     --primary-foreground: 192 13% 12.2%; /* Base03 - #002b36 */
 
     --secondary: 205 82% 33%; /* Blue - #268bd2 */
@@ -154,7 +154,7 @@
     --popover: 231 15% 18%; /* Same as background */
     --popover-foreground: 60 9% 91%; /* Same as foreground */
 
-    --primary: 253 86% 59%; /* Pink - #ff79c6 */
+    --primary: 0 100% 54%;
     --primary-foreground: 231 15% 18%; /* Background - #282a36 */
 
     --secondary: 191 97% 61%; /* Cyan - #8be9fd */
@@ -186,7 +186,7 @@
     --popover: var(--background);
     --popover-foreground: var(--foreground);
 
-    --primary: 185 84% 41%; /* Teal - #00bcd4 */
+    --primary: 0 100% 54%;
     --primary-foreground: 0 0% 100%; /* White - #ffffff */
 
     --secondary: 197 100% 50%; /* Cyan - #00e5ff */
@@ -218,7 +218,7 @@
     --popover: var(--background);
     --popover-foreground: var(--foreground);
 
-    --primary: 123 39% 49%; /* Green - #43a047 */
+    --primary: 0 100% 54%;
     --primary-foreground: 0 0% 100%; /* White - #ffffff */
 
     --secondary: 88 50% 53%; /* Lime - #cddc39 */
@@ -250,7 +250,7 @@
     --popover: var(--background);
     --popover-foreground: var(--foreground);
 
-    --primary: 54 89% 60%; /* Yellow - #e6db74 */
+    --primary: 0 100% 54%;
     --primary-foreground: var(--background);
 
     --secondary: 261 67% 59%; /* Purple - #ae81ff */
@@ -282,7 +282,7 @@
     --popover: var(--background);
     --popover-foreground: var(--foreground);
 
-    --primary: 200 100% 50%; /* Blue - #2196f3 */
+    --primary: 0 100% 54%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 340 100% 50%; /* Pink - #e91e63 */
@@ -314,7 +314,7 @@
     --popover: var(--background);
     --popover-foreground: var(--foreground);
 
-    --primary: 200 100% 50%; /* Blue - #2196f3 */
+    --primary: 0 100% 54%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 340 100% 50%; /* Pink - #e91e63 */
@@ -348,7 +348,7 @@
     --popover: var(--card);
     --popover-foreground: var(--foreground);
 
-    --primary: 210 100% 50%; /* Blue - #0366d6 */
+    --primary: 0 100% 54%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: var(--background);
@@ -382,7 +382,7 @@
     --popover: 210 16% 24%; /* Slightly Lighter Gray - #161b22 */
     --popover-foreground: var(--foreground);
 
-    --primary: 210 100% 50%; /* Blue - #58a6ff */
+    --primary: 0 100% 54%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: var(--popover);
@@ -416,7 +416,7 @@
     --popover: var(--background);
     --popover-foreground: var(--foreground);
 
-    --primary: 240 100% 50%; /* Blue - #0000ff */
+    --primary: 0 100% 54%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 120 100% 25%; /* Dark Green - #008000 */
@@ -450,7 +450,7 @@
     --popover: var(--background);
     --popover-foreground: var(--foreground);
 
-    --primary: 240 100% 50%; /* Blue - #0000ff */
+    --primary: 0 100% 54%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 120 100% 25%; /* Dark Green - #008000 */
@@ -484,7 +484,7 @@
     --popover: var(--background);
     --popover-foreground: var(--foreground);
 
-    --primary: 180 100% 90%; /* Light Cyan - #e0ffff */
+    --primary: 0 100% 54%;
     --primary-foreground: var(--foreground);
 
     --secondary: 300 100% 90%; /* Light Pink - #ffe0ff */
@@ -571,11 +571,21 @@ body {
 
 /* Hide scrollbars but keep functionality */
 * {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* Hide scrollbars for Chrome, Safari and Opera */
 *::-webkit-scrollbar {
   display: none;
+}
+
+.field-sizing-content {
+  field-sizing: content;
+}
+
+input:-webkit-autofill {
+  background-color: transparent !important;
+  transition: background-color 9999s ease-in-out 0s;
+  caret-color: auto; /* optional: to restore caret color */
 }

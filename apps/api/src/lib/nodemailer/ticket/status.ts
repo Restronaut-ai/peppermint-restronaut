@@ -23,11 +23,11 @@ export async function sendTicketStatus(ticket: any) {
 
     await transport
       .sendMail({
-        from: email?.reply, 
+        from: email?.reply,
         to: ticket.email,
         subject: `Issue #${ticket.Number} status is now ${
           ticket.isComplete ? "COMPLETED" : "OUTSTANDING"
-        }`, 
+        }`,
         text: `Hello there, Issue #${ticket.Number}, now has a status of ${
           ticket.isComplete ? "COMPLETED" : "OUTSTANDING"
         }`,

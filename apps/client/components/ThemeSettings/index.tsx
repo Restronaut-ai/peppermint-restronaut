@@ -42,7 +42,9 @@ export default function ThemeSettings() {
       <main className="relative">
         <div className="flex justify-center">
           <Select onValueChange={toggleTheme} value={theme}>
-            <SelectTrigger className={`${state === "expanded" ? "w-[280px]" : "hidden"}`}>
+            <SelectTrigger
+              className={`${state === "expanded" ? "w-[280px]" : "hidden"}`}
+            >
               {state === "expanded" ? (
                 <SelectValue placeholder="Select a theme" />
               ) : (

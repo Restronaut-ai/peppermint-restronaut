@@ -17,7 +17,6 @@ export default function Login({}) {
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
-
           toast({
             variant: "default",
             title: "Success",
@@ -27,7 +26,7 @@ export default function Login({}) {
         } else {
           toast({
             variant: "destructive",
-            title: "Error", 
+            title: "Error",
             description:
               "There was an error with this request, please try again. If this issue persists, please contact support via the discord.",
           });

@@ -39,7 +39,7 @@ export function NavMain({
       if (savedFlags) {
         const flags = JSON.parse(savedFlags);
         const hideShortcuts = flags.find(
-          (f: any) => f.name === "Hide Keyboard Shortcuts"
+          (f: any) => f.name === "Hide Keyboard Shortcuts",
         )?.enabled;
         setHideKeyboardShortcuts(hideShortcuts || false);
       }
@@ -130,7 +130,7 @@ export function NavMain({
                 </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
-          )
+          ),
         )}
       </SidebarMenu>
     </SidebarGroup>

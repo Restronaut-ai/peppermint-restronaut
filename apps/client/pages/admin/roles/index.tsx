@@ -153,7 +153,7 @@ export default function Roles() {
                           onClick={() => {
                             if (
                               window.confirm(
-                                "Are you sure you want to delete this role?"
+                                "Are you sure you want to delete this role?",
                               )
                             ) {
                               handleDeleteRole(role.id);

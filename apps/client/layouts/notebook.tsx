@@ -26,7 +26,7 @@ export default function NoteBookLayout({ children }) {
   const token = getCookie("session");
 
   const { data, status, error, refetch } = useQuery("getUsersNotebooks", () =>
-    fetchNotebooks(token)
+    fetchNotebooks(token),
   );
 
   const [notebooks, setNotebooks] = useState<any>();
@@ -69,7 +69,7 @@ export default function NoteBookLayout({ children }) {
                           router.query.id === item.id
                             ? "bg-green-500 text-white hover:text-white"
                             : "text-gray-900 dark:text-white hover:bg-green-500 hover:text-white hover:bg-opacity-75",
-                          "group flex text-left px-2 py-2 w-full text-sm font-medium border-b-[1px] border-gray-200"
+                          "group flex text-left px-2 py-2 w-full text-sm font-medium border-b-[1px] border-gray-200",
                         )}
                       >
                         <div className="flex flex-row items-center justify-between w-full">

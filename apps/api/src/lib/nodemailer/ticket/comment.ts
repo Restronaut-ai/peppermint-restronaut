@@ -6,7 +6,7 @@ export async function sendComment(
   comment: string,
   title: string,
   id: string,
-  email: string
+  email: string,
 ) {
   try {
     const provider = await prisma.email.findFirst();

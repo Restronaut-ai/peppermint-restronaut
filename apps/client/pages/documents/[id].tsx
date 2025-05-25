@@ -8,7 +8,6 @@ const Editor = dynamic(() => import("../../components/NotebookEditor"), {
 });
 
 export default function Notebooks() {
-
   return (
     <>
       <Editor />

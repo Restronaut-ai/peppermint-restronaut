@@ -23,7 +23,7 @@ export function timeTrackingRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    }
+    },
   );
 
   // Get all entries

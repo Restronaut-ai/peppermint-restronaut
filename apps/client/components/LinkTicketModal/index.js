@@ -150,7 +150,7 @@ export default function LinkTicket({ id }) {
                                           active
                                             ? "text-white bg-indigo-600"
                                             : "text-gray-900",
-                                          "cursor-default select-none relative py-2 pl-3 pr-9"
+                                          "cursor-default select-none relative py-2 pl-3 pr-9",
                                         )
                                       }
                                       value={ticket}
@@ -162,7 +162,7 @@ export default function LinkTicket({ id }) {
                                               n
                                                 ? "font-semibold"
                                                 : "font-normal",
-                                              "block truncate"
+                                              "block truncate",
                                             )}
                                           >
                                             {ticket.title} - #{ticket.id}
@@ -174,7 +174,7 @@ export default function LinkTicket({ id }) {
                                                 active
                                                   ? "text-white"
                                                   : "text-indigo-600",
-                                                "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                "absolute inset-y-0 right-0 flex items-center pr-4",
                                               )}
                                             >
                                               <CheckIcon

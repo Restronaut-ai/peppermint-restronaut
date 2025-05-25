@@ -187,8 +187,8 @@ export default function Ticket() {
                                   {data.ticket.assignedTo
                                     ? data.ticket.assignedTo.name
                                     : n
-                                    ? n.name
-                                    : t("select_new_user")}
+                                      ? n.name
+                                      : t("select_new_user")}
                                 </span>
                               </Listbox.Button>
 
@@ -208,7 +208,7 @@ export default function Ticket() {
                                           active
                                             ? "text-white bg-indigo-600"
                                             : "text-gray-900",
-                                          "cursor-default select-none relative py-2 pl-3 pr-9"
+                                          "cursor-default select-none relative py-2 pl-3 pr-9",
                                         )
                                       }
                                       value={user}
@@ -220,7 +220,7 @@ export default function Ticket() {
                                               n
                                                 ? "font-semibold"
                                                 : "font-normal",
-                                              "block truncate"
+                                              "block truncate",
                                             )}
                                           >
                                             {user.name}
@@ -232,7 +232,7 @@ export default function Ticket() {
                                                 active
                                                   ? "text-white"
                                                   : "text-indigo-600",
-                                                "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                "absolute inset-y-0 right-0 flex items-center pr-4",
                                               )}
                                             >
                                               <CheckIcon
@@ -416,7 +416,7 @@ export default function Ticket() {
 
                                             <span className="text-xs text-gray-500 dark:text-white">
                                               {moment(item.createdAt).format(
-                                                "DD/MM/YYYY hh:mm"
+                                                "DD/MM/YYYY hh:mm",
                                               )}
                                             </span>
                                           </div>
@@ -428,7 +428,7 @@ export default function Ticket() {
                                     </div>
                                   </div>
                                 </li>
-                              )
+                              ),
                             )}
                         </ul>
                       </div>

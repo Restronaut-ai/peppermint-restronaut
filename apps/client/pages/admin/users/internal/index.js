@@ -17,7 +17,7 @@ const fetchUsers = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  
+
   return res.json();
 };
 
@@ -53,7 +53,7 @@ function Table({ columns, data }) {
             : true;
         }),
     }),
-    []
+    [],
   );
 
   const defaultColumn = React.useMemo(
@@ -61,7 +61,7 @@ function Table({ columns, data }) {
       // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
-    []
+    [],
   );
 
   const {
@@ -90,7 +90,7 @@ function Table({ columns, data }) {
     },
     useFilters, // useFilters!
     useGlobalFilter,
-    usePagination
+    usePagination,
   );
 
   return (
@@ -119,7 +119,7 @@ function Table({ columns, data }) {
                           {column.canFilter ? column.render("Filter") : null}
                         </div>
                       </th>
-                    )
+                    ),
                   )}
                 </tr>
               ))}
@@ -202,7 +202,7 @@ function Table({ columns, data }) {
 export default function UserAuthPanel() {
   const token = getCookie("session");
   const { data, status, refetch } = useQuery("fetchAuthUsers", () =>
-    fetchUsers(token)
+    fetchUsers(token),
   );
 
   async function deleteUser(id) {
@@ -257,7 +257,7 @@ export default function UserAuthPanel() {
         },
       },
     ],
-    []
+    [],
   );
 
   return (

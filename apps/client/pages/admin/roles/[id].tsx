@@ -8,7 +8,9 @@ import { useEffect, useState } from "react";
 
 export default function UpdateRole() {
   const [step, setStep] = useState(1);
-  const [selectedPermissions, setSelectedPermissions] = useState<Permission[]>([]);
+  const [selectedPermissions, setSelectedPermissions] = useState<Permission[]>(
+    [],
+  );
   const [roleName, setRoleName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [users, setUsers] = useState<Array<{ id: string; email: string }>>([]);
@@ -42,7 +44,7 @@ export default function UpdateRole() {
   const fetchUsers = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('/api/v1/users/all', {
+      const response = await fetch("/api/v1/users/all", {
         headers: {
           Authorization: `Bearer ${getCookie("session")}`,
         },
@@ -98,7 +100,7 @@ export default function UpdateRole() {
       const newPermissions = [
         ...selectedPermissions,
         ...categoryPermissions.filter(
-          (p: Permission) => !selectedPermissions.includes(p)
+          (p: Permission) => !selectedPermissions.includes(p),
         ),
       ];
       setSelectedPermissions(newPermissions);
@@ -106,8 +108,8 @@ export default function UpdateRole() {
       setSelectedPermissions(
         selectedPermissions.filter(
           //@ts-ignore
-          (p: Permission) => !categoryPermissions.includes(p)
-        )
+          (p: Permission) => !categoryPermissions.includes(p),
+        ),
       );
     }
   };
@@ -120,12 +122,11 @@ export default function UpdateRole() {
   };
 
   const filteredUsers = users.filter((user) =>
-    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    user.email.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
     <div className="p-4">
-
       {step === 1 ? (
         <Card>
           <CardHeader>
@@ -182,8 +183,8 @@ export default function UpdateRole() {
                             } else {
                               setSelectedPermissions(
                                 selectedPermissions.filter(
-                                  (p) => p !== permission
-                                )
+                                  (p) => p !== permission,
+                                ),
                               );
                             }
                           }}
@@ -248,7 +249,7 @@ export default function UpdateRole() {
                             setSelectedUsers([...selectedUsers, user.id]);
                           } else {
                             setSelectedUsers(
-                              selectedUsers.filter((id) => id !== user.id)
+                              selectedUsers.filter((id) => id !== user.id),
                             );
                           }
                         }}

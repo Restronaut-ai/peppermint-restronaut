@@ -31,13 +31,21 @@ import { Toaster } from "@/shadcn/ui/toaster";
 
 import { SidebarProvider } from "@/shadcn/ui/sidebar";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 15000,
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+    },
+  },
+});
 
 function Auth({ children }: any) {
   const { loading, user } = useUser();
 
   React.useEffect(() => {
-    if (loading) return; 
+    if (loading) return;
   }, [user, loading]);
 
   if (user) {
@@ -145,7 +153,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
               <ShadLayout>
                 <Component {...pageProps} />
                 <Toaster />
-                </ShadLayout>
+              </ShadLayout>
             </Auth>
           </QueryClientProvider>
         </Theme>

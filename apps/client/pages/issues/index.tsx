@@ -28,14 +28,14 @@ export default function Tickets() {
 
   const token = getCookie("session");
   const user = useUser();
-  
+
   // Fetch tickets data
   const { data, status, refetch } = useQuery(
     "allusertickets",
     () => getUserTickets(token),
     {
       refetchInterval: 5000,
-    }
+    },
   );
 
   // Custom hooks for managing state
@@ -47,7 +47,7 @@ export default function Tickets() {
     handleStatusToggle,
     handleAssigneeToggle,
     clearFilters,
-    filteredTickets
+    filteredTickets,
   } = useTicketFilters(data?.tickets);
 
   const {
@@ -67,22 +67,22 @@ export default function Tickets() {
     updateTicketStatus,
     updateTicketAssignee,
     updateTicketPriority,
-    deleteTicket
+    deleteTicket,
   } = useTicketActions(token, refetch);
 
   // Update local storage when filters change
   useEffect(() => {
     localStorage.setItem(
       "all_selectedPriorities",
-      JSON.stringify(selectedPriorities)
+      JSON.stringify(selectedPriorities),
     );
     localStorage.setItem(
       "all_selectedStatuses",
-      JSON.stringify(selectedStatuses)
+      JSON.stringify(selectedStatuses),
     );
     localStorage.setItem(
       "all_selectedAssignees",
-      JSON.stringify(selectedAssignees)
+      JSON.stringify(selectedAssignees),
     );
   }, [selectedPriorities, selectedStatuses, selectedAssignees]);
 
@@ -132,7 +132,7 @@ export default function Tickets() {
           onAssigneeToggle={handleAssigneeToggle}
           onClearFilters={clearFilters}
         />
-        
+
         <ViewSettings
           viewMode={viewMode}
           kanbanGrouping={kanbanGrouping}
@@ -157,10 +157,7 @@ export default function Tickets() {
           uiSettings={uiSettings}
         />
       ) : (
-        <TicketKanban 
-          columns={kanbanColumns} 
-          uiSettings={uiSettings}
-        />
+        <TicketKanban columns={kanbanColumns} uiSettings={uiSettings} />
       )}
     </div>
   );

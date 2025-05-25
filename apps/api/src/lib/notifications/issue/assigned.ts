@@ -11,7 +11,7 @@ import { prisma } from "../../../prisma";
 export async function assignedNotification(
   assignee: any,
   ticket: any,
-  assigner: any
+  assigner: any,
 ) {
   try {
     const text = `Ticket #${ticket.Number} was assigned to ${assignee.name} by ${assigner.name}`;

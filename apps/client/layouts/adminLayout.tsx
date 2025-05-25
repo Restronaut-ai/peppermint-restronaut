@@ -179,7 +179,7 @@ export default function AdminLayout({ children }: any) {
                                       item.current
                                         ? "bg-secondary dark:bg-primary"
                                         : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                                      "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
+                                      "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6",
                                     )}
                                   >
                                     <item.icon
@@ -209,9 +209,9 @@ export default function AdminLayout({ children }: any) {
             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background pb-4">
               <div className="flex align-middle flex-row h-14 items-center border-b px-6">
                 {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
-                <Link href="https://peppermint.sh">
+                <Link href="https://restronaut.ai">
                   <span className="text-3xl ml-2  hover:text-green-600 font-bold ">
-                    Peppermint
+                    Restronaut
                   </span>
                 </Link>
               </div>
@@ -227,7 +227,7 @@ export default function AdminLayout({ children }: any) {
                               item.current
                                 ? "bg-secondary dark:bg-primary"
                                 : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                              "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
+                              "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6",
                             )}
                           >
                             <item.icon
@@ -276,7 +276,7 @@ export default function AdminLayout({ children }: any) {
               <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 items-center">
                 <div className="sm:flex hidden w-full justify-start items-center space-x-6">
                   {user.isAdmin && (
-                    <Link href="https://github.com/Peppermint-Lab/peppermint/releases">
+                    <Link href="https://restronaut.ai">
                       <span className="inline-flex items-center rounded-md bg-green-700/10 px-3 py-2 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/20">
                         Version {process.env.NEXT_PUBLIC_CLIENT_VERSION}
                       </span>
@@ -287,15 +287,15 @@ export default function AdminLayout({ children }: any) {
                 <div className="flex w-full justify-end items-center gap-x-2 lg:gap-x-2 ">
                   <Button
                     variant="outline"
-                    className="relative rounded-md p-2 text-gray-400 hover:text-gray-500 hover:cursor-pointer focus:outline-none"
+                    className="relative rounded-md p-2 text-muted hover:text-primary hover:cursor-pointer focus:outline-none"
                   >
                     <Link href="/notifications">
                       <InboxStackIcon className="h-4 w-4 text-foreground" />
                       {user.notifcations.filter(
-                        (notification) => !notification.read
+                        (notification) => !notification.read,
                       ).length > 0 && (
                         <svg
-                          className="h-2.5 w-2.5 absolute bottom-6 left-6 animate-pulse fill-green-500"
+                          className="h-2.5 w-2.5 absolute bottom-6 left-6 animate-pulse fill-primary"
                           viewBox="0 0 6 6"
                           aria-hidden="true"
                         >
@@ -304,21 +304,6 @@ export default function AdminLayout({ children }: any) {
                       )}
                     </Link>
                   </Button>
-
-                  {user.isAdmin && (
-                    <Link
-                      href="https://github.com/Peppermint-Lab/peppermint/discussions"
-                      target="_blank"
-                      className="hover:cursor-pointer"
-                    >
-                      <Button
-                        variant="outline"
-                        className="text-foreground hover:cursor-pointer whitespace-nowrap"
-                      >
-                        Send Feedback
-                      </Button>
-                    </Link>
-                  )}
 
                   {/* Profile dropdown */}
                   <AccountDropdown />

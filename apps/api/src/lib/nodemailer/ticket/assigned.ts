@@ -4,7 +4,6 @@ import { createTransportProvider } from "../transport";
 
 export async function sendAssignedEmail(email: any) {
   try {
-
     const provider = await prisma.email.findFirst();
 
     if (provider) {
@@ -23,10 +22,10 @@ export async function sendAssignedEmail(email: any) {
 
       await mail
         .sendMail({
-          from: provider?.reply, 
-          to: email, 
-          subject: `A new ticket has been assigned to you`, 
-          text: `Hello there, a ticket has been assigned to you`, 
+          from: provider?.reply,
+          to: email,
+          subject: `A new ticket has been assigned to you`,
+          text: `Hello there, a ticket has been assigned to you`,
           html: htmlToSend,
         })
         .then((info: any) => {

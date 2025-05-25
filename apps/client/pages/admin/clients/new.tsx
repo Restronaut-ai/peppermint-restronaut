@@ -61,43 +61,44 @@ export default function CreateClientPage() {
                 Register a new client
               </h1>
             </div>
-            <div className="py-4">
+            <div className="py-1">
               <div className="sm:flex sm:items-start">
                 <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                   <div className="sm:flex sm:items-start">
-                    <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                      <h3 className="text-lg leading-6 font-medium text-foreground">
-                        Create a new client
-                      </h3>
-                      <h3 className="text-xs font-normal text-foreground">
+                    <div className="text-center sm:mt-0 sm:text-left w-full">
+                      <h3 className="text-base font-normal text-muted-foreground">
                         All fields are required!
                       </h3>
-                      <div className="mt-2 space-y-4">
+                      <div className="mt-6 space-y-4">
                         <input
+                          required
                           type="text"
-                          className="shadow-sm text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-3/4 sm:text-sm border-gray-300 rounded-md"
+                          className="block md:w-2/3 rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6"
                           placeholder="Enter client name here..."
                           name="name"
                           onChange={(e) => setName(e.target.value)}
                         />
 
                         <input
+                          required
                           type="email"
-                          className="shadow-sm text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6"
                           placeholder="Enter email here...."
                           onChange={(e) => setEmail(e.target.value)}
                         />
 
                         <input
+                          required
                           type="text"
-                          className="shadow-sm text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6"
                           placeholder="Enter client primary contact name here..."
                           onChange={(e) => setContactName(e.target.value)}
                         />
 
                         <input
+                          required
                           type="text"
-                          className="shadow-sm  text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6"
                           placeholder="Enter client primary contact number here..."
                           onChange={(e) => setNumber(e.target.value)}
                         />
@@ -109,7 +110,7 @@ export default function CreateClientPage() {
               <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition-colors shadow-sm hover:bg-primary/85 disabled:cursor-not-allowed disabled:opacity-75"
                   onClick={() => {
                     createClient();
                   }}

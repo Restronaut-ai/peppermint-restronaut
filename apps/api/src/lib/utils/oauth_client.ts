@@ -1,7 +1,7 @@
 // utils/oauthClients.js
 //@ts-nocheck
 
-const { AuthorizationCode } = require('simple-oauth2');
+const { AuthorizationCode } = require("simple-oauth2");
 
 const oauthClients = {};
 
@@ -21,4 +21,3 @@ export function getOAuthClient(providerConfig: any) {
   }
   return oauthClients[name];
 }
-

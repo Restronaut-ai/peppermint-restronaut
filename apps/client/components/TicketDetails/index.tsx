@@ -526,7 +526,7 @@ export default function Ticket() {
           {
             method: "POST",
             body: formData,
-          }
+          },
         );
 
         const data = await result.json();
@@ -594,7 +594,7 @@ export default function Ticket() {
 
   async function convertHTML() {
     const blocks = (await editor.tryParseHTMLToBlocks(
-      data.ticket.detail
+      data.ticket.detail,
     )) as PartialBlock[];
     editor.replaceBlocks(editor.document, blocks);
   }
@@ -992,7 +992,7 @@ export default function Ticket() {
                                             (user) =>
                                               user.id === follower &&
                                               user.id !==
-                                                data.ticket.assignedTo.id
+                                                data.ticket.assignedTo.id,
                                           );
                                           console.log(userMatch);
                                           return userMatch ? (
@@ -1000,12 +1000,13 @@ export default function Ticket() {
                                               <span>{userMatch.name}</span>
                                             </div>
                                           ) : null;
-                                        }
+                                        },
                                       )}
 
                                       {data.ticket.following.filter(
                                         (follower: any) =>
-                                          follower !== data.ticket.assignedTo.id
+                                          follower !==
+                                          data.ticket.assignedTo.id,
                                       ).length === 0 && (
                                         <span className="text-xs">
                                           This issue has no followers
@@ -1028,7 +1029,7 @@ export default function Ticket() {
                               <span>created via email at </span>
                               <span className="font-bold">
                                 {moment(data.ticket.createdAt).format(
-                                  "DD/MM/YYYY"
+                                  "DD/MM/YYYY",
                                 )}
                               </span>
                             </>
@@ -1045,7 +1046,7 @@ export default function Ticket() {
                                   </span>
                                   <span className="">
                                     {moment(data.ticket.createdAt).format(
-                                      "LLL"
+                                      "LLL",
                                     )}
                                   </span>
                                   {data.ticket.name && (
@@ -1065,7 +1066,7 @@ export default function Ticket() {
                                   <span className="">
                                     <strong>
                                       {moment(data.ticket.createdAt).format(
-                                        "LLL"
+                                        "LLL",
                                       )}
                                     </strong>
                                     {data.ticket.client && (
@@ -1405,7 +1406,7 @@ export default function Ticket() {
                             "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                             data.ticket.assignedTo === null
                               ? "bg-primary text-primary-foreground"
-                              : "opacity-50 [&_svg]:invisible"
+                              : "opacity-50 [&_svg]:invisible",
                           )}
                         >
                           <CheckIcon className={cn("h-4 w-4")} />
@@ -1424,7 +1425,7 @@ export default function Ticket() {
                               "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                               data.ticket.assignedTo?.name === user.name
                                 ? "bg-primary text-primary-foreground"
-                                : "opacity-50 [&_svg]:invisible"
+                                : "opacity-50 [&_svg]:invisible",
                             )}
                           >
                             <CheckIcon className={cn("h-4 w-4")} />
@@ -1456,7 +1457,7 @@ export default function Ticket() {
                               "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                               data.ticket.priority.toLowerCase() === priority
                                 ? "bg-primary text-primary-foreground"
-                                : "opacity-50 [&_svg]:invisible"
+                                : "opacity-50 [&_svg]:invisible",
                             )}
                           >
                             <CheckIcon className={cn("h-4 w-4")} />
@@ -1481,7 +1482,7 @@ export default function Ticket() {
                   duration: 3000,
                 });
                 navigator.clipboard.writeText(
-                  `${window.location.origin}/issue/${data.ticket.id}`
+                  `${window.location.origin}/issue/${data.ticket.id}`,
                 );
               }}
             >

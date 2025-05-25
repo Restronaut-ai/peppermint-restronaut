@@ -1,11 +1,9 @@
-
 import { getCookie } from "cookies-next";
 import moment from "moment";
 import Link from "next/link";
 import { useUser } from "../store/session";
 
 export default function Tickets() {
-
   const token = getCookie("session");
 
   const { user, fetchUserProfile } = useUser();
@@ -20,7 +18,6 @@ export default function Tickets() {
     await fetchUserProfile();
   }
 
-  
   return (
     <div>
       <div className="flex flex-col">
