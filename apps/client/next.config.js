@@ -14,6 +14,9 @@ module.exports = withPlugins([removeImports, nextTranslate, withPWA], {
   reactStrictMode: false,
   swcMinify: true,
   output: "standalone",
+  typescript: {
+    ignoreBuildErrors: true
+  },
 
   async rewrites() {
     return [

@@ -12,8 +12,10 @@ import {
   CheckIcon,
   ChevronUpDownIcon,
 } from "@heroicons/react/20/solid";
+import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
+import { useQuery } from "react-query";
 
 const type = [
   { id: 5, name: "Incident" },
@@ -31,6 +33,30 @@ const pri = [
   { id: 9, name: "High" },
 ];
 
+const fetchAllClients = async () => {
+  const res = await fetch(`/api/v1/clients/all`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getCookie("session")}`,
+    },
+  });
+  const json = await res.json();
+  return json?.clients || [];
+};
+
+
+const fetchAllStores = async (clientId: string) => {
+  const res = await fetch(`/api/v1/clients/${clientId}/stores`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getCookie("session")}`,
+    },
+  });
+  const json = await res.json();
+  return json?.stores || [];
+};
+
+
 export default function ClientTicketNew() {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -47,6 +73,20 @@ export default function ClientTicketNew() {
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState(pri[0]);
+
+  const [restaurant, setRestaurant] = useState<{name: string; id: string;}>();
+  const [store, setStore] = useState<{name: string; id: string;}>();
+
+  const { data: allClients } = useQuery({
+    queryKey: ["fetchAllClients"],
+    queryFn: fetchAllClients,
+  });
+
+  const { data: allStores } = useQuery({
+    enabled: !!restaurant?.id,
+    queryKey: ["fetchAllStores", restaurant?.id],
+    queryFn: () => fetchAllStores(restaurant?.id),
+  });
 
   async function submitTicket() {
     setIsLoading(true);
@@ -156,6 +196,159 @@ export default function ClientTicketNew() {
                   value={subject}
                 />
               </div>
+            </div>
+
+             <div className="grid sm:grid-cols-2 gap-x-4">
+             <Listbox value={restaurant} onChange={setRestaurant}>
+              {({ open }) => (
+                <div className="grid gap-1">
+                  <Listbox.Label className="block text-sm font-medium leading-6 text-foreground/75 select-none">
+                    Restaurant <sup className="text-destructive">*</sup>
+                  </Listbox.Label>
+                  <div className="relative">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left hover:text-foreground/75 shadow-sm ring-1 ring-inset ring-border focus:outline-none font-medium text-sm sm:leading-6">
+                      <span className="block truncate">{restaurant?.name || "Select a restaurant"}</span>
+                      <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                        <ChevronUpDownIcon
+                          className="h-5 w-5 text-muted-foreground"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </Listbox.Button>
+
+                    <Transition
+                      show={open}
+                      as={Fragment}
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 text-base shadow-lg ring-2 ring-border focus:outline-none sm:text-sm">
+                        {allClients?.map?.((client) => (
+                          <Listbox.Option
+                            key={client.id}
+                            className={({ active }) =>
+                              classNames(
+                                active
+                                  ? "bg-muted text-primary"
+                                  : "text-muted-foreground",
+                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                              )
+                            }
+                            value={{id: client.id, name: client.name}}
+                          >
+                            {({ selected, active }) => (
+                              <>
+                                <span
+                                  className={classNames(
+                                    selected ? "font-semibold" : "font-normal",
+                                    "block truncate",
+                                  )}
+                                >
+                                  {client.name}
+                                </span>
+
+                                {selected ? (
+                                  <span
+                                    className={classNames(
+                                      active
+                                        ? "text-muted-foreground"
+                                        : "text-primary",
+                                      "absolute inset-y-0 right-0 flex items-center pr-4",
+                                    )}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
+                    </Transition>
+                  </div>
+                </div>
+              )}
+            </Listbox>
+
+             <Listbox value={store} onChange={setStore}>
+              {({ open }) => (
+                <div className="grid gap-1">
+                  <Listbox.Label className="block text-sm font-medium leading-6 text-foreground/75 select-none">
+                    Restaurant <sup className="text-destructive">*</sup>
+                  </Listbox.Label>
+                  <div className="relative">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left hover:text-foreground/75 shadow-sm ring-1 ring-inset ring-border focus:outline-none font-medium text-sm sm:leading-6">
+                      <span className="block truncate">{store?.name || "Select a store"}</span>
+                      <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                        <ChevronUpDownIcon
+                          className="h-5 w-5 text-muted-foreground"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </Listbox.Button>
+
+                    <Transition
+                      show={open}
+                      as={Fragment}
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 text-base shadow-lg ring-2 ring-border focus:outline-none sm:text-sm">
+                        {allStores?.map((store) => (
+                          <Listbox.Option
+                            key={store.id}
+                            className={({ active }) =>
+                              classNames(
+                                active
+                                  ? "bg-muted text-primary"
+                                  : "text-muted-foreground",
+                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                              )
+                            }
+                            value={{id: store.id, name: store.name}}
+                          >
+                            {({ selected, active }) => (
+                              <>
+                                <span
+                                  className={classNames(
+                                    selected ? "font-semibold" : "font-normal",
+                                    "block truncate",
+                                  )}
+                                >
+                                  {store.name}
+                                </span>
+
+                                {selected ? (
+                                  <span
+                                    className={classNames(
+                                      active
+                                        ? "text-muted-foreground"
+                                        : "text-primary",
+                                      "absolute inset-y-0 right-0 flex items-center pr-4",
+                                    )}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
+                    </Transition>
+                  </div>
+                </div>
+              )}
+            </Listbox>
+
             </div>
 
             <Listbox value={selected} onChange={setSelected}>

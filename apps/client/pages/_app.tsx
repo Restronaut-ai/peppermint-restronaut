@@ -137,10 +137,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
 
   if (router.pathname === "/submit") {
     return (
-      <>
+      <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
         <Toaster />
-      </>
+      </QueryClientProvider>
     );
   }
 

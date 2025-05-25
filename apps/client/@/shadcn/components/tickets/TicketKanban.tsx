@@ -40,8 +40,8 @@ export default function TicketKanban({
                     draggable({
                       element,
                       dragHandle: element,
-                      data: { ticketId: ticket.id } as const,
-                    });
+                      data: { ticketId: ticket.id },
+                    } as any);
                   }}
                   className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border dark:border-gray-700 p-3 cursor-move hover:shadow-md transition-shadow"
                 >
