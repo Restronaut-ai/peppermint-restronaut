@@ -5,6 +5,7 @@
 // Send Email to customer with ticket creation
 // Send Email to Engineers with ticket creation if email notifications are turned on
 
+import React from "react";
 import { toast } from "@/shadcn/hooks/use-toast";
 import { Listbox, Transition } from "@headlessui/react";
 import {
@@ -16,6 +17,7 @@ import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { useQuery } from "react-query";
+import { twJoin } from "tailwind-merge";
 
 const type = [
   { id: 5, name: "Incident" },
@@ -87,6 +89,10 @@ export default function ClientTicketNew() {
     queryKey: ["fetchAllStores", restaurant?.id],
     queryFn: () => fetchAllStores(restaurant?.id),
   });
+
+  React.useEffect(() => {
+    setStore(undefined);
+  }, [restaurant, setStore])
 
   async function submitTicket() {
     setIsLoading(true);
@@ -274,14 +280,16 @@ export default function ClientTicketNew() {
               )}
             </Listbox>
 
-             <Listbox value={store} onChange={setStore}>
+             <Listbox value={store} onChange={setStore} disabled={!restaurant?.id}>
               {({ open }) => (
                 <div className="grid gap-1">
                   <Listbox.Label className="block text-sm font-medium leading-6 text-foreground/75 select-none">
-                    Restaurant <sup className="text-destructive">*</sup>
+                    Store <sup className="text-destructive">*</sup>
                   </Listbox.Label>
                   <div className="relative">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left hover:text-foreground/75 shadow-sm ring-1 ring-inset ring-border focus:outline-none font-medium text-sm sm:leading-6">
+                    <Listbox.Button className={twJoin("[data-headlessui-state=disabled]:cursor-not-allowed relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left hover:text-foreground/75 shadow-sm ring-1 ring-inset ring-border focus:outline-none font-medium text-sm sm:leading-6", [
+
+                    ])}>
                       <span className="block truncate">{store?.name || "Select a store"}</span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon

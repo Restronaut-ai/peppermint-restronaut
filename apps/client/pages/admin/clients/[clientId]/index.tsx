@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useQuery, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
 import { getCookie } from "cookies-next";
-import { StoreInfoForm } from "./_StoreInfoForm";
 import { toast } from "@/shadcn/hooks/use-toast";
 import {
   useFilters,
@@ -11,6 +10,7 @@ import {
   usePagination,
   useTable,
 } from "react-table";
+import { StoreInfoForm } from "../../../../components/StoreInfoForm";
 
 const fetchAllClientStores = async (clientId) => {
   const res = await fetch(`/api/v1/clients/${clientId}/stores`, {
