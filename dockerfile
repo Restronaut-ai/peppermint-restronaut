@@ -1,45 +1,31 @@
 FROM node:lts AS builder
 
-# Set the working directory inside the container
-WORKDIR /app
+WORKDIR /src
 
 RUN apt-get update && \
     apt-get install -y build-essential python3
 
-# Copy the package.json and package-lock.json files for both apps
-# COPY apps/api/package*.json ./apps/api/
-COPY apps/client/package*.json ./apps/client/
-# COPY ./ecosystem.config.js ./ecosystem.config.js
+COPY apps/api ./api
+RUN cd api && yarn install && yarn run build
 
-# RUN npm i -g prisma
-# RUN npm i -g typescript@latest -g --force 
-
-# Copy the source code for both apps
-# COPY apps/api ./apps/api
-COPY apps/client ./apps/client
-
-# RUN cd apps/api && npm install --production
-# RUN cd apps/api && npm i --save-dev @types/node && npm run build
-
-# RUN cd apps/client && yarn install --production --ignore-scripts --prefer-offline --network-timeout 1000000
-RUN cd apps/client && yarn
-## RUN cd apps/client && yarn add --dev typescript @types/node --network-timeout 1000000
-RUN cd apps/client && yarn build
+COPY apps/client ./client
+RUN cd client && yarn install && yarn run build
 
 FROM node:lts AS runner
 
-COPY --from=builder /app/apps/api/ ./apps/api/
-COPY --from=builder /app/apps/client/.next/standalone ./apps/client
-COPY --from=builder /app/apps/client/.next/static ./apps/client/.next/static
-COPY --from=builder /app/apps/client/public ./apps/client/public
-COPY --from=builder /app/ecosystem.config.js ./ecosystem.config.js
+WORKDIR /output
 
-# Expose the ports for both apps
-EXPOSE 3000 5003
+COPY --from=builder /src/api/src apps/api/src
+COPY --from=builder /src/api/dist apps/api/dist
+COPY --from=builder /src/api/package.json apps/api/package.json
+RUN cd apps/api && yarn install --production
 
-# Install PM2 globally
+COPY --from=builder /src/client/.next/standalone apps/client
+COPY --from=builder /src/client/public apps/client/public
+COPY --from=builder /src/client/.next/static apps/client/.next/static
+
 RUN npm install -g pm2
+COPY ecosystem.config.js .
 
-# Start both apps using PM2
+EXPOSE 3000
 CMD ["pm2-runtime", "ecosystem.config.js"]
-
