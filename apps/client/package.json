@@ -54,6 +54,7 @@
     "posthog-js": "1.93.2",
     "prismjs": "^1.29.0",
     "prop-types": "^15.8.1",
+    "prosemirror-view": "1.37.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-frame-component": "^5.2.6",
@@ -86,5 +87,8 @@
     "tailwindcss": "^3.0.7",
     "terser-webpack-plugin": "^5.3.3",
     "typescript": "5.4"
+  },
+  "resolutions": {
+    "prosemirror-view": "1.37.1"
   }
 }
