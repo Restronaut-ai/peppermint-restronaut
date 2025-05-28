@@ -158,9 +158,9 @@ export default function AdminLayout({ children }: any) {
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-4">
                       <div className="flex align-middle flex-row h-14 items-center border-b-[1px]">
                         {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
-                        <Link href="https://peppermint.sh">
+                        <Link href="https://restronaut.ai">
                           <span className="text-3xl ml-2  hover:text-green-600 font-bold ">
-                            Peppermint
+                            Restronaut Support
                           </span>
                         </Link>
                       </div>
