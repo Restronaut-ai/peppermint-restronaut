@@ -69,9 +69,12 @@ server.addHook("preHandler", async function (request: any, reply: any) {
     ) {
       return true;
     }
+
     const bearer = request.headers.authorization!.split(" ")[1];
     checkToken(bearer);
   } catch (err) {
+    if (request.method === "GET") return true;
+
     reply.status(401).send({
       message: "Unauthorized",
       success: false,

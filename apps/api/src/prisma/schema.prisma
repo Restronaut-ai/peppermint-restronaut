@@ -149,8 +149,11 @@ model Ticket {
   assignedTo User?   @relation(fields: [userId], references: [id])
   client     Client? @relation(fields: [clientId], references: [id])
   clientId   String?
-  userId     String?
 
+  store   Store?  @relation(fields: [storeId], references: [id])
+  storeId String?
+
+  userId        String?
   knowledgeBase knowledgeBase[]
   notifications notifications[]
 }
@@ -232,8 +235,9 @@ model Store {
 
   tags Tag[] @relation("StoreTags")
 
-  client   Client @relation(fields: [clientId], references: [id])
+  client   Client   @relation(fields: [clientId], references: [id])
   clientId String
+  tickets  Ticket[]
 }
 
 model UserFile {

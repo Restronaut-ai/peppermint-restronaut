@@ -298,37 +298,35 @@ export default function Clients() {
             <h1 className="text-3xl font-extrabold text-foreground">Clients</h1>
           </div>
           <div className="px-4 sm:px-6 md:px-0">
-            <div className="sm:flex sm:items-center">
-              <div className="sm:flex-auto mt-4">
+            <div className="flex flex-col lg:flex-row gap-y-4 lg:items-center lg:justify-between pt-2">
                 <p className="mt-2 text-sm text-muted-foreground">
                   A list of all internal users of your instance.
                 </p>
-              </div>
-              <div className="sm:ml-16 mt-5 flex flex-row space-x-2">
+              <div className="flex flex-row max-sm:flex-wrap gap-2">
                 <Link
                   href={`/submit`}
                   type="button"
-                  className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                  className="max-lg:w-full flex items-center justify-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                 >
                   Guest Ticket Url
                 </Link>
                 <Link
                   href={`/portal/`}
                   type="button"
-                  className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                  className="max-lg:w-full flex items-center justify-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                 >
                   Portal Url
                 </Link>
                 <Link
                   href={`/auth/register`}
                   type="button"
-                  className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                  className="max-lg:w-full flex items-center justify-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                 >
                   Portal Register
                 </Link>
                 <Link
                   href="/admin/clients/new"
-                  className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                  className="max-lg:w-full flex items-center justify-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                 >
                   New Client
                 </Link>
@@ -357,7 +355,7 @@ export default function Clients() {
                   </div>
 
                   <div className="sm:hidden">
-                    {data.clients.map((client: any) => (
+                    {data.clients?.map((client: any) => (
                       <div
                         key={client.id}
                         className="flex flex-col text-center bg-muted rounded-lg shadow mt-4"

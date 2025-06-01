@@ -39,6 +39,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
       const {
         name,
         company,
+        store,
         detail,
         title,
         priority,
@@ -66,12 +67,9 @@ export function ticketRoutes(fastify: FastifyInstance) {
                 email: createdBy.email,
               }
             : undefined,
-          client:
-            company !== undefined
-              ? {
-                  connect: { id: company.id || company },
-                }
-              : undefined,
+          store: store !== undefined ? { connect: { id: store } } : undefined,
+          client: company !== undefined ? { connect: { id: company } } : undefined,
+
           fromImap: false,
           assignedTo:
             engineer && engineer.name !== "Unassigned"

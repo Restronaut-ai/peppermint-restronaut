@@ -98,9 +98,6 @@ export function clientRoutes(fastify: FastifyInstance) {
   // Get store of client
   fastify.get(
     "/api/v1/clients/:clientId/stores",
-    {
-      preHandler: requirePermission(["store::read"]),
-    },
     async (request: FastifyRequest, reply: FastifyReply) => {
       const { clientId }: any = request.params;
 
@@ -134,7 +131,7 @@ export function clientRoutes(fastify: FastifyInstance) {
     const { clientId }: any = request.params;
 
     const tag = await prisma.tag.create({
-      data: { value, clientId, },
+      data: { value, clientId },
       select: { id: true, value: true },
     });
 

@@ -321,32 +321,29 @@ export default function ClientStoresPage() {
             <h1 className="text-3xl font-extrabold text-foreground">Stores</h1>
           </div>
           <div className="px-4 sm:px-6 md:px-0">
-            <div className="sm:flex sm:items-center">
-              <div className="sm:flex-auto mt-4">
+<div className="flex flex-col lg:flex-row gap-y-4 lg:items-center lg:justify-between pt-2">
                 <p className="mt-2 text-sm text-muted-foreground">
-                  A list of all stores available for this client.
+A list of all stores available for this client.
                 </p>
-              </div>
-              <div className="sm:ml-16 mt-5 flex flex-row space-x-2">
+              <div className="flex flex-row max-sm:flex-wrap gap-2">
                 <Link
                   href={`/submit`}
                   type="button"
-                  className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                  className="max-lg:w-full flex items-center justify-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                 >
                   Guest Ticket Url
                 </Link>
                 <Link
                   href={`/auth/register`}
                   type="button"
-                  className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                  className="max-lg:w-full flex items-center justify-center px-2.5 py-1.5 border font-semibold border-border shadow-sm text-xs rounded bg-muted hover:bg-muted/85 hover:text-foreground text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                 >
                   Portal Register
                 </Link>
+               <StoreInfoForm refetch={refetch} clientId={clientId} />
 
-                <StoreInfoForm refetch={refetch} clientId={clientId} />
               </div>
             </div>
-
             <div className="py-4">
               {status === "loading" && (
                 <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
@@ -393,6 +390,13 @@ export default function ClientStoresPage() {
                           </dl>
                         </div>
                         <div className="space-x-4 align-middle flex flex-row justify-center -mt-4 mb-4">
+                          <StoreInfoForm
+                refetch={refetch}
+                clientId={clientId}
+                store={store}
+                type="update"
+              />
+
                           <button
                             type="button"
                             className="rounded bg-destructive text-destructive-foreground hover:bg-destructive/85 px-2.5 py-1.5 text-xs font-semibold shadow-sm ring-1 ring-inset ring-destructive"
