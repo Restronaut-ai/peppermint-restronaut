@@ -2,7 +2,7 @@
 FROM node:lts-alpine AS builder
 
 # Install build dependencies
-RUN apk add --no-cache python3 make g++ git
+RUN apk add --no-cache python3 make g++ git openssl
 
 WORKDIR /src
 
@@ -16,6 +16,7 @@ RUN cd client && yarn install && yarn build && rm -rf node_modules
 
 # Stage 2: Runner
 FROM node:lts-alpine AS runner
+RUN apk add --no-cache openssl
 
 WORKDIR /output
 
