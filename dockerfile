@@ -12,7 +12,7 @@ RUN cd api && yarn install && yarn build
 
 # Copy and build Client
 COPY apps/client ./client
-RUN cd client && yarn install && yarn build
+RUN cd client && yarn install && yarn build && rm -rf node_modules
 
 # Stage 2: Runner
 FROM node:lts-alpine AS runner
