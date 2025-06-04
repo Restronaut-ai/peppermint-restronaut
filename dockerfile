@@ -32,7 +32,6 @@ RUN cd apps/api && yarn install --production
 COPY --from=builder /src/client/.next/standalone apps/client
 COPY --from=builder /src/client/public apps/client/public
 COPY --from=builder /src/client/.next/static apps/client/.next/static
-RUN rm -rf  apps/client/node_modules
 
 # Install PM2 globally
 RUN npm install -g pm2
