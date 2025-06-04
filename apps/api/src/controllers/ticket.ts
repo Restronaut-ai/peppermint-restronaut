@@ -68,7 +68,8 @@ export function ticketRoutes(fastify: FastifyInstance) {
               }
             : undefined,
           store: store !== undefined ? { connect: { id: store } } : undefined,
-          client: company !== undefined ? { connect: { id: company } } : undefined,
+          client:
+            company !== undefined ? { connect: { id: company } } : undefined,
 
           fromImap: false,
           assignedTo:

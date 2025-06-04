@@ -66,20 +66,20 @@ export function authRoutes(fastify: FastifyInstance) {
         body: {
           type: "object",
           properties: {
+            name: { type: "string" },
             email: { type: "string" },
             password: { type: "string" },
-            admin: { type: "boolean" },
-            name: { type: "string" },
+            isAdmin: { type: "boolean" },
           },
-          required: ["email", "password", "name", "admin"],
+          required: ["email", "password", "name", "isAdmin"],
         },
       },
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      let { email, password, admin, name } = request.body as {
+      let { email, password, isAdmin, name } = request.body as {
         email: string;
         password: string;
-        admin: boolean;
+        isAdmin: boolean;
         name: string;
       };
 
@@ -106,9 +106,9 @@ export function authRoutes(fastify: FastifyInstance) {
       const user = await prisma.user.create({
         data: {
           email,
-          password: await bcrypt.hash(password, 10),
           name,
-          isAdmin: admin,
+          isAdmin,
+          password: await bcrypt.hash(password, 10),
         },
       });
 
@@ -856,6 +856,39 @@ export function authRoutes(fastify: FastifyInstance) {
         data: {
           password: hashedPass,
         },
+      });
+
+      reply.send({
+        success: true,
+      });
+    },
+  );
+
+  fastify.put(
+    "/api/v1/auth/:userId",
+    {
+      preHandler: requirePermission(["user::update"]),
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      let newPassword: string|undefined;
+
+      const body = request.body as any;
+      const { userId }: any = request.params;
+      const user = await prisma.user.findFirst({
+        where: { id: userId },
+      });
+
+      if (user && user.email === (request.body as any).email) {
+        return reply.code(400).send({ message: "Email already exists" });
+      }
+
+      if(body.password) {
+        newPassword = await bcrypt.hash(body.password, 10);
+      }
+
+      await prisma.user.update({
+        where: { id: userId },
+        data: { ...body, password: newPassword },
       });
 
       reply.send({

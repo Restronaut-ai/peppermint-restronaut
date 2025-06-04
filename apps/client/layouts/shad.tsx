@@ -66,7 +66,6 @@ export default function ShadLayout({ children }: any) {
                     </Link>
                   </Button>
 
-
                   <AccountDropdown />
                 </div>
               </div>

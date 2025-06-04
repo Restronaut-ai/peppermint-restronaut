@@ -29,13 +29,11 @@ export default function UpdateUserModal({ user }) {
         if (res.success === true) {
           toast({
             variant: "default",
-            title: "Success",
             description: "User updated succesfully",
           });
         } else {
           toast({
             variant: "destructive",
-            title: "Error",
             description: res.message,
           });
         }

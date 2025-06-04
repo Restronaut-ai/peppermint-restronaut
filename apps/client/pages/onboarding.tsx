@@ -34,7 +34,8 @@ export default function Home() {
                 Restronaut Support{" "}
               </h1>
               <p className="text-foreground">
-                Welcome to Restronaut Support! Our ticket management and issues tracking system.
+                Welcome to Restronaut Support! Our ticket management and issues
+                tracking system.
               </p>
             </div>
           </div>

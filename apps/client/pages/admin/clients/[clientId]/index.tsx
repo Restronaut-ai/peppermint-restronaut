@@ -321,10 +321,10 @@ export default function ClientStoresPage() {
             <h1 className="text-3xl font-extrabold text-foreground">Stores</h1>
           </div>
           <div className="px-4 sm:px-6 md:px-0">
-<div className="flex flex-col lg:flex-row gap-y-4 lg:items-center lg:justify-between pt-2">
-                <p className="mt-2 text-sm text-muted-foreground">
-A list of all stores available for this client.
-                </p>
+            <div className="flex flex-col lg:flex-row gap-y-4 lg:items-center lg:justify-between pt-2">
+              <p className="mt-2 text-sm text-muted-foreground">
+                A list of all stores available for this client.
+              </p>
               <div className="flex flex-row max-sm:flex-wrap gap-2">
                 <Link
                   href={`/submit`}
@@ -340,8 +340,7 @@ A list of all stores available for this client.
                 >
                   Portal Register
                 </Link>
-               <StoreInfoForm refetch={refetch} clientId={clientId} />
-
+                <StoreInfoForm refetch={refetch} clientId={clientId} />
               </div>
             </div>
             <div className="py-4">
@@ -391,11 +390,11 @@ A list of all stores available for this client.
                         </div>
                         <div className="space-x-4 align-middle flex flex-row justify-center -mt-4 mb-4">
                           <StoreInfoForm
-                refetch={refetch}
-                clientId={clientId}
-                store={store}
-                type="update"
-              />
+                            refetch={refetch}
+                            clientId={clientId}
+                            store={store}
+                            type="update"
+                          />
 
                           <button
                             type="button"

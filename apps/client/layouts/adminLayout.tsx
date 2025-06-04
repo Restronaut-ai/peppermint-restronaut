@@ -274,8 +274,7 @@ export default function AdminLayout({ children }: any) {
               />
 
               <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 items-center">
-                <div className="sm:flex hidden w-full justify-start items-center space-x-6">
-                </div>
+                <div className="sm:flex hidden w-full justify-start items-center space-x-6"></div>
 
                 <div className="flex w-full justify-end items-center gap-x-2 lg:gap-x-2 ">
                   <Button

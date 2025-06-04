@@ -57,7 +57,7 @@ export default function ThemeSettings() {
                 <SelectItem value="light">Light</SelectItem>
                 <SelectItem value="dark">Dark</SelectItem>
                 <SelectItem value="solarized-light">Solarized Light</SelectItem>
-                <SelectItem value="solarized-dark">Solarized Dark</SelectItem>
+                {/*<SelectItem value="solarized-dark">Solarized Dark</SelectItem>
                 <SelectItem value="forest">Forest</SelectItem>
                 <SelectItem value="material-light">Material Light</SelectItem>
                 <SelectItem value="material-dark">Material Dark</SelectItem>
@@ -66,7 +66,7 @@ export default function ThemeSettings() {
                 <SelectItem value="high-contrast-dark">
                   High Contrast Dark
                 </SelectItem>
-                <SelectItem value="pastel">Pastel</SelectItem>
+                <SelectItem value="pastel">Pastel</SelectItem>*/}
               </SelectGroup>
             </SelectContent>
           </Select>

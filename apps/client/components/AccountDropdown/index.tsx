@@ -1,8 +1,4 @@
-import {
-  LogOut,
-  Settings,
-  User,
-} from "lucide-react";
+import { LogOut, Settings, User } from "lucide-react";
 
 import { Button } from "@/shadcn/ui/button";
 import {

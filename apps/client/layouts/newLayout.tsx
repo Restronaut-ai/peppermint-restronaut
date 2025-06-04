@@ -461,7 +461,6 @@ export default function NewLayout({ children }: any) {
             />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 items-center">
-
               <div className="flex w-full justify-end items-center gap-x-2 lg:gap-x-2 ">
                 <Button
                   variant="outline"

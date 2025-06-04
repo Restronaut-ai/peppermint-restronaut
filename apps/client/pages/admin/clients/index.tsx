@@ -299,9 +299,9 @@ export default function Clients() {
           </div>
           <div className="px-4 sm:px-6 md:px-0">
             <div className="flex flex-col lg:flex-row gap-y-4 lg:items-center lg:justify-between pt-2">
-                <p className="mt-2 text-sm text-muted-foreground">
-                  A list of all internal users of your instance.
-                </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                A list of all internal users of your instance.
+              </p>
               <div className="flex flex-row max-sm:flex-wrap gap-2">
                 <Link
                   href={`/submit`}

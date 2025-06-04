@@ -7,7 +7,7 @@ const withPWA = require("next-pwa")({
   register: true,
   skipWaiting: true,
   disable: false,
-  disableDevLogs: true
+  disableDevLogs: true,
 });
 
 module.exports = withPlugins([removeImports, nextTranslate, withPWA], {
@@ -15,7 +15,7 @@ module.exports = withPlugins([removeImports, nextTranslate, withPWA], {
   swcMinify: true,
   output: "standalone",
   typescript: {
-    ignoreBuildErrors: true
+    ignoreBuildErrors: true,
   },
 
   async rewrites() {
