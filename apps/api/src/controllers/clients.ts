@@ -63,9 +63,6 @@ export function clientRoutes(fastify: FastifyInstance) {
   // Get all clients
   fastify.get(
     "/api/v1/clients/all",
-    {
-      preHandler: requirePermission(["client::read"]),
-    },
     async (request: FastifyRequest, reply: FastifyReply) => {
       const clients = await prisma.client.findMany({});
 
