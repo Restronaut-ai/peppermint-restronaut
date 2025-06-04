@@ -14,6 +14,7 @@ import {
   CheckCircleIcon,
   CheckIcon,
   ChevronUpDownIcon,
+  ArrowPathIcon,
 } from "@heroicons/react/20/solid";
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";
@@ -102,12 +103,12 @@ export default function ClientTicketNew() {
 
   const values = watch();
 
-  const { data: allClients } = useQuery({
+  const { data: allClients, isLoading: isClientsLoading } = useQuery({
     queryFn: fetchAllClients,
     queryKey: ["fetchAllClients"],
   });
 
-  const { data: allStores } = useQuery({
+  const { data: allStores, isLoading: isStoresLoading } = useQuery({
     enabled: !!values.company,
     queryKey: ["fetchAllStores", values.company],
     queryFn: () => fetchAllStores(values.company),
@@ -236,8 +237,8 @@ export default function ClientTicketNew() {
                           {allClients?.find((c) => c.id === values.company)
                             ?.name ?? "Select a company."}
                         </span>
-                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                          <ChevronUpDownIcon className="h-5 w-5" />
+                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
+                          {isClientsLoading ? <ArrowPathIcon className="animate-spin"/> :<ChevronUpDownIcon />}
                         </span>
                       </Listbox.Button>
                       <Transition show={open} as={Fragment}>
@@ -311,8 +312,8 @@ export default function ClientTicketNew() {
                           {allStores?.find((s) => s.id === values.store)
                             ?.name ?? "Select a store."}
                         </span>
-                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                          <ChevronUpDownIcon className="h-5 w-5" />
+                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
+                          {isStoresLoading ? <ArrowPathIcon className="animate-spin"/> :<ChevronUpDownIcon />}
                         </span>
                       </Listbox.Button>
                       <Transition show={open} as={Fragment}>
