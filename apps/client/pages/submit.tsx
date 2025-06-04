@@ -299,7 +299,7 @@ export default function ClientTicketNew() {
                 {({ open }) => (
                   <div className="grid gap-1">
                     <Listbox.Label className="text-sm font-medium text-foreground/75">
-                      Store<sup className="text-destructive">*</sup>
+                      Store/Department<sup className="text-destructive">*</sup>
                     </Listbox.Label>
                     <div className="relative">
                       <Listbox.Button
@@ -442,8 +442,8 @@ export default function ClientTicketNew() {
                   <div className="relative">
                     <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
                       <span className="block truncate">
-                        {PRIORITIES.find((iss) => iss.name === values.type)
-                          ?.name ?? "Issue Type"}
+                        {PRIORITIES.find((priority) => priority.name === values.priority)
+                          ?.name ?? "Priority"}
                       </span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon className="h-5 w-5" />
