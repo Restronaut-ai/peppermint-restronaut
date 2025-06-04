@@ -874,12 +874,20 @@ export function authRoutes(fastify: FastifyInstance) {
 
       const body = request.body as any;
       const { userId }: any = request.params;
-      const user = await prisma.user.findFirst({
-        where: { id: userId },
-      });
 
-      if (user && user.email === (request.body as any).email) {
-        return reply.code(400).send({ message: "Email already exists" });
+      if(body.email) {
+        const userWithCurrentEmail = await prisma.user.findFirst({
+          where: { email: body.email },
+          select: { id: true }
+        });
+
+        if(userWithCurrentEmail) {
+          if (userWithCurrentEmail.id !== userId) {
+            return reply.code(400).send({ message: "Email already exists" });
+          } else {
+            body.email = undefined;
+          }
+        }
       }
 
       if(body.password) {

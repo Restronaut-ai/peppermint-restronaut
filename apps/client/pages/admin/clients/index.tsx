@@ -112,10 +112,10 @@ function Table({ columns, data }: any) {
   return (
     <div className="overflow-x-auto md:-mx-6 lg:-mx-8">
       <div className="py-2 align-middle inline-block min-w-full md:px-6 lg:px-8">
-        <div className="shadow overflow-hidden border-b border-background md:rounded-lg">
+        <div className="shadow border-b border-background md:rounded-lg">
           <table
             {...getTableProps()}
-            className="min-w-full divide-y divide-muted-foreground/20"
+            className="min-w-full over divide-y divide-muted-foreground/20"
           >
             <thead className="bg-secondary">
               {headerGroups.map((headerGroup: any) => (

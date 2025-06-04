@@ -343,30 +343,44 @@ export default function UserAuthPanel() {
                   </div>
 
                   <div className="sm:hidden">
-                    {users.map((store) => (
+                    {users.map((u) => (
                       <div
-                        key={store.id}
+                        key={u.id}
                         className="flex flex-col text-center bg-muted rounded-lg shadow mt-4"
                       >
                         <div className="flex-1 flex flex-col p-8">
                           <h3 className=" text-foreground text-sm font-medium">
-                            {store.name}
+                            {u.name}
                           </h3>
                           <dl className="mt-1 flex-grow flex flex-col justify-between">
+                            
                             <dd className="text-muted-foreground text-sm">
-                              {store.phone}
+                              {u.email}
                             </dd>
-                            <dd className="text-muted-foreground text-sm">
-                              {store.email}
-                            </dd>
-                            <dt className="sr-only">Manager</dt>
+                            <dt className="sr-only">Role</dt>
                             <dd className="font-medium text-muted-foreground text-sm mt-2">
-                              <span>Manager - {store.manager}</span>
+                              <span>Role - {u.isAdmin ? 'admin': 'user'}</span>
                             </dd>
                           </dl>
                         </div>
                         <div className="space-x-4 align-middle flex flex-row justify-center -mt-4 mb-4">
-                          // DELETE
+                          {user.isAdmin && user.id !== u.id && (
+                <button
+                  type="button"
+                  onClick={() => deleteUser(u.id)}
+                  className="text-sm text-destructive bg-background hover:bg-destructive hover:text-destructive-foreground rounded-md flex items-center justify-center shrink-0 size-8"
+                >
+                  <TrashIcon className="size-5" />
+                </button>
+              )}
+              {(user.isAdmin || user.id === row.original.id) && (
+                <UserInfoForm
+                  user={u}
+                  type="update"
+                  refetch={refetch}
+                />
+              )}
+
                         </div>
                       </div>
                     ))}
