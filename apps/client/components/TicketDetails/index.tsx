@@ -43,6 +43,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/shadcn/ui/popover";
 import { Switch } from "@/shadcn/ui/switch";
 import {
+  UserIcon,
   CheckIcon,
   CircleCheck,
   CircleDotDashed,
@@ -116,6 +117,8 @@ export default function Ticket() {
   const { data, status, refetch } = useQuery("fetchTickets", fetchTicketById, {
     enabled: false,
   });
+
+  console.log(data);
 
   useEffect(() => {
     refetch();
@@ -408,8 +411,6 @@ export default function Ticket() {
       });
       return;
     }
-
-    console.log(res);
 
     if (res.clients) {
       setClients(res.clients);
@@ -765,12 +766,14 @@ export default function Ticket() {
                       <div className="mt-2 text-xs flex flex-row justify-between items-center space-x-1">
                         <div className="flex flex-row space-x-1 items-center">
                           {data.ticket.client && (
-                            <div>
+                            <div title={`Company: ${data.ticket.client.name} ${data.ticket.store?.name ? `\nStore: ${data.ticket.store.name}`: ''}`}>
                               <span className="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">
-                                {data.ticket.client.name}
+                                {data.ticket.client.name} 
+                                {data.ticket.store?.name ? ` / ${data.ticket.store.name}`: ''}
                               </span>
                             </div>
                           )}
+
                           <div>
                             {!data.ticket.isComplete ? (
                               <div className="flex items-center space-x-2">
@@ -865,6 +868,16 @@ export default function Ticket() {
                           </DropdownMenu>
                         )}
                       </div>
+
+                      {(data.ticket?.name && data.ticket?.email) ? (
+                      <div className="py-1" title={`Issued by: ${data.ticket.name} <${data.ticket.email}>\nIssued at: ${new Date(data.ticket.createdAt)}`}>
+                          <div className="inline-flex items-center justify-center gap-2 px-2 py-0.5 bg-muted/50 border border-foreground/10 rounded-md text-foreground text-xs font-medium hover:text-primary">
+                            <UserIcon className="size-4" />
+                            {`${data.ticket.name} <${data.ticket.email}>`}
+                          </div>
+                      </div>
+                        ): null}
+
                     </div>
                   </div>
                   <aside className="mt-4 lg:hidden">
@@ -994,7 +1007,6 @@ export default function Ticket() {
                                               user.id !==
                                                 data.ticket.assignedTo.id,
                                           );
-                                          console.log(userMatch);
                                           return userMatch ? (
                                             <div key={follower.id}>
                                               <span>{userMatch.name}</span>
@@ -1141,7 +1153,7 @@ export default function Ticket() {
                                   id="comment"
                                   name="comment"
                                   rows={3}
-                                  className="block w-full bg-secondary/50 dark:bg-secondary/50 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-background focus:ring-0 focus:ring-inset focus:ring-gray-900 sm:text-sm sm:leading-6"
+                                  className="block w-full min-h-16 bg-secondary/50 dark:bg-secondary/50 rounded-md border-0 !outline-0 field-sizing-content py-1.5 shadow-sm ring-1 ring-inset ring-border focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background sm:text-sm sm:leading-6"
                                   placeholder={
                                     data.ticket.locked
                                       ? "This ticket is locked"

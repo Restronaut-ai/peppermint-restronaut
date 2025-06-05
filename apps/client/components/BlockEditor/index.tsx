@@ -1,18 +1,20 @@
-import { useCreateBlockNote } from "@blocknote/react";
+import { useTheme } from "next-themes";
 import { BlockNoteView } from "@blocknote/mantine";
+import { useCreateBlockNote } from "@blocknote/react";
 
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 
 export default function BlockNoteEditor({ setIssue }) {
   const editor = useCreateBlockNote();
+  const { resolvedTheme } = useTheme();
 
   return (
     <BlockNoteView
-      //@ts-ignore
       editor={editor}
       sideMenu={false}
-      theme="light"
+      theme={resolvedTheme as any}
+      className="bg-muted rounded-md ring-1 ring-border focus:ring-2 focus:ring-primary p-2 placeholder:text-foreground/85"
       onChange={() => {
         setIssue(editor.document);
       }}

@@ -13,12 +13,13 @@ import {
 import { useSidebar } from "@/shadcn/ui/sidebar";
 import { Sun } from "lucide-react";
 import { Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function ThemeSettings() {
   const { user } = useUser();
   const token = getCookie("session");
-
   const [theme, setTheme] = useState("");
+  const { setTheme: setNextTheme } = useTheme();
 
   const { state } = useSidebar();
 
@@ -26,14 +27,16 @@ export default function ThemeSettings() {
     // Retrieve the saved theme from localStorage or default to 'light'
     const savedTheme = localStorage.getItem("theme") || "light";
     setTheme(savedTheme);
+    setNextTheme(savedTheme.includes("dark") ? "dark": "light");
     document.documentElement.className = savedTheme;
-  }, []);
+  }, [setNextTheme]);
 
   const toggleTheme = (selectedTheme) => {
     // Update the class on the root element
     document.documentElement.className = selectedTheme;
     // Update state and save the theme in localStorage
     setTheme(selectedTheme);
+    setNextTheme(selectedTheme.includes("dark") ? "dark": "light");
     localStorage.setItem("theme", selectedTheme);
   };
 

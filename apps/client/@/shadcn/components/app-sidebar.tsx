@@ -162,10 +162,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
         <div className="flex items-center gap-2 ">
-          <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-            <img src="/favicon/favicon-32x32.png" className="size-4" />
+          <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+            <img src="/favicon/favicon-32x32.png" className="size-full" />
           </div>
-          <div className="grid flex-1 text-left text-sm leading-tight">
+          <div className="hidden md:grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-semibold text-xl">
               Restronaut Support
             </span>

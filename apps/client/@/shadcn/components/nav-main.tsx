@@ -53,9 +53,9 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {items.map((item) =>
+        {items.map((item, idx) =>
           item.items ? (
-            <SidebarMenuItem>
+            <SidebarMenuItem key={idx}>
               <SidebarMenuButton
                 tooltip={!hideKeyboardShortcuts ? item.initial : item.title}
                 onClick={() => router.push(item.url)}

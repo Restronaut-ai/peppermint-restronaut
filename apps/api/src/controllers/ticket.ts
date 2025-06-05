@@ -150,6 +150,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         email,
         engineer,
         type,
+        store,
         createdBy,
       }: any = request.body;
 
@@ -169,12 +170,14 @@ export function ticketRoutes(fastify: FastifyInstance) {
                 email: createdBy.email,
               }
             : undefined,
-          client:
-            company !== undefined
-              ? {
-                  connect: { id: company.id || company },
-                }
-              : undefined,
+            storeId: store,
+            clientId: company,
+          // client:
+          //   company !== undefined
+          //     ? {
+          //         connect: { id: company.id || company },
+          //       }
+          //     : undefined,
           fromImap: false,
           assignedTo:
             engineer && engineer.name !== "Unassigned"
@@ -186,7 +189,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         },
       });
 
-      if (!email && !validateEmail(email)) {
+      if (email && validateEmail(email)) {
         await sendTicketCreate(ticket);
       }
 
@@ -260,6 +263,9 @@ export function ticketRoutes(fastify: FastifyInstance) {
         include: {
           client: {
             select: { id: true, name: true, number: true, notes: true },
+          },
+          store: {
+            select: { id: true, name: true }
           },
           assignedTo: {
             select: { id: true, name: true },
