@@ -170,21 +170,10 @@ export function ticketRoutes(fastify: FastifyInstance) {
                 email: createdBy.email,
               }
             : undefined,
-            storeId: store,
-            clientId: company,
-          // client:
-          //   company !== undefined
-          //     ? {
-          //         connect: { id: company.id || company },
-          //       }
-          //     : undefined,
+            store: { connect: store ? { id: store }: undefined },
+            client: { connect: store ? { id: company }: undefined },
+            assignedTo: { connect: engineer ? { id: engineer }: undefined },
           fromImap: false,
-          assignedTo:
-            engineer && engineer.name !== "Unassigned"
-              ? {
-                  connect: { id: engineer.id },
-                }
-              : undefined,
           isComplete: Boolean(false),
         },
       });

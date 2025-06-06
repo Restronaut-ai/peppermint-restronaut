@@ -226,7 +226,9 @@ export function UserInfoForm({
                   <ExclamationTriangleIcon className="size-8 shrink-0" />
                   <div className="flex flex-col">
                     <h1 className="text-base font-semibold">Oops!</h1>
-                    <span className="font-medium text-sm text-destructive-foreground/75">{errorMessage}</span>
+                    <span className="font-medium text-sm text-destructive-foreground/75">
+                      {errorMessage}
+                    </span>
                   </div>
                 </div>
               ) : null}
@@ -338,7 +340,7 @@ export function UserInfoForm({
                         </span>
                       </Listbox.Button>
                       <Transition show={open} as={React.Fragment}>
-                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border text-sm">
+                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
                           {LANGUAGES.map((lang) => (
                             <Listbox.Option
                               key={lang.value}

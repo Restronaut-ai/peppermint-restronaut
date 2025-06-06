@@ -766,10 +766,14 @@ export default function Ticket() {
                       <div className="mt-2 text-xs flex flex-row justify-between items-center space-x-1">
                         <div className="flex flex-row space-x-1 items-center">
                           {data.ticket.client && (
-                            <div title={`Company: ${data.ticket.client.name} ${data.ticket.store?.name ? `\nStore: ${data.ticket.store.name}`: ''}`}>
+                            <div
+                              title={`Company: ${data.ticket.client.name} ${data.ticket.store?.name ? `\nStore: ${data.ticket.store.name}` : ""}`}
+                            >
                               <span className="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">
-                                {data.ticket.client.name} 
-                                {data.ticket.store?.name ? ` / ${data.ticket.store.name}`: ''}
+                                {data.ticket.client.name}
+                                {data.ticket.store?.name
+                                  ? ` / ${data.ticket.store.name}`
+                                  : ""}
                               </span>
                             </div>
                           )}
@@ -869,15 +873,17 @@ export default function Ticket() {
                         )}
                       </div>
 
-                      {(data.ticket?.name && data.ticket?.email) ? (
-                      <div className="py-1" title={`Issued by: ${data.ticket.name} <${data.ticket.email}>\nIssued at: ${new Date(data.ticket.createdAt)}`}>
+                      {data.ticket?.name && data.ticket?.email ? (
+                        <div
+                          className="py-1"
+                          title={`Issued by: ${data.ticket.name} <${data.ticket.email}>\nIssued at: ${new Date(data.ticket.createdAt)}`}
+                        >
                           <div className="inline-flex items-center justify-center gap-2 px-2 py-0.5 bg-muted/50 border border-foreground/10 rounded-md text-foreground text-xs font-medium hover:text-primary">
                             <UserIcon className="size-4" />
                             {`${data.ticket.name} <${data.ticket.email}>`}
                           </div>
-                      </div>
-                        ): null}
-
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   <aside className="mt-4 lg:hidden">

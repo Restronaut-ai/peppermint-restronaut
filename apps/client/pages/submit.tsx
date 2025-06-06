@@ -143,11 +143,11 @@ export default function ClientTicketNew() {
   });
 
   return (
-    <div className="flex justify-center items-center content-center h-screen bg-gray-900">
+    <div className="fixed size-full flex overflow-auto bg-gray-900 md:py-12">
       {!ticketID ? (
         <form
           onSubmit={onSubmit}
-          className="max-w-2xl bg-background p-12 rounded-md"
+          className="max-w-2xl h-fit m-auto bg-background p-12 rounded-md "
         >
           <h1 className="font-bold text-2xl">Submit a Ticket</h1>
           <span className="text-muted-foreground">
@@ -232,17 +232,21 @@ export default function ClientTicketNew() {
                       Company<sup className="text-destructive">*</sup>
                     </Listbox.Label>
                     <div className="relative">
-                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
+                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
                         <span className="block truncate">
                           {allClients?.find((c) => c.id === values.company)
                             ?.name ?? "Select a company."}
                         </span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
-                          {isClientsLoading ? <ArrowPathIcon className="animate-spin"/> :<ChevronUpDownIcon />}
+                          {isClientsLoading ? (
+                            <ArrowPathIcon className="animate-spin" />
+                          ) : (
+                            <ChevronUpDownIcon />
+                          )}
                         </span>
                       </Listbox.Button>
                       <Transition show={open} as={Fragment}>
-                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border text-sm">
+                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
                           {allClients?.map((client) => (
                             <Listbox.Option
                               key={client.id}
@@ -304,7 +308,7 @@ export default function ClientTicketNew() {
                     <div className="relative">
                       <Listbox.Button
                         className={twJoin(
-                          "relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm",
+                          "relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm",
                           !values.company && "opacity-50 cursor-not-allowed",
                         )}
                       >
@@ -313,11 +317,15 @@ export default function ClientTicketNew() {
                             ?.name ?? "Select a store."}
                         </span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
-                          {isStoresLoading ? <ArrowPathIcon className="animate-spin"/> :<ChevronUpDownIcon />}
+                          {isStoresLoading ? (
+                            <ArrowPathIcon className="animate-spin" />
+                          ) : (
+                            <ChevronUpDownIcon />
+                          )}
                         </span>
                       </Listbox.Button>
                       <Transition show={open} as={Fragment}>
-                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border text-sm">
+                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
                           {allStores?.map((s) => (
                             <Listbox.Option
                               key={s.id}
@@ -373,7 +381,7 @@ export default function ClientTicketNew() {
                     Issue Type<sup className="text-destructive">*</sup>
                   </Listbox.Label>
                   <div className="relative">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
                       <span className="block truncate">
                         {ISSUE_TYPES.find((iss) => iss.name === values.type)
                           ?.name ?? "Issue Type"}
@@ -383,7 +391,7 @@ export default function ClientTicketNew() {
                       </span>
                     </Listbox.Button>
                     <Transition show={open} as={Fragment}>
-                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border text-sm">
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
                         {ISSUE_TYPES.map((item) => (
                           <Listbox.Option
                             key={item.id}
@@ -440,17 +448,18 @@ export default function ClientTicketNew() {
                     Priority<sup className="text-destructive">*</sup>
                   </Listbox.Label>
                   <div className="relative">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
                       <span className="block truncate">
-                        {PRIORITIES.find((priority) => priority.name === values.priority)
-                          ?.name ?? "Priority"}
+                        {PRIORITIES.find(
+                          (priority) => priority.name === values.priority,
+                        )?.name ?? "Priority"}
                       </span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon className="h-5 w-5" />
                       </span>
                     </Listbox.Button>
                     <Transition show={open} as={Fragment}>
-                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border text-sm">
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
                         {PRIORITIES.map((item) => (
                           <Listbox.Option
                             key={item.id}
@@ -527,7 +536,7 @@ export default function ClientTicketNew() {
           </div>
         </form>
       ) : (
-        <div className="rounded-md bg-green-600 shadow-md p-12">
+        <div className="rounded-md bg-green-600 shadow-md p-12 m-auto">
           <div className="flex">
             <CheckCircleIcon className="h-10 w-10 text-white" />
             <div className="ml-3">

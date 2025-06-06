@@ -27,7 +27,7 @@ export default function ThemeSettings() {
     // Retrieve the saved theme from localStorage or default to 'light'
     const savedTheme = localStorage.getItem("theme") || "light";
     setTheme(savedTheme);
-    setNextTheme(savedTheme.includes("dark") ? "dark": "light");
+    setNextTheme(savedTheme.includes("dark") ? "dark" : "light");
     document.documentElement.className = savedTheme;
   }, [setNextTheme]);
 
@@ -36,7 +36,7 @@ export default function ThemeSettings() {
     document.documentElement.className = selectedTheme;
     // Update state and save the theme in localStorage
     setTheme(selectedTheme);
-    setNextTheme(selectedTheme.includes("dark") ? "dark": "light");
+    setNextTheme(selectedTheme.includes("dark") ? "dark" : "light");
     localStorage.setItem("theme", selectedTheme);
   };
 

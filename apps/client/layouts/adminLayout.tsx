@@ -304,7 +304,9 @@ export default function AdminLayout({ children }: any) {
             </div>
 
             {!loading && !user.external_user && (
-              <main className="bg-background m-4 overflow-auto">{children}</main>
+              <main className="bg-background m-4 overflow-auto">
+                {children}
+              </main>
             )}
           </div>
         </div>

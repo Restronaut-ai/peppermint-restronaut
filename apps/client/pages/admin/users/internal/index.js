@@ -353,34 +353,32 @@ export default function UserAuthPanel() {
                             {u.name}
                           </h3>
                           <dl className="mt-1 flex-grow flex flex-col justify-between">
-                            
                             <dd className="text-muted-foreground text-sm">
                               {u.email}
                             </dd>
                             <dt className="sr-only">Role</dt>
                             <dd className="font-medium text-muted-foreground text-sm mt-2">
-                              <span>Role - {u.isAdmin ? 'admin': 'user'}</span>
+                              <span>Role - {u.isAdmin ? "admin" : "user"}</span>
                             </dd>
                           </dl>
                         </div>
                         <div className="space-x-4 align-middle flex flex-row justify-center -mt-4 mb-4">
                           {user.isAdmin && user.id !== u.id && (
-                <button
-                  type="button"
-                  onClick={() => deleteUser(u.id)}
-                  className="text-sm text-destructive bg-background hover:bg-destructive hover:text-destructive-foreground rounded-md flex items-center justify-center shrink-0 size-8"
-                >
-                  <TrashIcon className="size-5" />
-                </button>
-              )}
-              {(user.isAdmin || user.id === row.original.id) && (
-                <UserInfoForm
-                  user={u}
-                  type="update"
-                  refetch={refetch}
-                />
-              )}
-
+                            <button
+                              type="button"
+                              onClick={() => deleteUser(u.id)}
+                              className="text-sm text-destructive bg-background hover:bg-destructive hover:text-destructive-foreground rounded-md flex items-center justify-center shrink-0 size-8"
+                            >
+                              <TrashIcon className="size-5" />
+                            </button>
+                          )}
+                          {(user.isAdmin || user.id === row.original.id) && (
+                            <UserInfoForm
+                              user={u}
+                              type="update"
+                              refetch={refetch}
+                            />
+                          )}
                         </div>
                       </div>
                     ))}
