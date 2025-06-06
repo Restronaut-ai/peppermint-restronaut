@@ -139,7 +139,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
         return e.name
           .toLowerCase()
           .replaceAll(" ", "")
-          .includes(engineerQuery.toLowerCase().trim());
+          .includes(engineerQuery.toLowerCase().replaceAll(" ", ""));
       });
 
   const { data: allStores, isLoading: isStoresLoading } = useQuery({
