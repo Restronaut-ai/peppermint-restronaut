@@ -224,15 +224,19 @@ export default function ClientTicketNew() {
               {/* Company */}
               <Listbox
                 value={values.company}
+                disabled={isClientsLoading}
                 onChange={(val) => setValue("company", val)}
               >
-                {({ open }) => (
+                {({ open, value }) => (
                   <div className="grid gap-1">
                     <Listbox.Label className="text-sm font-medium text-foreground/75">
                       Company<sup className="text-destructive">*</sup>
                     </Listbox.Label>
                     <div className="relative">
-                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
+                      <Listbox.Button
+                        aria-selected={!!value}
+                        className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm aria-selected:!text-foreground"
+                      >
                         <span className="block truncate">
                           {allClients?.find((c) => c.id === values.company)
                             ?.name ?? "Select a company."}
@@ -245,44 +249,40 @@ export default function ClientTicketNew() {
                           )}
                         </span>
                       </Listbox.Button>
-                      <Transition show={open} as={Fragment}>
-                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
-                          {allClients?.map((client) => (
-                            <Listbox.Option
-                              key={client.id}
-                              value={client.id}
-                              className={({ active }) =>
-                                twJoin(
-                                  active
-                                    ? "bg-muted text-primary"
-                                    : "text-muted-foreground",
-                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
-                                )
-                              }
-                            >
-                              {({ selected }) => (
-                                <>
-                                  <span
-                                    className={twJoin(
-                                      selected
-                                        ? "font-semibold"
-                                        : "font-normal",
-                                      "block truncate",
-                                    )}
-                                  >
-                                    {client.name}
-                                  </span>
-                                  {selected && (
-                                    <span className="absolute inset-y-0 right-0 flex items-center pr-4">
-                                      <CheckIcon className="h-5 w-5 text-primary" />
-                                    </span>
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
+                        {allClients?.map((client) => (
+                          <Listbox.Option
+                            key={client.id}
+                            value={client.id}
+                            className={({ active }) =>
+                              twJoin(
+                                active
+                                  ? "bg-muted text-primary"
+                                  : "text-muted-foreground",
+                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                              )
+                            }
+                          >
+                            {({ selected }) => (
+                              <>
+                                <span
+                                  className={twJoin(
+                                    selected ? "font-semibold" : "font-normal",
+                                    "block truncate",
                                   )}
-                                </>
-                              )}
-                            </Listbox.Option>
-                          ))}
-                        </Listbox.Options>
-                      </Transition>
+                                >
+                                  {client.name}
+                                </span>
+                                {selected && (
+                                  <span className="absolute inset-y-0 right-0 flex items-center pr-4">
+                                    <CheckIcon className="h-5 w-5 text-primary" />
+                                  </span>
+                                )}
+                              </>
+                            )}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
                     </div>
                     {errors.company && (
                       <small className="text-xs font-medium text-destructive">
@@ -294,21 +294,22 @@ export default function ClientTicketNew() {
               </Listbox>
 
               {/* Store */}
-
               <Listbox
                 value={values.store}
-                disabled={!values.company}
                 onChange={(v) => setValue("store", v)}
+                disabled={!values.company || isStoresLoading}
               >
-                {({ open }) => (
+                {({ open, value }) => (
                   <div className="grid gap-1">
                     <Listbox.Label className="text-sm font-medium text-foreground/75">
-                      Store/Department<sup className="text-destructive">*</sup>
+                      Store/Department
+                      <sup className="text-destructive">*</sup>
                     </Listbox.Label>
                     <div className="relative">
                       <Listbox.Button
+                        aria-selected={!!value}
                         className={twJoin(
-                          "relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm",
+                          "relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm aria-selected:!text-foreground",
                           !values.company && "opacity-50 cursor-not-allowed",
                         )}
                       >
@@ -324,44 +325,40 @@ export default function ClientTicketNew() {
                           )}
                         </span>
                       </Listbox.Button>
-                      <Transition show={open} as={Fragment}>
-                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
-                          {allStores?.map((s) => (
-                            <Listbox.Option
-                              key={s.id}
-                              value={s.id}
-                              className={({ active }) =>
-                                twJoin(
-                                  active
-                                    ? "bg-muted text-primary"
-                                    : "text-muted-foreground",
-                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
-                                )
-                              }
-                            >
-                              {({ selected }) => (
-                                <>
-                                  <span
-                                    className={twJoin(
-                                      selected
-                                        ? "font-semibold"
-                                        : "font-normal",
-                                      "block truncate",
-                                    )}
-                                  >
-                                    {s.name}
-                                  </span>
-                                  {selected && (
-                                    <span className="absolute inset-y-0 right-0 flex items-center pr-4">
-                                      <CheckIcon className="h-5 w-5 text-primary" />
-                                    </span>
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
+                        {allStores?.map((s) => (
+                          <Listbox.Option
+                            key={s.id}
+                            value={s.id}
+                            className={({ active }) =>
+                              twJoin(
+                                active
+                                  ? "bg-muted text-primary"
+                                  : "text-muted-foreground",
+                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                              )
+                            }
+                          >
+                            {({ selected }) => (
+                              <>
+                                <span
+                                  className={twJoin(
+                                    selected ? "font-semibold" : "font-normal",
+                                    "block truncate",
                                   )}
-                                </>
-                              )}
-                            </Listbox.Option>
-                          ))}
-                        </Listbox.Options>
-                      </Transition>
+                                >
+                                  {s.name}
+                                </span>
+                                {selected && (
+                                  <span className="absolute inset-y-0 right-0 flex items-center pr-4">
+                                    <CheckIcon className="h-5 w-5 text-primary" />
+                                  </span>
+                                )}
+                              </>
+                            )}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
                     </div>
                     {errors.store && (
                       <small className="text-xs font-medium text-destructive">
