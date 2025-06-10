@@ -120,8 +120,8 @@ export default function Tickets() {
   }
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="py-2 px-3 bg-background border-b-[1px] flex flex-row items-center justify-between">
+    <div className="flex flex-col">
+      <div className="py-2 px-3 bg-background border-b-[1px] border-border flex flex-row items-center justify-between">
         <TicketFilters
           selectedPriorities={selectedPriorities}
           selectedStatuses={selectedStatuses}
@@ -157,7 +157,9 @@ export default function Tickets() {
           uiSettings={uiSettings}
         />
       ) : (
-        <TicketKanban columns={kanbanColumns} uiSettings={uiSettings} />
+        <div className="grid">
+          <TicketKanban columns={kanbanColumns} uiSettings={uiSettings} />
+        </div>
       )}
     </div>
   );

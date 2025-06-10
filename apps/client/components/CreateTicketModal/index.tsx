@@ -61,7 +61,7 @@ export const TicketSchema = z.object({
 type TicketFormData = z.infer<typeof TicketSchema>;
 
 // API functions
-const fetchAllClients = async () => {
+const fetchAllCompanies = async () => {
   const res = await fetch(`/api/v1/clients/all`, {
     headers: {
       "Content-Type": "application/json",
@@ -108,6 +108,9 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
   const { user } = useUser();
   const queryClient = useQueryClient();
   const [open, setOpen] = React.useState(false);
+
+  const [storeQuery, setStoreQuery] = React.useState("");
+  const [companyQuery, setCompanyQuery] = React.useState("");
   const [engineerQuery, setEngineerQuery] = React.useState("");
 
   const {
@@ -123,9 +126,9 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
 
   const values = watch();
 
-  const { data: allClients, isLoading: isClientsLoading } = useQuery({
-    queryFn: fetchAllClients,
-    queryKey: ["fetchAllClients"],
+  const { data: allCompanies, isLoading: isCompanyLoading } = useQuery({
+    queryFn: fetchAllCompanies,
+    queryKey: ["fetchAllCompanies"],
   });
 
   const { data: allEngineers, isLoading: isEngineersLoading } = useQuery({
@@ -133,20 +136,44 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
     queryKey: ["fetchAllEngineers"],
   });
 
-  const filteredEngineers = !engineerQuery.trim()
-    ? allEngineers
-    : allEngineers?.filter((e) => {
-        return e.name
-          .toLowerCase()
-          .replaceAll(" ", "")
-          .includes(engineerQuery.toLowerCase().replaceAll(" ", ""));
-      });
-
   const { data: allStores, isLoading: isStoresLoading } = useQuery({
     enabled: !!values.company,
     queryKey: ["fetchAllStores", values.company],
     queryFn: () => fetchAllStores(values.company),
   });
+
+  const filteredCompanies = React.useMemo(() => {
+    return !companyQuery.trim()
+      ? allCompanies
+      : allCompanies?.filter((e) => {
+          return e.name
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .includes(companyQuery.toLowerCase().replaceAll(" ", ""));
+        });
+  }, [companyQuery, allCompanies]);
+
+  const filteredStores = React.useMemo(() => {
+    return !storeQuery.trim()
+      ? allStores
+      : allStores?.filter((e) => {
+          return e.name
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .includes(storeQuery.toLowerCase().replaceAll(" ", ""));
+        });
+  }, [storeQuery, allStores]);
+
+  const filteredEngineers = React.useMemo(() => {
+    return !engineerQuery.trim()
+      ? allEngineers
+      : allEngineers?.filter((e) => {
+          return e.name
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .includes(engineerQuery.toLowerCase().replaceAll(" ", ""));
+        });
+  }, [engineerQuery, allEngineers]);
 
   const engineerListboxLabel = React.useMemo(() => {
     if (!allEngineers?.length || !values.engineer)
@@ -221,7 +248,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
           leave="ease-in duration-200"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-lg w-full sm:max-w-lg h-fit sm:max-h-[90%] overflow-auto text-left shadow-xl transition-all"
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-lg w-full sm:max-w-xl overflow-x-clip h-fit sm:max-h-[90%] overflow-auto text-left shadow-xl transition-all"
         >
           <div className="px-4 sm:px-6 py-4 sticky top-0 bg-background/85 backdrop-blur-sm flex items-center justify-between border-b border-border">
             <Dialog.Title
@@ -307,71 +334,91 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                 )}
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid items-start md:grid-cols-2 gap-4">
                 {/* Company */}
-                <Listbox
+                <Combobox
                   value={values.company}
-                  disabled={isClientsLoading}
-                  onChange={(val) => setValue("company", val)}
+                  disabled={isCompanyLoading}
+                  onChange={(v) => setValue("company", v)}
                 >
                   {({ open, value }) => (
                     <div className="grid gap-1">
-                      <Listbox.Label className="text-sm font-medium text-foreground/75">
+                      <Combobox.Label
+                        htmlFor="company"
+                        className="text-sm font-medium text-foreground/75"
+                      >
                         Company<sup className="text-destructive">*</sup>
-                      </Listbox.Label>
+                      </Combobox.Label>
                       <div className="relative">
-                        <Listbox.Button
-                          aria-selected={!!value}
-                          className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm aria-selected:!text-foreground"
-                        >
-                          <span className="block truncate">
-                            {allClients?.find((c) => c.id === values.company)
-                              ?.name ?? "Select a company."}
-                          </span>
-                          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
-                            {isClientsLoading ? (
-                              <ArrowPathIcon className="animate-spin" />
-                            ) : (
-                              <ChevronUpDownIcon />
-                            )}
-                          </span>
-                        </Listbox.Button>
-                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
-                          {allClients?.map((client) => (
-                            <Listbox.Option
-                              key={client.id}
-                              value={client.id}
-                              className={({ active }) =>
-                                twJoin(
-                                  active
-                                    ? "bg-muted text-primary"
-                                    : "text-muted-foreground",
-                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
-                                )
-                              }
-                            >
-                              {({ selected }) => (
-                                <>
-                                  <span
-                                    className={twJoin(
-                                      selected
-                                        ? "font-semibold"
-                                        : "font-normal",
-                                      "block truncate",
+                        <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
+                          {isCompanyLoading ? (
+                            <ArrowPathIcon className="animate-spin" />
+                          ) : (
+                            <ChevronUpDownIcon />
+                          )}
+                        </Combobox.Button>
+
+                        <Combobox.Input
+                          id="company"
+                          placeholder="Select a company."
+                          onBlur={() => setCompanyQuery("")}
+                          onChange={(ev) =>
+                            setCompanyQuery(ev.currentTarget.value)
+                          }
+                          displayValue={(value) => {
+                            if (!value || !allCompanies?.length) return;
+                            const selected = allCompanies.find(
+                              (c) => c.id === value,
+                            );
+                            return selected?.name;
+                          }}
+                          className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6 disabled:cursor-not-allowed disabled:opacity-85 disabled:!placeholder-muted-foreground/75"
+                        />
+
+                        <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
+                          {filteredCompanies?.length ? (
+                            filteredCompanies.map((e) => (
+                              <Combobox.Option
+                                key={e.id}
+                                value={e.id}
+                                className={({ active }) =>
+                                  twJoin(
+                                    active
+                                      ? "bg-muted text-primary"
+                                      : "text-muted-foreground",
+                                    "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                  )
+                                }
+                              >
+                                {({ selected }) => (
+                                  <>
+                                    <div className="flex items-center gap-2">
+                                      <div className="grid">
+                                        <span
+                                          className={twJoin(
+                                            selected
+                                              ? "font-semibold"
+                                              : "font-normal",
+                                            "block truncate",
+                                          )}
+                                        >
+                                          {e.name}
+                                        </span>
+                                      </div>
+                                    </div>
+                                    {selected && (
+                                      <span className="absolute inset-y-0 right-0 flex items-center pr-4">
+                                        <CheckIcon className="h-5 w-5 text-primary" />
+                                      </span>
                                     )}
-                                  >
-                                    {client.name}
-                                  </span>
-                                  {selected && (
-                                    <span className="absolute inset-y-0 right-0 flex items-center pr-4">
-                                      <CheckIcon className="h-5 w-5 text-primary" />
-                                    </span>
-                                  )}
-                                </>
-                              )}
-                            </Listbox.Option>
-                          ))}
-                        </Listbox.Options>
+                                  </>
+                                )}
+                              </Combobox.Option>
+                            ))
+                          ) : (
+                            <div className="py-2 px-3">No company to show.</div>
+                          )}
+                        </Combobox.Options>
                       </div>
                       {errors.company && (
                         <small className="text-xs font-medium text-destructive">
@@ -380,76 +427,94 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                       )}
                     </div>
                   )}
-                </Listbox>
-
+                </Combobox>
                 {/* Store */}
-                <Listbox
+                <Combobox
                   value={values.store}
-                  onChange={(v) => setValue("store", v)}
                   disabled={!values.company || isStoresLoading}
+                  onChange={(v) => setValue("store", v)}
                 >
                   {({ open, value }) => (
                     <div className="grid gap-1">
-                      <Listbox.Label className="text-sm font-medium text-foreground/75">
+                      <Combobox.Label
+                        htmlFor="store"
+                        className="text-sm font-medium text-foreground/75"
+                      >
                         Store/Department
                         <sup className="text-destructive">*</sup>
-                      </Listbox.Label>
+                      </Combobox.Label>
                       <div className="relative">
-                        <Listbox.Button
-                          aria-selected={!!value}
-                          className={twJoin(
-                            "relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm aria-selected:!text-foreground",
-                            !values.company && "opacity-50 cursor-not-allowed",
+                        <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5 disabled:opacity-85 disabled:cursor-not-allowed">
+                          {isStoresLoading ? (
+                            <ArrowPathIcon className="animate-spin" />
+                          ) : (
+                            <ChevronUpDownIcon />
                           )}
-                        >
-                          <span className="block truncate">
-                            {allStores?.find((s) => s.id === values.store)
-                              ?.name ?? "Select a store."}
-                          </span>
-                          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
-                            {isStoresLoading ? (
-                              <ArrowPathIcon className="animate-spin" />
-                            ) : (
-                              <ChevronUpDownIcon />
-                            )}
-                          </span>
-                        </Listbox.Button>
-                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
-                          {allStores?.map((s) => (
-                            <Listbox.Option
-                              key={s.id}
-                              value={s.id}
-                              className={({ active }) =>
-                                twJoin(
-                                  active
-                                    ? "bg-muted text-primary"
-                                    : "text-muted-foreground",
-                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
-                                )
-                              }
-                            >
-                              {({ selected }) => (
-                                <>
-                                  <span
-                                    className={twJoin(
-                                      selected
-                                        ? "font-semibold"
-                                        : "font-normal",
-                                      "block truncate",
+                        </Combobox.Button>
+
+                        <Combobox.Input
+                          id="company"
+                          placeholder="Select a store/department."
+                          onBlur={() => setStoreQuery("")}
+                          onChange={(ev) =>
+                            setStoreQuery(ev.currentTarget.value)
+                          }
+                          displayValue={(value) => {
+                            if (!value || !allStores?.length) return;
+                            const selected = allStores.find(
+                              (c) => c.id === value,
+                            );
+                            return selected?.name;
+                          }}
+                          className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6 disabled:cursor-not-allowed disabled:opacity-85 disabled:!placeholder-muted-foreground/75"
+                        />
+
+                        <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
+                          {filteredStores?.length ? (
+                            filteredStores.map((e) => (
+                              <Combobox.Option
+                                key={e.id}
+                                value={e.id}
+                                className={({ active }) =>
+                                  twJoin(
+                                    active
+                                      ? "bg-muted text-primary"
+                                      : "text-muted-foreground",
+                                    "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                  )
+                                }
+                              >
+                                {({ selected }) => (
+                                  <>
+                                    <div className="flex items-center gap-2">
+                                      <div className="grid">
+                                        <span
+                                          className={twJoin(
+                                            selected
+                                              ? "font-semibold"
+                                              : "font-normal",
+                                            "block truncate",
+                                          )}
+                                        >
+                                          {e.name}
+                                        </span>
+                                      </div>
+                                    </div>
+                                    {selected && (
+                                      <span className="absolute inset-y-0 right-0 flex items-center pr-4">
+                                        <CheckIcon className="h-5 w-5 text-primary" />
+                                      </span>
                                     )}
-                                  >
-                                    {s.name}
-                                  </span>
-                                  {selected && (
-                                    <span className="absolute inset-y-0 right-0 flex items-center pr-4">
-                                      <CheckIcon className="h-5 w-5 text-primary" />
-                                    </span>
-                                  )}
-                                </>
-                              )}
-                            </Listbox.Option>
-                          ))}
-                        </Listbox.Options>
+                                  </>
+                                )}
+                              </Combobox.Option>
+                            ))
+                          ) : (
+                            <div className="py-2 px-3">
+                              No store/department to show.
+                            </div>
+                          )}
+                        </Combobox.Options>
                       </div>
                       {errors.store && (
                         <small className="text-xs font-medium text-destructive">
@@ -458,17 +523,14 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                       )}
                     </div>
                   )}
-                </Listbox>
+                </Combobox>
               </div>
 
               {/* Engineer */}
               <Combobox
                 value={values.engineer}
                 disabled={isEngineersLoading}
-                onChange={(v) => {
-                  setEngineerQuery("");
-                  setValue("engineer", v);
-                }}
+                onChange={(v) => setValue("engineer", v)}
               >
                 {({ open, value }) => (
                   <div className="grid gap-1">
@@ -500,6 +562,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                       <Combobox.Input
                         id="engineer"
                         placeholder="Select an enginner ( Optional )"
+                        onBlur={() => setEngineerQuery("")}
                         onChange={(ev) =>
                           setEngineerQuery(ev.currentTarget.value)
                         }

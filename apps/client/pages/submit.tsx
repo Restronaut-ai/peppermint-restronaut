@@ -5,11 +5,10 @@
 // // Send Email to customer with ticket creation
 // // Send Email to Engineers with ticket creation if email notifications are turned on
 
-import React, { Fragment, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 import { getCookie } from "cookies-next";
 import { toast } from "@/shadcn/hooks/use-toast";
-import { Listbox, Transition } from "@headlessui/react";
+import { Listbox, Combobox, Transition } from "@headlessui/react";
 import {
   CheckCircleIcon,
   CheckIcon,
@@ -21,6 +20,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { twJoin } from "tailwind-merge";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import("../components/BlockEditor"), {
+  ssr: false,
+});
 
 // Priority and Type
 const ISSUE_TYPES = [
@@ -60,13 +64,15 @@ export const TicketSchema = z.object({
 type TicketFormData = z.infer<typeof TicketSchema>;
 
 // API functions
-const fetchAllClients = async () => {
+const fetchAllCompanies = async () => {
   const res = await fetch(`/api/v1/clients/all`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getCookie("session")}`,
     },
   });
+
+  if (!res.ok) return [];
   const json = await res.json();
 
   if (!json?.clients) return [];
@@ -80,6 +86,7 @@ const fetchAllStores = async (clientId: string) => {
       Authorization: `Bearer ${getCookie("session")}`,
     },
   });
+  if (!res.ok) return [];
   const json = await res.json();
 
   if (!json?.stores) return [];
@@ -87,8 +94,9 @@ const fetchAllStores = async (clientId: string) => {
 };
 
 export default function ClientTicketNew() {
-  const router = useRouter();
-  const [ticketID, setTicketID] = useState("");
+  const [ticketID, setTicketID] = React.useState("");
+  const [storeQuery, setStoreQuery] = React.useState("");
+  const [companyQuery, setCompanyQuery] = React.useState("");
 
   const {
     watch,
@@ -103,9 +111,9 @@ export default function ClientTicketNew() {
 
   const values = watch();
 
-  const { data: allClients, isLoading: isClientsLoading } = useQuery({
-    queryFn: fetchAllClients,
-    queryKey: ["fetchAllClients"],
+  const { data: allCompanies, isLoading: isCompanyLoading } = useQuery({
+    queryFn: fetchAllCompanies,
+    queryKey: ["fetchAllCompanies"],
   });
 
   const { data: allStores, isLoading: isStoresLoading } = useQuery({
@@ -113,6 +121,28 @@ export default function ClientTicketNew() {
     queryKey: ["fetchAllStores", values.company],
     queryFn: () => fetchAllStores(values.company),
   });
+
+  const filteredCompanies = React.useMemo(() => {
+    return !companyQuery.trim()
+      ? allCompanies
+      : allCompanies?.filter((e) => {
+          return e.name
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .includes(companyQuery.toLowerCase().replaceAll(" ", ""));
+        });
+  }, [companyQuery, allCompanies]);
+
+  const filteredStores = React.useMemo(() => {
+    return !storeQuery.trim()
+      ? allStores
+      : allStores?.filter((e) => {
+          return e.name
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .includes(storeQuery.toLowerCase().replaceAll(" ", ""));
+        });
+  }, [storeQuery, allStores]);
 
   const onSubmit = handleSubmit(async (data: TicketFormData) => {
     const res = await fetch(`/api/v1/ticket/public/create`, {
@@ -143,7 +173,7 @@ export default function ClientTicketNew() {
   });
 
   return (
-    <div className="fixed size-full flex overflow-auto bg-gray-900 md:py-12">
+    <div className="fixed size-full flex overflow-auto bg-muted md:py-12">
       {!ticketID ? (
         <form
           onSubmit={onSubmit}
@@ -220,69 +250,91 @@ export default function ClientTicketNew() {
               )}
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid items-start md:grid-cols-2 gap-4">
               {/* Company */}
-              <Listbox
+              <Combobox
                 value={values.company}
-                disabled={isClientsLoading}
-                onChange={(val) => setValue("company", val)}
+                disabled={isCompanyLoading}
+                onChange={(v) => setValue("company", v)}
               >
                 {({ open, value }) => (
                   <div className="grid gap-1">
-                    <Listbox.Label className="text-sm font-medium text-foreground/75">
+                    <Combobox.Label
+                      htmlFor="company"
+                      className="text-sm font-medium text-foreground/75"
+                    >
                       Company<sup className="text-destructive">*</sup>
-                    </Listbox.Label>
+                    </Combobox.Label>
                     <div className="relative">
-                      <Listbox.Button
-                        aria-selected={!!value}
-                        className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm aria-selected:!text-foreground"
-                      >
-                        <span className="block truncate">
-                          {allClients?.find((c) => c.id === values.company)
-                            ?.name ?? "Select a company."}
-                        </span>
-                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
-                          {isClientsLoading ? (
-                            <ArrowPathIcon className="animate-spin" />
-                          ) : (
-                            <ChevronUpDownIcon />
-                          )}
-                        </span>
-                      </Listbox.Button>
-                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
-                        {allClients?.map((client) => (
-                          <Listbox.Option
-                            key={client.id}
-                            value={client.id}
-                            className={({ active }) =>
-                              twJoin(
-                                active
-                                  ? "bg-muted text-primary"
-                                  : "text-muted-foreground",
-                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
-                              )
-                            }
-                          >
-                            {({ selected }) => (
-                              <>
-                                <span
-                                  className={twJoin(
-                                    selected ? "font-semibold" : "font-normal",
-                                    "block truncate",
+                      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
+                        {isCompanyLoading ? (
+                          <ArrowPathIcon className="animate-spin" />
+                        ) : (
+                          <ChevronUpDownIcon />
+                        )}
+                      </Combobox.Button>
+
+                      <Combobox.Input
+                        id="company"
+                        placeholder="Select a company."
+                        onBlur={() => setCompanyQuery("")}
+                        onChange={(ev) =>
+                          setCompanyQuery(ev.currentTarget.value)
+                        }
+                        displayValue={(value) => {
+                          if (!value || !allCompanies?.length) return;
+                          const selected = allCompanies.find(
+                            (c) => c.id === value,
+                          );
+                          return selected?.name;
+                        }}
+                        className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6 disabled:cursor-not-allowed disabled:opacity-85 disabled:!placeholder-muted-foreground/75"
+                      />
+
+                      <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
+                        {filteredCompanies?.length ? (
+                          filteredCompanies.map((e) => (
+                            <Combobox.Option
+                              key={e.id}
+                              value={e.id}
+                              className={({ active }) =>
+                                twJoin(
+                                  active
+                                    ? "bg-muted text-primary"
+                                    : "text-muted-foreground",
+                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                )
+                              }
+                            >
+                              {({ selected }) => (
+                                <>
+                                  <div className="flex items-center gap-2">
+                                    <div className="grid">
+                                      <span
+                                        className={twJoin(
+                                          selected
+                                            ? "font-semibold"
+                                            : "font-normal",
+                                          "block truncate",
+                                        )}
+                                      >
+                                        {e.name}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  {selected && (
+                                    <span className="absolute inset-y-0 right-0 flex items-center pr-4">
+                                      <CheckIcon className="h-5 w-5 text-primary" />
+                                    </span>
                                   )}
-                                >
-                                  {client.name}
-                                </span>
-                                {selected && (
-                                  <span className="absolute inset-y-0 right-0 flex items-center pr-4">
-                                    <CheckIcon className="h-5 w-5 text-primary" />
-                                  </span>
-                                )}
-                              </>
-                            )}
-                          </Listbox.Option>
-                        ))}
-                      </Listbox.Options>
+                                </>
+                              )}
+                            </Combobox.Option>
+                          ))
+                        ) : (
+                          <div className="py-2 px-3">No company to show.</div>
+                        )}
+                      </Combobox.Options>
                     </div>
                     {errors.company && (
                       <small className="text-xs font-medium text-destructive">
@@ -291,74 +343,91 @@ export default function ClientTicketNew() {
                     )}
                   </div>
                 )}
-              </Listbox>
-
+              </Combobox>
               {/* Store */}
-              <Listbox
+              <Combobox
                 value={values.store}
-                onChange={(v) => setValue("store", v)}
                 disabled={!values.company || isStoresLoading}
+                onChange={(v) => setValue("store", v)}
               >
                 {({ open, value }) => (
                   <div className="grid gap-1">
-                    <Listbox.Label className="text-sm font-medium text-foreground/75">
-                      Store/Department
-                      <sup className="text-destructive">*</sup>
-                    </Listbox.Label>
+                    <Combobox.Label
+                      htmlFor="store"
+                      className="text-sm font-medium text-foreground/75"
+                    >
+                      Store/Department<sup className="text-destructive">*</sup>
+                    </Combobox.Label>
                     <div className="relative">
-                      <Listbox.Button
-                        aria-selected={!!value}
-                        className={twJoin(
-                          "relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm aria-selected:!text-foreground",
-                          !values.company && "opacity-50 cursor-not-allowed",
+                      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5 disabled:opacity-85 disabled:cursor-not-allowed">
+                        {isStoresLoading ? (
+                          <ArrowPathIcon className="animate-spin" />
+                        ) : (
+                          <ChevronUpDownIcon />
                         )}
-                      >
-                        <span className="block truncate">
-                          {allStores?.find((s) => s.id === values.store)
-                            ?.name ?? "Select a store."}
-                        </span>
-                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [&_svg]:size-5">
-                          {isStoresLoading ? (
-                            <ArrowPathIcon className="animate-spin" />
-                          ) : (
-                            <ChevronUpDownIcon />
-                          )}
-                        </span>
-                      </Listbox.Button>
-                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
-                        {allStores?.map((s) => (
-                          <Listbox.Option
-                            key={s.id}
-                            value={s.id}
-                            className={({ active }) =>
-                              twJoin(
-                                active
-                                  ? "bg-muted text-primary"
-                                  : "text-muted-foreground",
-                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
-                              )
-                            }
-                          >
-                            {({ selected }) => (
-                              <>
-                                <span
-                                  className={twJoin(
-                                    selected ? "font-semibold" : "font-normal",
-                                    "block truncate",
+                      </Combobox.Button>
+
+                      <Combobox.Input
+                        id="company"
+                        placeholder="Select a store/department."
+                        onBlur={() => setStoreQuery("")}
+                        onChange={(ev) => setStoreQuery(ev.currentTarget.value)}
+                        displayValue={(value) => {
+                          if (!value || !allStores?.length) return;
+                          const selected = allStores.find(
+                            (c) => c.id === value,
+                          );
+                          return selected?.name;
+                        }}
+                        className="block w-full rounded-md border-none px-4 py-1.5 transition-colors bg-muted text-foreground hover:placeholder-foreground/75 shadow-sm focus:outline-none ring-1 ring-border placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6 disabled:cursor-not-allowed disabled:opacity-85 disabled:!placeholder-muted-foreground/75"
+                      />
+
+                      <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
+                        {filteredStores?.length ? (
+                          filteredStores.map((e) => (
+                            <Combobox.Option
+                              key={e.id}
+                              value={e.id}
+                              className={({ active }) =>
+                                twJoin(
+                                  active
+                                    ? "bg-muted text-primary"
+                                    : "text-muted-foreground",
+                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                )
+                              }
+                            >
+                              {({ selected }) => (
+                                <>
+                                  <div className="flex items-center gap-2">
+                                    <div className="grid">
+                                      <span
+                                        className={twJoin(
+                                          selected
+                                            ? "font-semibold"
+                                            : "font-normal",
+                                          "block truncate",
+                                        )}
+                                      >
+                                        {e.name}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  {selected && (
+                                    <span className="absolute inset-y-0 right-0 flex items-center pr-4">
+                                      <CheckIcon className="h-5 w-5 text-primary" />
+                                    </span>
                                   )}
-                                >
-                                  {s.name}
-                                </span>
-                                {selected && (
-                                  <span className="absolute inset-y-0 right-0 flex items-center pr-4">
-                                    <CheckIcon className="h-5 w-5 text-primary" />
-                                  </span>
-                                )}
-                              </>
-                            )}
-                          </Listbox.Option>
-                        ))}
-                      </Listbox.Options>
+                                </>
+                              )}
+                            </Combobox.Option>
+                          ))
+                        ) : (
+                          <div className="py-2 px-3">
+                            No store/department to show.
+                          </div>
+                        )}
+                      </Combobox.Options>
                     </div>
                     {errors.store && (
                       <small className="text-xs font-medium text-destructive">
@@ -367,7 +436,7 @@ export default function ClientTicketNew() {
                     )}
                   </div>
                 )}
-              </Listbox>
+              </Combobox>
             </div>
 
             {/* Issue Type */}
@@ -387,7 +456,7 @@ export default function ClientTicketNew() {
                         <ChevronUpDownIcon className="h-5 w-5" />
                       </span>
                     </Listbox.Button>
-                    <Transition show={open} as={Fragment}>
+                    <Transition show={open} as={React.Fragment}>
                       <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
                         {ISSUE_TYPES.map((item) => (
                           <Listbox.Option
@@ -455,7 +524,7 @@ export default function ClientTicketNew() {
                         <ChevronUpDownIcon className="h-5 w-5" />
                       </span>
                     </Listbox.Button>
-                    <Transition show={open} as={Fragment}>
+                    <Transition show={open} as={React.Fragment}>
                       <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background p-1 shadow-lg ring-2 ring-border !outline-none text-sm">
                         {PRIORITIES.map((item) => (
                           <Listbox.Option
@@ -509,18 +578,9 @@ export default function ClientTicketNew() {
               >
                 Description of Issue<sup className="text-destructive">*</sup>
               </label>
-              <textarea
-                id="detail"
-                {...register("detail")}
-                rows={4}
-                className="block w-full rounded-md border-0 min-h-32 max-h-72 py-1.5 bg-muted text-foreground shadow-sm ring-1 ring-border placeholder:text-muted-foreground hover:placeholder-foreground/75 focus:ring-2 focus:ring-inset focus:ring-primary font-medium text-sm sm:leading-6"
-                placeholder="Describe the issue in detail"
-              />
-              {errors.detail && (
-                <small className="text-xs font-medium text-destructive">
-                  {errors.detail.message}
-                </small>
-              )}
+              <div className="bg-muted rounded-md ring-1 ring-border min-h-32">
+                <Editor setIssue={(v) => setValue("detail", v)} />
+              </div>
             </div>
 
             {/* Submit */}

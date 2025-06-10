@@ -13,7 +13,7 @@ export default function TicketKanban({
   uiSettings,
 }: TicketKanbanProps) {
   return (
-    <div className="flex-1 min-w-0 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <div className="flex-1 max-w-1/2 overflow-x-auto">
       <div className="flex gap-4 p-4 min-w-fit max-w-[calc(100vw-2rem)]">
         {columns.map((column) => (
           <div
@@ -31,7 +31,7 @@ export default function TicketKanban({
                 </span>
               </div>
             </div>
-            <div className="p-2 pb-4 space-y-2 overflow-y-auto flex-grow [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="p-2 pb-4 space-y-2 overflow-y-auto flex-grow">
               {column.tickets.map((ticket) => (
                 <div
                   key={ticket.id}

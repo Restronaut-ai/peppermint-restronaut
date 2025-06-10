@@ -44,7 +44,7 @@ export default function TicketList({
           <ContextMenu key={ticket.id}>
             <ContextMenuTrigger>
               <Link href={`/issue/${ticket.id}`}>
-                <div className="flex flex-row w-full bg-white dark:bg-[#0A090C] dark:hover:bg-green-600 border-b-[1px] p-1.5 justify-between px-6 hover:bg-gray-100">
+                <div className="flex flex-row w-full bg-background border-b-[1px] border-border p-1.5 justify-between px-6 hover:bg-muted transition-colors">
                   <div className="flex flex-row items-center space-x-4">
                     {uiSettings.showTicketNumbers && (
                       <span className="text-xs font-semibold">
@@ -63,21 +63,21 @@ export default function TicketList({
                     )}
                     {uiSettings.showType && (
                       <span
-                        className={`inline-flex items-center rounded-md px-2 py-1 capitalize justify-center w-20 text-xs font-medium ring-1 ring-inset ring-gray-500/10 bg-orange-400 text-white`}
+                        className={`inline-flex items-center rounded-md px-2 py-1 capitalize justify-center w-20 text-xs font-medium bg-orange-400 text-white`}
                       >
                         {ticket.type}
                       </span>
                     )}
                     {uiSettings.showPriority && (
                       <span
-                        className={`inline-flex items-center rounded-md px-2 py-1 capitalize justify-center w-20 text-xs font-medium ring-1 ring-inset ring-gray-500/10 ${badge}`}
+                        className={`inline-flex items-center rounded-md px-2 py-1 capitalize justify-center w-20 text-xs font-medium ${badge}`}
                       >
                         {ticket.priority}
                       </span>
                     )}
                     {uiSettings.showAvatars && ticket.assignedTo && (
-                      <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-500">
-                        <span className="text-[11px] font-medium leading-none text-white uppercase">
+                      <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-muted">
+                        <span className="text-[11px] font-medium leading-none text-foreground uppercase">
                           {ticket.assignedTo.name[0]}
                         </span>
                       </span>
