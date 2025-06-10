@@ -14,7 +14,7 @@ export default function Login() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${getCookie("session")}`,
           },
-        },
+        }
       )
         .then((res) => res.json())
         .then((res) => {

@@ -188,7 +188,7 @@ export default function PortalLayout({ children }: any) {
                                     item.current
                                       ? "bg-gray-50 text-indigo-600"
                                       : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
-                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
+                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
                                 >
                                   <item.icon
@@ -196,7 +196,7 @@ export default function PortalLayout({ children }: any) {
                                       item.current
                                         ? "text-indigo-600"
                                         : "text-gray-400 group-hover:text-indigo-600",
-                                      "h-6 w-6 shrink-0",
+                                      "h-6 w-6 shrink-0"
                                     )}
                                     aria-hidden="true"
                                   />
@@ -254,7 +254,7 @@ export default function PortalLayout({ children }: any) {
                             item.current
                               ? "bg-[#F0F3F9] dark:bg-gray-800 dark:text-green-600"
                               : " hover:bg-[#F0F3F9] dark:hover:bg-gray-800 dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 text-xs font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 text-xs font-semibold leading-6"
                           )}
                         >
                           <item.icon
@@ -278,7 +278,7 @@ export default function PortalLayout({ children }: any) {
                             location.pathname === "/portal/issues"
                               ? "bg-[#F0F3F9] dark:bg-gray-800 dark:text-green-600"
                               : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 text-xs font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 text-xs font-semibold leading-6"
                           )}
                         >
                           <TicketIcon className="h-4 w-4 shrink-0 mt-1" />
@@ -297,7 +297,7 @@ export default function PortalLayout({ children }: any) {
                             location.pathname === "/portal/issues/open"
                               ? "bg-[#F0F3F9] dark:bg-gray-800 dark:text-green-600"
                               : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 mll-2 text-xs font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 mll-2 text-xs font-semibold leading-6"
                           )}
                         >
                           <span className="whitespace-nowrap">open</span>
@@ -316,7 +316,7 @@ export default function PortalLayout({ children }: any) {
                             location.pathname === "/portal/issues/closed"
                               ? "bg-[#F0F3F9] dark:bg-gray-800 dark:text-green-600"
                               : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 text-xs font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 text-xs font-semibold leading-6"
                           )}
                         >
                           <span className="whitespace-nowrap">closed</span>
@@ -385,7 +385,7 @@ export default function PortalLayout({ children }: any) {
                             }}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-3 text-left text-sm font-bold h-full p-2 w-full rounded-md text-gray-900",
+                              "block px-3 text-left text-sm font-bold h-full p-2 w-full rounded-md text-gray-900"
                             )}
                           >
                             {t("logout")}

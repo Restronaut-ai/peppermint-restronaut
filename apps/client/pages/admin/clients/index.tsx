@@ -58,7 +58,7 @@ function Table({ columns, data }: any) {
             : true;
         }),
     }),
-    [],
+    []
   );
 
   const defaultColumn = React.useMemo(
@@ -66,7 +66,7 @@ function Table({ columns, data }: any) {
       // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
-    [],
+    []
   );
 
   const {
@@ -106,7 +106,7 @@ function Table({ columns, data }: any) {
     },
     useFilters, // useFilters!
     useGlobalFilter,
-    usePagination,
+    usePagination
   );
 
   return (
@@ -141,7 +141,7 @@ function Table({ columns, data }: any) {
                           <>{column.render("Header")}</>
                         )}
                       </th>
-                    ),
+                    )
                   )}
                 </tr>
               ))}
@@ -226,7 +226,7 @@ function Table({ columns, data }: any) {
 export default function Clients() {
   const { data, status, refetch } = useQuery(
     "fetchAllClients",
-    fetchAllClients,
+    fetchAllClients
   );
 
   const router = useRouter();
@@ -287,7 +287,7 @@ export default function Clients() {
         },
       },
     ],
-    [],
+    []
   );
 
   return (

@@ -47,7 +47,7 @@ const requiredString = (message: string) =>
 const formSchema = z.object({
   name: requiredString("Please enter the user's full name."),
   email: requiredString("Please enter the email address of user.").email(
-    "Please enter a valid email address",
+    "Please enter a valid email address"
   ),
   password: requiredString("Please enter a new password.").optional(),
   language: requiredString("Please select a language."),
@@ -350,7 +350,7 @@ export function UserInfoForm({
                                   active
                                     ? "bg-muted text-primary"
                                     : "text-muted-foreground",
-                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md"
                                 )
                               }
                             >
@@ -361,7 +361,7 @@ export function UserInfoForm({
                                       selected
                                         ? "font-semibold"
                                         : "font-normal",
-                                      "block truncate",
+                                      "block truncate"
                                     )}
                                   >
                                     {lang.label}

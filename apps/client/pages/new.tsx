@@ -140,8 +140,8 @@ export default function CreateTicket() {
                       {company === undefined
                         ? t("select_a_client")
                         : company === ""
-                          ? t("select_a_client")
-                          : company.name}
+                        ? t("select_a_client")
+                        : company.name}
                     </span>
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                       <ChevronUpDownIcon
@@ -165,7 +165,7 @@ export default function CreateTicket() {
                             active
                               ? "bg-indigo-600 text-white"
                               : "text-gray-900 dark:text-white",
-                            "relative cursor-default select-none py-2 pl-3 pr-9",
+                            "relative cursor-default select-none py-2 pl-3 pr-9"
                           )
                         }
                         value={undefined}
@@ -175,7 +175,7 @@ export default function CreateTicket() {
                             <span
                               className={classNames(
                                 selected ? "font-semibold" : "font-normal",
-                                "block truncate",
+                                "block truncate"
                               )}
                             >
                               Unassigned
@@ -185,7 +185,7 @@ export default function CreateTicket() {
                               <span
                                 className={classNames(
                                   active ? "text-white" : "text-indigo-600",
-                                  "absolute inset-y-0 right-0 flex items-center pr-4",
+                                  "absolute inset-y-0 right-0 flex items-center pr-4"
                                 )}
                               >
                                 <CheckIcon
@@ -206,7 +206,7 @@ export default function CreateTicket() {
                                 active
                                   ? "bg-indigo-600 text-white"
                                   : "text-gray-900 dark:text-white",
-                                "relative cursor-default select-none py-2 pl-3 pr-9",
+                                "relative cursor-default select-none py-2 pl-3 pr-9"
                               )
                             }
                             value={client}
@@ -216,7 +216,7 @@ export default function CreateTicket() {
                                 <span
                                   className={classNames(
                                     selected ? "font-semibold" : "font-normal",
-                                    "block truncate",
+                                    "block truncate"
                                   )}
                                 >
                                   {client.name}
@@ -226,7 +226,7 @@ export default function CreateTicket() {
                                   <span
                                     className={classNames(
                                       active ? "text-white" : "text-indigo-600",
-                                      "absolute inset-y-0 right-0 flex items-center pr-4",
+                                      "absolute inset-y-0 right-0 flex items-center pr-4"
                                     )}
                                   >
                                     <CheckIcon
@@ -277,7 +277,7 @@ export default function CreateTicket() {
                             active
                               ? "bg-indigo-600 text-white"
                               : "text-gray-900 dark:text-white",
-                            "relative cursor-default select-none py-2 pl-3 pr-9",
+                            "relative cursor-default select-none py-2 pl-3 pr-9"
                           )
                         }
                         value={undefined}
@@ -287,7 +287,7 @@ export default function CreateTicket() {
                             <span
                               className={classNames(
                                 selected ? "font-semibold" : "font-normal",
-                                "block truncate",
+                                "block truncate"
                               )}
                             >
                               Unassigned
@@ -297,7 +297,7 @@ export default function CreateTicket() {
                               <span
                                 className={classNames(
                                   active ? "text-white" : "text-indigo-600",
-                                  "absolute inset-y-0 right-0 flex items-center pr-4",
+                                  "absolute inset-y-0 right-0 flex items-center pr-4"
                                 )}
                               >
                                 <CheckIcon
@@ -318,7 +318,7 @@ export default function CreateTicket() {
                                 active
                                   ? "bg-indigo-600 text-white"
                                   : "text-gray-900 dark:text-white",
-                                "relative cursor-default select-none py-2 pl-3 pr-9",
+                                "relative cursor-default select-none py-2 pl-3 pr-9"
                               )
                             }
                             value={user}
@@ -328,7 +328,7 @@ export default function CreateTicket() {
                                 <span
                                   className={classNames(
                                     selected ? "font-semibold" : "font-normal",
-                                    "block truncate",
+                                    "block truncate"
                                   )}
                                 >
                                   {user.name}
@@ -338,7 +338,7 @@ export default function CreateTicket() {
                                   <span
                                     className={classNames(
                                       active ? "text-white" : "text-indigo-600",
-                                      "absolute inset-y-0 right-0 flex items-center pr-4",
+                                      "absolute inset-y-0 right-0 flex items-center pr-4"
                                     )}
                                   >
                                     <CheckIcon
@@ -387,7 +387,7 @@ export default function CreateTicket() {
                               active
                                 ? "bg-gray-400 text-white"
                                 : "text-gray-900 dark:text-white",
-                              "relative cursor-default select-none py-2 pl-3 pr-9",
+                              "relative cursor-default select-none py-2 pl-3 pr-9"
                             )
                           }
                           value={person}
@@ -397,7 +397,7 @@ export default function CreateTicket() {
                               <span
                                 className={classNames(
                                   selected ? "font-semibold" : "font-normal",
-                                  "block truncate",
+                                  "block truncate"
                                 )}
                               >
                                 {person.name}
@@ -407,7 +407,7 @@ export default function CreateTicket() {
                                 <span
                                   className={classNames(
                                     active ? "text-white" : "text-indigo-600",
-                                    "absolute inset-y-0 right-0 flex items-center pr-4",
+                                    "absolute inset-y-0 right-0 flex items-center pr-4"
                                   )}
                                 >
                                   <CheckIcon

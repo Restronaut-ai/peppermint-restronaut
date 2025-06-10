@@ -50,7 +50,7 @@ const requiredString = (message: string) =>
 export const TicketSchema = z.object({
   name: requiredString("Please provide your name."),
   email: requiredString("Please provide your email address.").email(
-    "Please provide a valid email address.",
+    "Please provide a valid email address."
   ),
   title: requiredString("Please provide a subject of your issue."),
   detail: requiredString("Please provide a detail."),
@@ -277,14 +277,14 @@ export default function ClientTicketNew() {
                       <Combobox.Input
                         id="company"
                         placeholder="Select a company."
-                        onBlur={() => setCompanyQuery("")}
+                        onFocus={() => setCompanyQuery("")}
                         onChange={(ev) =>
                           setCompanyQuery(ev.currentTarget.value)
                         }
                         displayValue={(value) => {
                           if (!value || !allCompanies?.length) return;
                           const selected = allCompanies.find(
-                            (c) => c.id === value,
+                            (c) => c.id === value
                           );
                           return selected?.name;
                         }}
@@ -302,7 +302,7 @@ export default function ClientTicketNew() {
                                   active
                                     ? "bg-muted text-primary"
                                     : "text-muted-foreground",
-                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md"
                                 )
                               }
                             >
@@ -315,7 +315,7 @@ export default function ClientTicketNew() {
                                           selected
                                             ? "font-semibold"
                                             : "font-normal",
-                                          "block truncate",
+                                          "block truncate"
                                         )}
                                       >
                                         {e.name}
@@ -370,12 +370,12 @@ export default function ClientTicketNew() {
                       <Combobox.Input
                         id="company"
                         placeholder="Select a store/department."
-                        onBlur={() => setStoreQuery("")}
+                        onFocus={() => setStoreQuery("")}
                         onChange={(ev) => setStoreQuery(ev.currentTarget.value)}
                         displayValue={(value) => {
                           if (!value || !allStores?.length) return;
                           const selected = allStores.find(
-                            (c) => c.id === value,
+                            (c) => c.id === value
                           );
                           return selected?.name;
                         }}
@@ -393,7 +393,7 @@ export default function ClientTicketNew() {
                                   active
                                     ? "bg-muted text-primary"
                                     : "text-muted-foreground",
-                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                  "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md"
                                 )
                               }
                             >
@@ -406,7 +406,7 @@ export default function ClientTicketNew() {
                                           selected
                                             ? "font-semibold"
                                             : "font-normal",
-                                          "block truncate",
+                                          "block truncate"
                                         )}
                                       >
                                         {e.name}
@@ -467,7 +467,7 @@ export default function ClientTicketNew() {
                                 active
                                   ? "bg-muted text-primary"
                                   : "text-muted-foreground",
-                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md"
                               )
                             }
                           >
@@ -476,7 +476,7 @@ export default function ClientTicketNew() {
                                 <span
                                   className={twJoin(
                                     selected ? "font-semibold" : "font-normal",
-                                    "block truncate",
+                                    "block truncate"
                                   )}
                                 >
                                   {item.name}
@@ -517,7 +517,7 @@ export default function ClientTicketNew() {
                     <Listbox.Button className="relative w-full cursor-default rounded-md bg-muted text-muted-foreground hover:text-foreground py-1.5 pl-4 pr-10 text-left shadow-sm ring-1 ring-inset ring-border font-medium text-sm">
                       <span className="block truncate">
                         {PRIORITIES.find(
-                          (priority) => priority.name === values.priority,
+                          (priority) => priority.name === values.priority
                         )?.name ?? "Priority"}
                       </span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -535,7 +535,7 @@ export default function ClientTicketNew() {
                                 active
                                   ? "bg-muted text-primary"
                                   : "text-muted-foreground",
-                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md",
+                                "relative cursor-default select-none py-2 pl-3 pr-9 rounded-md"
                               )
                             }
                           >
@@ -544,7 +544,7 @@ export default function ClientTicketNew() {
                                 <span
                                   className={twJoin(
                                     selected ? "font-semibold" : "font-normal",
-                                    "block truncate",
+                                    "block truncate"
                                   )}
                                 >
                                   {item.name}

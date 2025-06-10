@@ -67,7 +67,7 @@ export function CommandMenu() {
     },
     {
       enabled: open, // Only fetch when command menu is open
-    },
+    }
   );
 
   const { data: usersData } = useQuery(
@@ -83,7 +83,7 @@ export function CommandMenu() {
     },
     {
       enabled: open, // Only fetch when command menu is open
-    },
+    }
   );
 
   const {
@@ -264,7 +264,7 @@ export function CommandMenu() {
                 <CommandItem
                   onSelect={() => {
                     const ticket = ticketsData.find(
-                      (t: Ticket) => t.id === router.query.id,
+                      (t: Ticket) => t.id === router.query.id
                     );
                     if (ticket) {
                       updateTicketStatus(ticket);
@@ -282,7 +282,7 @@ export function CommandMenu() {
                     key={priority.value}
                     onSelect={() => {
                       const ticket = ticketsData.find(
-                        (t: Ticket) => t.id === router.query.id,
+                        (t: Ticket) => t.id === router.query.id
                       );
                       if (ticket) {
                         updateTicketPriority(ticket, priority.value);
@@ -305,7 +305,7 @@ export function CommandMenu() {
                           if (router.query.id) {
                             updateTicketAssignee(
                               router.query.id as string,
-                              user,
+                              user
                             );
                             setOpen(false);
                           }
@@ -320,7 +320,7 @@ export function CommandMenu() {
                         if (router.query.id) {
                           updateTicketAssignee(
                             router.query.id as string,
-                            undefined,
+                            undefined
                           );
                           setOpen(false);
                         }

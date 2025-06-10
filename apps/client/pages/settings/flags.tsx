@@ -41,7 +41,7 @@ export default function FeatureFlags() {
       // Merge saved flags with default flags, adding any new flags
       const mergedFlags = defaultFlags.map((defaultFlag) => {
         const savedFlag = parsedFlags.find(
-          (f: FeatureFlag) => f.name === defaultFlag.name,
+          (f: FeatureFlag) => f.name === defaultFlag.name
         );
         return savedFlag || defaultFlag;
       });
@@ -55,7 +55,7 @@ export default function FeatureFlags() {
 
   const toggleFlag = (flagName: string) => {
     const updatedFlags = flags.map((flag) =>
-      flag.name === flagName ? { ...flag, enabled: !flag.enabled } : flag,
+      flag.name === flagName ? { ...flag, enabled: !flag.enabled } : flag
     );
     setFlags(updatedFlags);
     localStorage.setItem("featureFlags", JSON.stringify(updatedFlags));

@@ -20,15 +20,15 @@ export function useTicketFilters(tickets: Ticket[] = []) {
   useEffect(() => {
     localStorage.setItem(
       "all_selectedPriorities",
-      JSON.stringify(selectedPriorities),
+      JSON.stringify(selectedPriorities)
     );
     localStorage.setItem(
       "all_selectedStatuses",
-      JSON.stringify(selectedStatuses),
+      JSON.stringify(selectedStatuses)
     );
     localStorage.setItem(
       "all_selectedAssignees",
-      JSON.stringify(selectedAssignees),
+      JSON.stringify(selectedAssignees)
     );
   }, [selectedPriorities, selectedStatuses, selectedAssignees]);
 
@@ -36,7 +36,7 @@ export function useTicketFilters(tickets: Ticket[] = []) {
     setSelectedPriorities((prev) =>
       prev.includes(priority)
         ? prev.filter((p) => p !== priority)
-        : [...prev, priority],
+        : [...prev, priority]
     );
   };
 
@@ -44,7 +44,7 @@ export function useTicketFilters(tickets: Ticket[] = []) {
     setSelectedStatuses((prev) =>
       prev.includes(status)
         ? prev.filter((s) => s !== status)
-        : [...prev, status],
+        : [...prev, status]
     );
   };
 
@@ -52,7 +52,7 @@ export function useTicketFilters(tickets: Ticket[] = []) {
     setSelectedAssignees((prev) =>
       prev.includes(assignee)
         ? prev.filter((a) => a !== assignee)
-        : [...prev, assignee],
+        : [...prev, assignee]
     );
   };
 

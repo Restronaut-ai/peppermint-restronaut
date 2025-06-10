@@ -33,7 +33,7 @@ export function userRoutes(fastify: FastifyInstance) {
         users,
         success: true,
       });
-    },
+    }
   );
 
   // New user
@@ -74,7 +74,7 @@ export function userRoutes(fastify: FastifyInstance) {
       } else {
         reply.status(403).send({ message: "Unauthorized", failed: true });
       }
-    },
+    }
   );
 
   // (ADMIN) Reset password
@@ -99,7 +99,7 @@ export function userRoutes(fastify: FastifyInstance) {
       } else {
         reply.status(403).send({ message: "Unauthorized", failed: true });
       }
-    },
+    }
   );
 
   // Mark Notification as read
@@ -145,6 +145,6 @@ export function userRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 }

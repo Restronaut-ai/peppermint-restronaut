@@ -27,7 +27,7 @@ export default function Tickets() {
 
   const token = getCookie("session");
   const { data, status, error } = useQuery("allusertickets", () =>
-    getUserTickets(token),
+    getUserTickets(token)
   );
 
   const user = useUser();

@@ -31,7 +31,7 @@ async function getUserEmails(token: string) {
 
   // Return only the primary email address
   const primaryEmail = res.data.find(
-    (email: { primary: boolean }) => email.primary,
+    (email: { primary: boolean }) => email.primary
   );
   return primaryEmail ? primaryEmail.email : null; // Return the email or null if not found
 }
@@ -122,7 +122,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Register a new external user
@@ -184,7 +184,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Forgot password & generate code
@@ -224,7 +224,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Check code & uuid us valid
@@ -247,7 +247,7 @@ export function authRoutes(fastify: FastifyInstance) {
           success: true,
         });
       }
-    },
+    }
   );
 
   // Reset users password via code
@@ -280,7 +280,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // User password login route
@@ -336,7 +336,7 @@ export function authRoutes(fastify: FastifyInstance) {
         {
           expiresIn: "8h",
           algorithm: "HS256",
-        },
+        }
       );
 
       // Store session with additional security info
@@ -370,7 +370,7 @@ export function authRoutes(fastify: FastifyInstance) {
         token,
         user: data,
       });
-    },
+    }
   );
 
   // Checks if a user is password auth or other
@@ -473,7 +473,7 @@ export function authRoutes(fastify: FastifyInstance) {
         default:
           break;
       }
-    },
+    }
   );
 
   // oidc api callback route
@@ -499,7 +499,7 @@ export function authRoutes(fastify: FastifyInstance) {
           // Remove the trailing part and ensure a trailing slash
           params.iss = oidc.issuer.replace(
             /\/\.well-known\/openid-configuration$/,
-            "/",
+            "/"
           );
         }
 
@@ -520,12 +520,14 @@ export function authRoutes(fastify: FastifyInstance) {
         }
 
         let tokens = await oidcClient.callback(
-          (await oidc).redirectUri,
+          (
+            await oidc
+          ).redirectUri,
           params,
           {
             code_verifier: codeVerifier,
             state: state,
-          },
+          }
         );
 
         // Clean up: Remove the codeVerifier from the cache
@@ -564,7 +566,7 @@ export function authRoutes(fastify: FastifyInstance) {
             data: { id: user.id },
           },
           secret,
-          { expiresIn: "8h" },
+          { expiresIn: "8h" }
         );
 
         // Create a session
@@ -590,7 +592,7 @@ export function authRoutes(fastify: FastifyInstance) {
           details: error.message,
         });
       }
-    },
+    }
   );
 
   // oauth api callback route
@@ -633,7 +635,7 @@ export function authRoutes(fastify: FastifyInstance) {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          },
+          }
         );
 
         const emails =
@@ -662,7 +664,7 @@ export function authRoutes(fastify: FastifyInstance) {
             data: { id: user.id },
           },
           secret,
-          { expiresIn: "8h" },
+          { expiresIn: "8h" }
         );
 
         // Create a session
@@ -690,7 +692,7 @@ export function authRoutes(fastify: FastifyInstance) {
           details: error.message,
         });
       }
-    },
+    }
   );
 
   // Delete a user
@@ -737,7 +739,7 @@ export function authRoutes(fastify: FastifyInstance) {
       });
 
       reply.send({ success: true });
-    },
+    }
   );
 
   // User Profile
@@ -792,7 +794,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         user: data,
       });
-    },
+    }
   );
 
   // Reset Users password
@@ -817,7 +819,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Reset password by admin
@@ -861,7 +863,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   fastify.put(
@@ -870,18 +872,18 @@ export function authRoutes(fastify: FastifyInstance) {
       preHandler: requirePermission(["user::update"]),
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      let newPassword: string|undefined;
+      let newPassword: string | undefined;
 
       const body = request.body as any;
       const { userId }: any = request.params;
 
-      if(body.email) {
+      if (body.email) {
         const userWithCurrentEmail = await prisma.user.findFirst({
           where: { email: body.email },
-          select: { id: true }
+          select: { id: true },
         });
 
-        if(userWithCurrentEmail) {
+        if (userWithCurrentEmail) {
           if (userWithCurrentEmail.id !== userId) {
             return reply.code(400).send({ message: "Email already exists" });
           } else {
@@ -890,7 +892,7 @@ export function authRoutes(fastify: FastifyInstance) {
         }
       }
 
-      if(body.password) {
+      if (body.password) {
         newPassword = await bcrypt.hash(body.password, 10);
       }
 
@@ -902,7 +904,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Update a users profile/config
@@ -932,7 +934,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         user,
       });
-    },
+    }
   );
 
   // Update a users Email notification settings
@@ -964,7 +966,7 @@ export function authRoutes(fastify: FastifyInstance) {
       reply.send({
         user,
       });
-    },
+    }
   );
 
   // Logout a user (deletes session)
@@ -978,7 +980,7 @@ export function authRoutes(fastify: FastifyInstance) {
       });
 
       reply.send({ success: true });
-    },
+    }
   );
 
   // Update a users role
@@ -1018,7 +1020,7 @@ export function authRoutes(fastify: FastifyInstance) {
           success: false,
         });
       }
-    },
+    }
   );
 
   // first login
@@ -1037,7 +1039,7 @@ export function authRoutes(fastify: FastifyInstance) {
       await tracking("user_first_login", {});
 
       reply.send({ success: true });
-    },
+    }
   );
 
   // Add a new endpoint to list and manage active sessions
@@ -1061,7 +1063,7 @@ export function authRoutes(fastify: FastifyInstance) {
       });
 
       reply.send({ sessions });
-    },
+    }
   );
 
   // Add ability to revoke specific sessions
@@ -1092,6 +1094,6 @@ export function authRoutes(fastify: FastifyInstance) {
       });
 
       reply.send({ success: true });
-    },
+    }
   );
 }

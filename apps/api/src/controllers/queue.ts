@@ -86,7 +86,7 @@ export function emailQueueRoutes(fastify: FastifyInstance) {
             message: "Unsupported service type",
           });
       }
-    },
+    }
   );
 
   // Google oauth callback
@@ -106,7 +106,7 @@ export function emailQueueRoutes(fastify: FastifyInstance) {
         //@ts-expect-error
         mailbox?.clientId,
         mailbox?.clientSecret,
-        mailbox?.redirectUri,
+        mailbox?.redirectUri
       );
 
       console.log(google);
@@ -127,7 +127,7 @@ export function emailQueueRoutes(fastify: FastifyInstance) {
         success: true,
         message: "Mailbox updated!",
       });
-    },
+    }
   );
 
   // Get all email queue's
@@ -154,7 +154,7 @@ export function emailQueueRoutes(fastify: FastifyInstance) {
         success: true,
         queues: queues,
       });
-    },
+    }
   );
 
   // Delete an email queue
@@ -173,6 +173,6 @@ export function emailQueueRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 }

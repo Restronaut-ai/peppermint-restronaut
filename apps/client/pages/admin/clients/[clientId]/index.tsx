@@ -59,7 +59,7 @@ function Table({ columns, data }: any) {
             : true;
         }),
     }),
-    [],
+    []
   );
 
   const defaultColumn = React.useMemo(
@@ -67,7 +67,7 @@ function Table({ columns, data }: any) {
       // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
-    [],
+    []
   );
 
   const {
@@ -107,7 +107,7 @@ function Table({ columns, data }: any) {
     },
     useFilters, // useFilters!
     useGlobalFilter,
-    usePagination,
+    usePagination
   );
 
   return (
@@ -142,7 +142,7 @@ function Table({ columns, data }: any) {
                           <>{column.render("Header")}</>
                         )}
                       </th>
-                    ),
+                    )
                   )}
                 </tr>
               ))}
@@ -310,7 +310,7 @@ export default function ClientStoresPage() {
         },
       },
     ],
-    [],
+    []
   );
 
   return (

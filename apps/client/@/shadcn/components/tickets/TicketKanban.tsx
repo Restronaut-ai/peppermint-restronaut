@@ -89,8 +89,8 @@ export default function TicketKanban({
                             ticket.priority.toLowerCase() === "high"
                               ? "bg-red-100 text-red-800"
                               : ticket.priority.toLowerCase() === "normal"
-                                ? "bg-green-100 text-green-800"
-                                : "bg-blue-100 text-blue-800"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-blue-100 text-blue-800"
                           }`}
                         >
                           {ticket.priority}

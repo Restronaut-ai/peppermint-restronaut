@@ -6,7 +6,7 @@ export async function forgotPassword(
   email: string,
   code: string,
   link: string,
-  token: string,
+  token: string
 ) {
   try {
     const email = await prisma.email.findFirst();

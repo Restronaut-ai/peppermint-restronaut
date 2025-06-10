@@ -54,7 +54,7 @@ server.get(
   },
   async function (request, response) {
     response.send({ healthy: true });
-  },
+  }
 );
 
 // JWT authentication hook
@@ -138,7 +138,7 @@ const start = async () => {
 
         client.shutdownAsync();
         console.info(`Server listening on ${address}`);
-      },
+      }
     );
 
     setInterval(() => getEmails(), 10000); // Call getEmails every minute

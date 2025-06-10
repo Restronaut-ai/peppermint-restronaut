@@ -198,7 +198,7 @@ export default function NewLayout({ children }: any) {
                                     item.current
                                       ? "bg-secondary dark:bg-primary"
                                       : "hover:bg-secondary dark:hover:bg-secondary-foreground dark:hover:text-gray-900 ",
-                                    "group -mx-2 flex gap-x-3 p-1 text-xs rounded-md font-semibold leading-6",
+                                    "group -mx-2 flex gap-x-3 p-1 text-xs rounded-md font-semibold leading-6"
                                   )}
                                 >
                                   <item.icon
@@ -219,7 +219,7 @@ export default function NewLayout({ children }: any) {
                                     location.pathname === "/issues"
                                       ? "bg-secondary dark:bg-primary"
                                       : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                                    "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6",
+                                    "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
                                   )}
                                 >
                                   <TicketIcon className="h-4 w-4 ml-1 shrink-0 mt-1" />
@@ -235,7 +235,7 @@ export default function NewLayout({ children }: any) {
                                     location.pathname === "/issues/open"
                                       ? "bg-secondary dark:bg-primary"
                                       : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                                    "group -mx-2 flex gap-x-3 p-1 pl-3 rounded-md text-xs font-semibold leading-6",
+                                    "group -mx-2 flex gap-x-3 p-1 pl-3 rounded-md text-xs font-semibold leading-6"
                                   )}
                                 >
                                   <span className="whitespace-nowrap">
@@ -251,7 +251,7 @@ export default function NewLayout({ children }: any) {
                                     location.pathname === "/issues/closed"
                                       ? "bg-secondary dark:bg-primary"
                                       : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                                    "group -mx-2 flex gap-x-3 p-1 pl-3 rounded-md text-xs font-semibold leading-6",
+                                    "group -mx-2 flex gap-x-3 p-1 pl-3 rounded-md text-xs font-semibold leading-6"
                                   )}
                                 >
                                   <span className="whitespace-nowrap">
@@ -268,7 +268,7 @@ export default function NewLayout({ children }: any) {
                                     location.pathname.includes("/admin")
                                       ? "bg-secondary dark:bg-primary"
                                       : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                                    "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6",
+                                    "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
                                   )}
                                 >
                                   <>
@@ -327,7 +327,7 @@ export default function NewLayout({ children }: any) {
                             item.current
                               ? "bg-secondary dark:bg-primary"
                               : "hover:bg-secondary dark:hover:bg-secondary-foreground dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 text-xs rounded-md font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 text-xs rounded-md font-semibold leading-6"
                           )}
                         >
                           <item.icon
@@ -351,7 +351,7 @@ export default function NewLayout({ children }: any) {
                             location.pathname === "/issues"
                               ? "bg-secondary dark:bg-primary"
                               : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
                           )}
                         >
                           <SquareKanban className="h-4 w-4 ml-1 shrink-0 mt-1" />
@@ -370,7 +370,7 @@ export default function NewLayout({ children }: any) {
                             location.pathname === "/issues/open"
                               ? "bg-secondary dark:bg-primary"
                               : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 pl-3 rounded-md text-xs font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 pl-3 rounded-md text-xs font-semibold leading-6"
                           )}
                         >
                           <span className="whitespace-nowrap">
@@ -391,7 +391,7 @@ export default function NewLayout({ children }: any) {
                             location.pathname === "/issues/closed"
                               ? "bg-secondary dark:bg-primary"
                               : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 pl-3 justify-between w-full rounded-md text-xs font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 pl-3 justify-between w-full rounded-md text-xs font-semibold leading-6"
                           )}
                         >
                           <span className="whitespace-nowrap">
@@ -413,7 +413,7 @@ export default function NewLayout({ children }: any) {
                             location.pathname.includes("/admin")
                               ? "bg-secondary dark:bg-primary"
                               : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
-                            "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6",
+                            "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
                           )}
                         >
                           <>
@@ -469,7 +469,7 @@ export default function NewLayout({ children }: any) {
                   <Link href="/notifications">
                     <Bell className="h-4 w-4 text-foreground" />
                     {user.notifcations.filter(
-                      (notification) => !notification.read,
+                      (notification) => !notification.read
                     ).length > 0 && (
                       <svg
                         className="h-2.5 w-2.5 absolute bottom-6 left-6 animate-pulse fill-green-500"

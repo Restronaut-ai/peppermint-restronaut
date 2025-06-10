@@ -44,15 +44,15 @@ export default function TicketFilters({
   const assignees = ["Unassigned", ...users.map((u) => u.name)];
 
   const filteredPriorities = priorities.filter((priority) =>
-    priority.toLowerCase().includes(filterSearch.toLowerCase()),
+    priority.toLowerCase().includes(filterSearch.toLowerCase())
   );
 
   const filteredStatuses = statuses.filter((status) =>
-    status.toLowerCase().includes(filterSearch.toLowerCase()),
+    status.toLowerCase().includes(filterSearch.toLowerCase())
   );
 
   const filteredAssignees = assignees.filter((assignee) =>
-    assignee.toLowerCase().includes(filterSearch.toLowerCase()),
+    assignee.toLowerCase().includes(filterSearch.toLowerCase())
   );
 
   return (
@@ -112,7 +112,7 @@ export default function TicketFilters({
                             "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                             selectedPriorities.includes(priority)
                               ? "bg-primary text-primary-foreground"
-                              : "opacity-50 [&_svg]:invisible",
+                              : "opacity-50 [&_svg]:invisible"
                           )}
                         >
                           <CheckIcon className={cn("h-4 w-4")} />
@@ -136,7 +136,7 @@ export default function TicketFilters({
                             "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                             selectedStatuses.includes(status)
                               ? "bg-primary text-primary-foreground"
-                              : "opacity-50 [&_svg]:invisible",
+                              : "opacity-50 [&_svg]:invisible"
                           )}
                         >
                           <CheckIcon className={cn("h-4 w-4")} />
@@ -160,7 +160,7 @@ export default function TicketFilters({
                             "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                             selectedAssignees.includes(assignee)
                               ? "bg-primary text-primary-foreground"
-                              : "opacity-50 [&_svg]:invisible",
+                              : "opacity-50 [&_svg]:invisible"
                           )}
                         >
                           <CheckIcon className={cn("h-4 w-4")} />

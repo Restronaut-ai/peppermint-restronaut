@@ -32,7 +32,7 @@ export function clientRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Update client
@@ -57,7 +57,7 @@ export function clientRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Get all clients
@@ -70,7 +70,7 @@ export function clientRoutes(fastify: FastifyInstance) {
         success: true,
         clients: clients,
       });
-    },
+    }
   );
 
   // Delete client
@@ -89,7 +89,7 @@ export function clientRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Get store of client
@@ -107,7 +107,7 @@ export function clientRoutes(fastify: FastifyInstance) {
         success: true,
         stores: stores,
       });
-    },
+    }
   );
 
   // get all tags for a client
@@ -180,7 +180,7 @@ export function clientRoutes(fastify: FastifyInstance) {
         success: true,
         store,
       });
-    },
+    }
   );
 
   // update store detail
@@ -222,7 +222,7 @@ export function clientRoutes(fastify: FastifyInstance) {
         success: true,
         store,
       });
-    },
+    }
   );
 
   // delete store from a client
@@ -248,6 +248,6 @@ export function clientRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 }

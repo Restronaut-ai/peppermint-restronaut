@@ -23,7 +23,7 @@ export default function Tickets() {
 
   const token = getCookie("session");
   const { data, status, error } = useQuery("allusertickets", () =>
-    getUserTickets(token),
+    getUserTickets(token)
   );
 
   const high = "bg-red-100 text-red-800";

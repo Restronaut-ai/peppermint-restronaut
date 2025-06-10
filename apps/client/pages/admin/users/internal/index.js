@@ -61,7 +61,7 @@ function Table({ columns, data }) {
             : true;
         }),
     }),
-    [],
+    []
   );
 
   const defaultColumn = React.useMemo(
@@ -69,7 +69,7 @@ function Table({ columns, data }) {
       // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
-    [],
+    []
   );
 
   const {
@@ -109,7 +109,7 @@ function Table({ columns, data }) {
     },
     useFilters, // useFilters!
     useGlobalFilter,
-    usePagination,
+    usePagination
   );
 
   return (
@@ -144,7 +144,7 @@ function Table({ columns, data }) {
                           <>{column.render("Header")}</>
                         )}
                       </th>
-                    ),
+                    )
                   )}
                 </tr>
               ))}
@@ -302,7 +302,7 @@ export default function UserAuthPanel() {
         },
       },
     ],
-    [],
+    []
   );
 
   return (

@@ -23,10 +23,10 @@ const formSchema = z.object({
   address: requiredString("Please enter the address of the store."),
   manager: requiredString("Please enter the name of the store's manager."),
   email: requiredString(
-    "Please enter the email address of the store's manager.",
+    "Please enter the email address of the store's manager."
   ).email("Please enter a valid email address"),
   phone: requiredString(
-    "Please enter the phone number of the store's manager.",
+    "Please enter the phone number of the store's manager."
   ),
   tags: z.array(requiredString("Please provide a valid tag.")).optional(),
   notes: z.array(z.string()),
@@ -167,7 +167,7 @@ export function StoreInfoForm({
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${getCookie("session")}`,
                       },
-                    },
+                    }
                   );
                   if (!response.ok) throw "";
                   toast({
@@ -401,26 +401,46 @@ export function StoreInfoForm({
                   placeholder="Enter or create tags (if needed)"
                   classNames={{
                     control: ({ isFocused }) =>
-                      `!text-sm !font-medium !bg-muted !border-none ${isFocused ? "!ring-2 ring-primary" : "!cursor-text !ring-1 !ring-border"}`,
+                      `!text-sm !font-medium !bg-muted !border-none ${
+                        isFocused
+                          ? "!ring-2 ring-primary"
+                          : "!cursor-text !ring-1 !ring-border"
+                      }`,
                     menu: () =>
                       "!bg-background !text-foreground/85 !border-2 !border-border !shadow-sm !rounded-md",
                     menuList: () =>
                       "!bg-background !p-1 !rounded-md !max-h-full !overflow-auto",
                     option: ({ isFocused, isDisabled }) =>
-                      `rounded-md !text-foreground/85 !text-sm !font-semibold ${isFocused ? "!bg-muted !text-foreground" : "!bg-background !text-foreground/85"} ${isDisabled ? "!cursor-not-allowed !opacity-70" : ""}`,
+                      `rounded-md !text-foreground/85 !text-sm !font-semibold ${
+                        isFocused
+                          ? "!bg-muted !text-foreground"
+                          : "!bg-background !text-foreground/85"
+                      } ${isDisabled ? "!cursor-not-allowed !opacity-70" : ""}`,
                     placeholder: () =>
                       "transition-all group-hover:text-foreground/85",
                     indicatorSeparator: () => "!hidden",
                     input: ({ value }) =>
-                      `!text-sm !font-medium ${value ? "ring-1 ring-border bg-background px-1" : ""} rounded-md py-0 !max-w-fit [&_input]:!max-w-fit [&_input]:bg-transparent [&_input]:!border-0 [&_input]:rounded-md [&_input]:!ring-0`,
+                      `!text-sm !font-medium ${
+                        value ? "ring-1 ring-border bg-background px-1" : ""
+                      } rounded-md py-0 !max-w-fit [&_input]:!max-w-fit [&_input]:bg-transparent [&_input]:!border-0 [&_input]:rounded-md [&_input]:!ring-0`,
                     dropdownIndicator: () => "!hidden",
                     // multiValue: () => "!bg-background !text-foreground/85 !hover:text-foreground",
                     multiValue: ({ data }: any) =>
-                      `!rounded-md !text-sm !font-medium ${data.__isNew__ ? "!bg-primary" : "!bg-foreground"}`,
+                      `!rounded-md !text-sm !font-medium ${
+                        data.__isNew__ ? "!bg-primary" : "!bg-foreground"
+                      }`,
                     multiValueLabel: ({ data }: any) =>
-                      `!text-xs !font-medium ${data.__isNew__ ? "!text-primary-foreground" : "!text-background"}`,
+                      `!text-xs !font-medium ${
+                        data.__isNew__
+                          ? "!text-primary-foreground"
+                          : "!text-background"
+                      }`,
                     multiValueRemove: ({ data }: any) =>
-                      `!bg-transparent [&_svg]:size-4 ${data.__isNew__ ? "!text-primary-foreground/85 hover:!text-primary-foreground" : "!text-background/85 !hover:text-background"}`,
+                      `!bg-transparent [&_svg]:size-4 ${
+                        data.__isNew__
+                          ? "!text-primary-foreground/85 hover:!text-primary-foreground"
+                          : "!text-background/85 !hover:text-background"
+                      }`,
                     clearIndicator: () =>
                       `transition-all [&_svg]:text-muted-foreground hover:[&_svg]:text-destructive !cursor-pointer`,
                   }}

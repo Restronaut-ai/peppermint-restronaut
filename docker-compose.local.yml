@@ -21,7 +21,7 @@ services:
       - db
     environment:
       DATABASE_URL: "postgres://peppermint:1234@db:5432/peppermint"
-      SECRET: 'peppermint4life'
-     
-volumes: 
- pgdata:
+      SECRET: "peppermint4life"
+
+volumes:
+  pgdata:

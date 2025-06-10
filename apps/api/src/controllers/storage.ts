@@ -31,7 +31,7 @@ export function objectStoreRoutes(fastify: FastifyInstance) {
       reply.send({
         success: true,
       });
-    },
+    }
   );
 
   // Get all ticket attachments

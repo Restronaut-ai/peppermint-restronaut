@@ -40,7 +40,7 @@ export function notebookRoutes(fastify: FastifyInstance) {
       const { id } = data;
 
       reply.status(200).send({ success: true, id });
-    },
+    }
   );
 
   // Get all entries
@@ -57,7 +57,7 @@ export function notebookRoutes(fastify: FastifyInstance) {
       });
 
       reply.status(200).send({ success: true, notebooks: notebooks });
-    },
+    }
   );
 
   // Get a single entry
@@ -76,7 +76,7 @@ export function notebookRoutes(fastify: FastifyInstance) {
       });
 
       reply.status(200).send({ success: true, note });
-    },
+    }
   );
 
   // Delete an entry
@@ -99,7 +99,7 @@ export function notebookRoutes(fastify: FastifyInstance) {
       await tracking("note_deleted", {});
 
       reply.status(200).send({ success: true });
-    },
+    }
   );
 
   // Update an entry
@@ -127,6 +127,6 @@ export function notebookRoutes(fastify: FastifyInstance) {
       await tracking("note_updated", {});
 
       reply.status(200).send({ success: true });
-    },
+    }
   );
 }

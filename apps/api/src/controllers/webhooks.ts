@@ -35,7 +35,7 @@ export function webhookRoutes(fastify: FastifyInstance) {
       client.shutdownAsync();
 
       reply.status(200).send({ message: "Hook created!", success: true });
-    },
+    }
   );
 
   // Get all webhooks
@@ -48,7 +48,7 @@ export function webhookRoutes(fastify: FastifyInstance) {
       const webhooks = await prisma.webhooks.findMany({});
 
       reply.status(200).send({ webhooks: webhooks, success: true });
-    },
+    }
   );
 
   // Delete a webhook
@@ -66,6 +66,6 @@ export function webhookRoutes(fastify: FastifyInstance) {
       });
 
       reply.status(200).send({ success: true });
-    },
+    }
   );
 }

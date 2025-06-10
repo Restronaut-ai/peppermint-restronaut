@@ -35,7 +35,7 @@ export default function Tickets() {
     () => getUserTickets(token),
     {
       refetchInterval: 5000,
-    },
+    }
   );
 
   // Custom hooks for managing state
@@ -74,15 +74,15 @@ export default function Tickets() {
   useEffect(() => {
     localStorage.setItem(
       "all_selectedPriorities",
-      JSON.stringify(selectedPriorities),
+      JSON.stringify(selectedPriorities)
     );
     localStorage.setItem(
       "all_selectedStatuses",
-      JSON.stringify(selectedStatuses),
+      JSON.stringify(selectedStatuses)
     );
     localStorage.setItem(
       "all_selectedAssignees",
-      JSON.stringify(selectedAssignees),
+      JSON.stringify(selectedAssignees)
     );
   }, [selectedPriorities, selectedStatuses, selectedAssignees]);
 

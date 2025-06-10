@@ -89,7 +89,7 @@ export default function NotebookEditor() {
           title: debounceTitle,
           content: JSON.stringify(debouncedValue),
         }),
-      },
+      }
     );
     const data = await res.json();
     setSaving(false);

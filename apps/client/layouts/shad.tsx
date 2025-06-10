@@ -53,7 +53,7 @@ export default function ShadLayout({ children }: any) {
                     <Link href="/notifications">
                       <Bell className="h-4 w-4 text-foreground" />
                       {user.notifcations.filter(
-                        (notification) => !notification.read,
+                        (notification) => !notification.read
                       ).length > 0 && (
                         <svg
                           className="h-2.5 w-2.5 absolute bottom-6 left-6 animate-pulse fill-green-500"

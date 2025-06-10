@@ -5,7 +5,7 @@ import { checkToken } from "./jwt";
 export const authenticateUser = (
   request: FastifyRequest,
   reply: FastifyReply,
-  done: any,
+  done: any
 ) => {
   const bearer = request.headers.authorization!.split(" ")[1];
   const token = checkToken(bearer);

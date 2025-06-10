@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export default function Roles() {
   const [step, setStep] = useState(1);
   const [selectedPermissions, setSelectedPermissions] = useState<Permission[]>(
-    [],
+    []
   );
   const [roleName, setRoleName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
@@ -50,7 +50,7 @@ export default function Roles() {
       const newPermissions = [
         ...selectedPermissions,
         ...categoryPermissions.filter(
-          (p: Permission) => !selectedPermissions.includes(p),
+          (p: Permission) => !selectedPermissions.includes(p)
         ),
       ];
       setSelectedPermissions(newPermissions);
@@ -58,8 +58,8 @@ export default function Roles() {
       setSelectedPermissions(
         selectedPermissions.filter(
           // @ts-ignore
-          (p: Permission) => !categoryPermissions.includes(p),
-        ),
+          (p: Permission) => !categoryPermissions.includes(p)
+        )
       );
     }
   };
@@ -96,7 +96,7 @@ export default function Roles() {
   }, [step]);
 
   const filteredUsers = users.filter((user) =>
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()),
+    user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -199,8 +199,8 @@ export default function Roles() {
                             } else {
                               setSelectedPermissions(
                                 selectedPermissions.filter(
-                                  (p) => p !== permission,
-                                ),
+                                  (p) => p !== permission
+                                )
                               );
                             }
                           }}
@@ -265,7 +265,7 @@ export default function Roles() {
                             setSelectedUsers([...selectedUsers, user.id]);
                           } else {
                             setSelectedUsers(
-                              selectedUsers.filter((id) => id !== user.id),
+                              selectedUsers.filter((id) => id !== user.id)
                             );
                           }
                         }}

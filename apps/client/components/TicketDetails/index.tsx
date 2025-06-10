@@ -527,7 +527,7 @@ export default function Ticket() {
           {
             method: "POST",
             body: formData,
-          },
+          }
         );
 
         const data = await result.json();
@@ -595,7 +595,7 @@ export default function Ticket() {
 
   async function convertHTML() {
     const blocks = (await editor.tryParseHTMLToBlocks(
-      data.ticket.detail,
+      data.ticket.detail
     )) as PartialBlock[];
     editor.replaceBlocks(editor.document, blocks);
   }
@@ -767,7 +767,11 @@ export default function Ticket() {
                         <div className="flex flex-row space-x-1 items-center">
                           {data.ticket.client && (
                             <div
-                              title={`Company: ${data.ticket.client.name} ${data.ticket.store?.name ? `\nStore: ${data.ticket.store.name}` : ""}`}
+                              title={`Company: ${data.ticket.client.name} ${
+                                data.ticket.store?.name
+                                  ? `\nStore: ${data.ticket.store.name}`
+                                  : ""
+                              }`}
                             >
                               <span className="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">
                                 {data.ticket.client.name}
@@ -876,7 +880,9 @@ export default function Ticket() {
                       {data.ticket?.name && data.ticket?.email ? (
                         <div
                           className="py-1"
-                          title={`Issued by: ${data.ticket.name} <${data.ticket.email}>\nIssued at: ${new Date(data.ticket.createdAt)}`}
+                          title={`Issued by: ${data.ticket.name} <${
+                            data.ticket.email
+                          }>\nIssued at: ${new Date(data.ticket.createdAt)}`}
                         >
                           <div className="inline-flex items-center justify-center gap-2 px-2 py-0.5 bg-muted/50 border border-foreground/10 rounded-md text-foreground text-xs font-medium hover:text-primary">
                             <UserIcon className="size-4" />
@@ -1011,20 +1017,19 @@ export default function Ticket() {
                                             (user) =>
                                               user.id === follower &&
                                               user.id !==
-                                                data.ticket.assignedTo.id,
+                                                data.ticket.assignedTo.id
                                           );
                                           return userMatch ? (
                                             <div key={follower.id}>
                                               <span>{userMatch.name}</span>
                                             </div>
                                           ) : null;
-                                        },
+                                        }
                                       )}
 
                                       {data.ticket.following.filter(
                                         (follower: any) =>
-                                          follower !==
-                                          data.ticket.assignedTo.id,
+                                          follower !== data.ticket.assignedTo.id
                                       ).length === 0 && (
                                         <span className="text-xs">
                                           This issue has no followers
@@ -1047,7 +1052,7 @@ export default function Ticket() {
                               <span>created via email at </span>
                               <span className="font-bold">
                                 {moment(data.ticket.createdAt).format(
-                                  "DD/MM/YYYY",
+                                  "DD/MM/YYYY"
                                 )}
                               </span>
                             </>
@@ -1064,7 +1069,7 @@ export default function Ticket() {
                                   </span>
                                   <span className="">
                                     {moment(data.ticket.createdAt).format(
-                                      "LLL",
+                                      "LLL"
                                     )}
                                   </span>
                                   {data.ticket.name && (
@@ -1084,7 +1089,7 @@ export default function Ticket() {
                                   <span className="">
                                     <strong>
                                       {moment(data.ticket.createdAt).format(
-                                        "LLL",
+                                        "LLL"
                                       )}
                                     </strong>
                                     {data.ticket.client && (
@@ -1424,7 +1429,7 @@ export default function Ticket() {
                             "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                             data.ticket.assignedTo === null
                               ? "bg-primary text-primary-foreground"
-                              : "opacity-50 [&_svg]:invisible",
+                              : "opacity-50 [&_svg]:invisible"
                           )}
                         >
                           <CheckIcon className={cn("h-4 w-4")} />
@@ -1443,7 +1448,7 @@ export default function Ticket() {
                               "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                               data.ticket.assignedTo?.name === user.name
                                 ? "bg-primary text-primary-foreground"
-                                : "opacity-50 [&_svg]:invisible",
+                                : "opacity-50 [&_svg]:invisible"
                             )}
                           >
                             <CheckIcon className={cn("h-4 w-4")} />
@@ -1475,7 +1480,7 @@ export default function Ticket() {
                               "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                               data.ticket.priority.toLowerCase() === priority
                                 ? "bg-primary text-primary-foreground"
-                                : "opacity-50 [&_svg]:invisible",
+                                : "opacity-50 [&_svg]:invisible"
                             )}
                           >
                             <CheckIcon className={cn("h-4 w-4")} />
@@ -1500,7 +1505,7 @@ export default function Ticket() {
                   duration: 3000,
                 });
                 navigator.clipboard.writeText(
-                  `${window.location.origin}/issue/${data.ticket.id}`,
+                  `${window.location.origin}/issue/${data.ticket.id}`
                 );
               }}
             >

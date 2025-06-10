@@ -115,7 +115,7 @@ export function useTicketView(tickets: Ticket[] = []) {
             title: "High",
             color: "bg-red-500",
             tickets: sortedTickets.filter(
-              (t) => t.priority.toLowerCase() === "high",
+              (t) => t.priority.toLowerCase() === "high"
             ),
           },
           {
@@ -123,7 +123,7 @@ export function useTicketView(tickets: Ticket[] = []) {
             title: "Normal",
             color: "bg-green-500",
             tickets: sortedTickets.filter(
-              (t) => t.priority.toLowerCase() === "normal",
+              (t) => t.priority.toLowerCase() === "normal"
             ),
           },
           {
@@ -131,7 +131,7 @@ export function useTicketView(tickets: Ticket[] = []) {
             title: "Low",
             color: "bg-blue-500",
             tickets: sortedTickets.filter(
-              (t) => t.priority.toLowerCase() === "low",
+              (t) => t.priority.toLowerCase() === "low"
             ),
           },
         ];
@@ -153,14 +153,14 @@ export function useTicketView(tickets: Ticket[] = []) {
         ];
       case "assignee":
         const assignees = Array.from(
-          new Set(sortedTickets.map((t) => t.assignedTo?.name || "Unassigned")),
+          new Set(sortedTickets.map((t) => t.assignedTo?.name || "Unassigned"))
         );
         return assignees.map((assignee) => ({
           id: assignee.toLowerCase(),
           title: assignee,
           color: "bg-teal-500",
           tickets: sortedTickets.filter(
-            (t) => (t.assignedTo?.name || "Unassigned") === assignee,
+            (t) => (t.assignedTo?.name || "Unassigned") === assignee
           ),
         }));
       default:

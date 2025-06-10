@@ -23,7 +23,7 @@ export class InsufficientPermissionsError extends Error {
 export function hasPermission(
   user: UserWithRoles,
   requiredPermissions: Permission | Permission[],
-  requireAll: boolean = true,
+  requireAll: boolean = true
 ): boolean {
   // Admins have all permissions
   if (user?.isAdmin) {
@@ -42,7 +42,7 @@ export function hasPermission(
   const defaultRole = user.roles.find((role) => role.isDefault);
   if (defaultRole) {
     defaultRole.permissions.forEach((perm) =>
-      userPermissions.add(perm as Permission),
+      userPermissions.add(perm as Permission)
     );
   }
 
@@ -67,7 +67,7 @@ export function hasPermission(
  */
 export function requirePermission(
   requiredPermissions: Permission | Permission[],
-  requireAll: boolean = true,
+  requireAll: boolean = true
 ) {
   return async (req: any, res: any, next: any) => {
     try {
