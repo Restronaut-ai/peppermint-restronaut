@@ -1,6 +1,9 @@
 import handlebars from "handlebars";
 import { prisma } from "../../../prisma";
 import { createTransportProvider } from "../transport";
+import { ServerBlockNoteEditor } from "@blocknote/server-util";
+
+const editor = ServerBlockNoteEditor.create();
 
 export async function sendTicketStatus(ticket: any) {
   const email = await prisma.email.findFirst();
@@ -15,11 +18,11 @@ export async function sendTicketStatus(ticket: any) {
     });
 
     var template = handlebars.compile(testhtml?.html);
-    var replacements = {
+    var htmlToSend = template( {
       title: ticket.title,
       status: ticket.isComplete ? "COMPLETED" : "OUTSTANDING",
-    };
-    var htmlToSend = template(replacements);
+      detail: ticket.detail ? await editor.blocksToHTMLLossy(JSON.parse(ticket.detail)): "",
+    });
 
     await transport
       .sendMail({

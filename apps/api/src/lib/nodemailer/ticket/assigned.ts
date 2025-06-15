@@ -1,8 +1,11 @@
 import handlebars from "handlebars";
 import { prisma } from "../../../prisma";
 import { createTransportProvider } from "../transport";
+import { ServerBlockNoteEditor } from "@blocknote/server-util";
 
-export async function sendAssignedEmail(email: any) {
+const editor = ServerBlockNoteEditor.create();
+
+export async function sendAssignedEmail(email: any, content?: any) {
   try {
     const provider = await prisma.email.findFirst();
 
@@ -18,7 +21,9 @@ export async function sendAssignedEmail(email: any) {
       });
 
       var template = handlebars.compile(testhtml?.html);
-      var htmlToSend = template({}); // Pass an empty object as the argument to the template function
+      var htmlToSend = template({
+          detail: content ? await editor.blocksToHTMLLossy(JSON.parse(content)): "",
+      });
 
       await mail
         .sendMail({
@@ -26,7 +31,7 @@ export async function sendAssignedEmail(email: any) {
           to: email,
           subject: `A new ticket has been assigned to you`,
           text: `Hello there, a ticket has been assigned to you`,
-          html: htmlToSend,
+          html: htmlToSend
         })
         .then((info: any) => {
           console.log("Message sent: %s", info.messageId);

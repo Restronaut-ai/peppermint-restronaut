@@ -82,7 +82,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
         },
       });
 
-      if (!email && !validateEmail(email)) {
+      if (email && validateEmail(email)) {
         await sendTicketCreate(ticket);
       }
 
@@ -93,7 +93,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
           },
         });
 
-        await sendAssignedEmail(assgined!.email);
+        await sendAssignedEmail(assgined!.email, ticket?.detail);
 
         await assignedNotification(engineer, ticket, user);
       }
@@ -180,6 +180,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
 
       if (email && validateEmail(email)) {
         await sendTicketCreate(ticket);
+        console.log("SENDING TO CREATOR:");
       }
 
       if (engineer && engineer.name !== "Unassigned") {
@@ -189,7 +190,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
           },
         });
 
-        await sendAssignedEmail(assgined!.email);
+        await sendAssignedEmail(assgined!.email, ticket?.detail);
 
         const user = await checkSession(request);
 
@@ -546,7 +547,7 @@ export function ticketRoutes(fastify: FastifyInstance) {
           where: { id: id },
         });
 
-        await sendAssignedEmail(email);
+        await sendAssignedEmail(email, ticket?.detail);
         await assignedNotification(assigned, ticket, assigner);
       } else {
         await prisma.ticket.update({

@@ -53,7 +53,7 @@ export const TicketSchema = z.object({
     "Please provide a valid email address."
   ),
   title: requiredString("Please provide a subject of your issue."),
-  detail: requiredString("Please provide a detail."),
+  detail: z.any({ required_error: "Please provide a description." }),
 
   company: requiredString("Please select a company."),
   store: requiredString("Please select a store."),
@@ -275,6 +275,7 @@ export default function ClientTicketNew() {
                       </Combobox.Button>
 
                       <Combobox.Input
+                        autoComplete="false"
                         id="company"
                         placeholder="Select a company."
                         onFocus={() => setCompanyQuery("")}
@@ -368,6 +369,7 @@ export default function ClientTicketNew() {
                       </Combobox.Button>
 
                       <Combobox.Input
+                        autoComplete="false"
                         id="company"
                         placeholder="Select a store/department."
                         onFocus={() => setStoreQuery("")}
@@ -581,6 +583,12 @@ export default function ClientTicketNew() {
               <div className="bg-muted rounded-md ring-1 ring-border min-h-32">
                 <Editor setIssue={(v) => setValue("detail", v)} />
               </div>
+
+              {errors.detail && (
+                  <small className="text-xs font-medium text-destructive">
+                    {errors.detail.message}
+                  </small>
+                )}
             </div>
 
             {/* Submit */}

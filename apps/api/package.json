@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@azure/identity": "^4.5.0",
+    "@blocknote/server-util": "^0.31.2",
     "@fastify/cookie": "^9.0.4",
     "@fastify/cors": "^10.0.1",
     "@fastify/multipart": "^8.2.0",
